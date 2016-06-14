@@ -10,11 +10,14 @@
 		4459B1CD1874B02E4855742D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7E6D7847895DEB854CF7658 /* libPods.a */; };
 		76D80CB41D0FF141000D9E4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB31D0FF141000D9E4E /* main.m */; };
 		76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB61D0FF141000D9E4E /* AppDelegate.m */; };
-		76D80CBA1D0FF141000D9E4E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB91D0FF141000D9E4E /* ViewController.m */; };
 		76D80CBD1D0FF141000D9E4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D80CBB1D0FF141000D9E4E /* Main.storyboard */; };
 		76D80CC01D0FF141000D9E4E /* eViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CBE1D0FF141000D9E4E /* eViewer.xcdatamodeld */; };
 		76D80CC21D0FF141000D9E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D80CC11D0FF141000D9E4E /* Assets.xcassets */; };
 		76D80CC51D0FF141000D9E4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D80CC31D0FF141000D9E4E /* LaunchScreen.storyboard */; };
+		76D80CCF1D0FF5A5000D9E4E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CCE1D0FF5A5000D9E4E /* HomeViewController.m */; };
+		76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CD41D0FF7B6000D9E4E /* EPresentationController.m */; };
+		76D80CD81D0FF7D8000D9E4E /* ESideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CD71D0FF7D8000D9E4E /* ESideMenuViewController.m */; };
+		76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CDA1D0FF839000D9E4E /* EPresentationAnimator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,13 +25,20 @@
 		76D80CB31D0FF141000D9E4E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		76D80CB51D0FF141000D9E4E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		76D80CB61D0FF141000D9E4E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		76D80CB81D0FF141000D9E4E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		76D80CB91D0FF141000D9E4E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		76D80CBC1D0FF141000D9E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		76D80CBF1D0FF141000D9E4E /* eViewer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = eViewer.xcdatamodel; sourceTree = "<group>"; };
 		76D80CC11D0FF141000D9E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76D80CC41D0FF141000D9E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76D80CC61D0FF141000D9E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		76D80CCD1D0FF5A5000D9E4E /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = ViewController/HomeViewController.h; sourceTree = "<group>"; };
+		76D80CCE1D0FF5A5000D9E4E /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = ViewController/HomeViewController.m; sourceTree = "<group>"; };
+		76D80CD31D0FF7B6000D9E4E /* EPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPresentationController.h; path = SideMenu/EPresentationController.h; sourceTree = "<group>"; };
+		76D80CD41D0FF7B6000D9E4E /* EPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPresentationController.m; path = SideMenu/EPresentationController.m; sourceTree = "<group>"; };
+		76D80CD61D0FF7D8000D9E4E /* ESideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ESideMenuViewController.h; path = SideMenu/ESideMenuViewController.h; sourceTree = "<group>"; };
+		76D80CD71D0FF7D8000D9E4E /* ESideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ESideMenuViewController.m; path = SideMenu/ESideMenuViewController.m; sourceTree = "<group>"; };
+		76D80CD91D0FF839000D9E4E /* EPresentationAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPresentationAnimator.h; path = SideMenu/EPresentationAnimator.h; sourceTree = "<group>"; };
+		76D80CDA1D0FF839000D9E4E /* EPresentationAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPresentationAnimator.m; path = SideMenu/EPresentationAnimator.m; sourceTree = "<group>"; };
+		76D80CDC1D0FF867000D9E4E /* EViewer.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EViewer.pch; sourceTree = "<group>"; };
 		D7E6D7847895DEB854CF7658 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9747B86845B34D6EE592EDE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E3B8B30E93BF7F852E56C45B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -75,14 +85,10 @@
 		76D80CB11D0FF141000D9E4E /* eViewer */ = {
 			isa = PBXGroup;
 			children = (
-				76D80CB51D0FF141000D9E4E /* AppDelegate.h */,
-				76D80CB61D0FF141000D9E4E /* AppDelegate.m */,
-				76D80CB81D0FF141000D9E4E /* ViewController.h */,
-				76D80CB91D0FF141000D9E4E /* ViewController.m */,
-				76D80CBB1D0FF141000D9E4E /* Main.storyboard */,
+				76D80CDD1D103632000D9E4E /* HtmlTransfer */,
+				76D80CD11D0FF5D8000D9E4E /* StoryBoard */,
+				76D80CCC1D0FF544000D9E4E /* ViewController */,
 				76D80CC11D0FF141000D9E4E /* Assets.xcassets */,
-				76D80CC31D0FF141000D9E4E /* LaunchScreen.storyboard */,
-				76D80CC61D0FF141000D9E4E /* Info.plist */,
 				76D80CBE1D0FF141000D9E4E /* eViewer.xcdatamodeld */,
 				76D80CB21D0FF141000D9E4E /* Supporting Files */,
 			);
@@ -92,9 +98,52 @@
 		76D80CB21D0FF141000D9E4E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				76D80CB51D0FF141000D9E4E /* AppDelegate.h */,
+				76D80CC61D0FF141000D9E4E /* Info.plist */,
+				76D80CB61D0FF141000D9E4E /* AppDelegate.m */,
 				76D80CB31D0FF141000D9E4E /* main.m */,
+				76D80CDC1D0FF867000D9E4E /* EViewer.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		76D80CCC1D0FF544000D9E4E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				76D80CD21D0FF738000D9E4E /* SideMenu */,
+				76D80CCD1D0FF5A5000D9E4E /* HomeViewController.h */,
+				76D80CCE1D0FF5A5000D9E4E /* HomeViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		76D80CD11D0FF5D8000D9E4E /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				76D80CBB1D0FF141000D9E4E /* Main.storyboard */,
+				76D80CC31D0FF141000D9E4E /* LaunchScreen.storyboard */,
+			);
+			name = StoryBoard;
+			sourceTree = "<group>";
+		};
+		76D80CD21D0FF738000D9E4E /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				76D80CD31D0FF7B6000D9E4E /* EPresentationController.h */,
+				76D80CD41D0FF7B6000D9E4E /* EPresentationController.m */,
+				76D80CD61D0FF7D8000D9E4E /* ESideMenuViewController.h */,
+				76D80CD71D0FF7D8000D9E4E /* ESideMenuViewController.m */,
+				76D80CD91D0FF839000D9E4E /* EPresentationAnimator.h */,
+				76D80CDA1D0FF839000D9E4E /* EPresentationAnimator.m */,
+			);
+			name = SideMenu;
+			sourceTree = "<group>";
+		};
+		76D80CDD1D103632000D9E4E /* HtmlTransfer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = HtmlTransfer;
 			sourceTree = "<group>";
 		};
 		D5C20019C816884DD308D404 /* Pods */ = {
@@ -211,9 +260,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76D80CBA1D0FF141000D9E4E /* ViewController.m in Sources */,
+				76D80CD81D0FF7D8000D9E4E /* ESideMenuViewController.m in Sources */,
+				76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */,
 				76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */,
 				76D80CB41D0FF141000D9E4E /* main.m in Sources */,
+				76D80CCF1D0FF5A5000D9E4E /* HomeViewController.m in Sources */,
+				76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */,
 				76D80CC01D0FF141000D9E4E /* eViewer.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,7 +377,10 @@
 			baseConfigurationReference = E3B8B30E93BF7F852E56C45B /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PREFIX_HEADER = eViewer/EViewer.pch;
 				INFOPLIST_FILE = eViewer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zby.eViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -337,7 +392,10 @@
 			baseConfigurationReference = D9747B86845B34D6EE592EDE /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PREFIX_HEADER = eViewer/EViewer.pch;
 				INFOPLIST_FILE = eViewer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zby.eViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
