@@ -18,6 +18,7 @@
 		76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CD41D0FF7B6000D9E4E /* EPresentationController.m */; };
 		76D80CD81D0FF7D8000D9E4E /* ESideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CD71D0FF7D8000D9E4E /* ESideMenuViewController.m */; };
 		76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CDA1D0FF839000D9E4E /* EPresentationAnimator.m */; };
+		76D80CE01D1038F7000D9E4E /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CDF1D1038F7000D9E4E /* HTMLParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		76D80CD91D0FF839000D9E4E /* EPresentationAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPresentationAnimator.h; path = SideMenu/EPresentationAnimator.h; sourceTree = "<group>"; };
 		76D80CDA1D0FF839000D9E4E /* EPresentationAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPresentationAnimator.m; path = SideMenu/EPresentationAnimator.m; sourceTree = "<group>"; };
 		76D80CDC1D0FF867000D9E4E /* EViewer.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EViewer.pch; sourceTree = "<group>"; };
+		76D80CDE1D1038F7000D9E4E /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = HtmlTransfer/HTMLParser.h; sourceTree = "<group>"; };
+		76D80CDF1D1038F7000D9E4E /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLParser.m; path = HtmlTransfer/HTMLParser.m; sourceTree = "<group>"; };
 		D7E6D7847895DEB854CF7658 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9747B86845B34D6EE592EDE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E3B8B30E93BF7F852E56C45B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -85,7 +88,7 @@
 		76D80CB11D0FF141000D9E4E /* eViewer */ = {
 			isa = PBXGroup;
 			children = (
-				76D80CDD1D103632000D9E4E /* HtmlTransfer */,
+				76D80CDD1D103632000D9E4E /* HTMLParser */,
 				76D80CD11D0FF5D8000D9E4E /* StoryBoard */,
 				76D80CCC1D0FF544000D9E4E /* ViewController */,
 				76D80CC11D0FF141000D9E4E /* Assets.xcassets */,
@@ -139,11 +142,13 @@
 			name = SideMenu;
 			sourceTree = "<group>";
 		};
-		76D80CDD1D103632000D9E4E /* HtmlTransfer */ = {
+		76D80CDD1D103632000D9E4E /* HTMLParser */ = {
 			isa = PBXGroup;
 			children = (
+				76D80CDE1D1038F7000D9E4E /* HTMLParser.h */,
+				76D80CDF1D1038F7000D9E4E /* HTMLParser.m */,
 			);
-			name = HtmlTransfer;
+			name = HTMLParser;
 			sourceTree = "<group>";
 		};
 		D5C20019C816884DD308D404 /* Pods */ = {
@@ -263,6 +268,7 @@
 				76D80CD81D0FF7D8000D9E4E /* ESideMenuViewController.m in Sources */,
 				76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */,
 				76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */,
+				76D80CE01D1038F7000D9E4E /* HTMLParser.m in Sources */,
 				76D80CB41D0FF141000D9E4E /* main.m in Sources */,
 				76D80CCF1D0FF5A5000D9E4E /* HomeViewController.m in Sources */,
 				76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */,

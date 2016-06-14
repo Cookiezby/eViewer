@@ -8,8 +8,11 @@
 
 #import "HomeViewController.h"
 #import "ESideMenuViewController.h"
+#import "HTMLParser.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () <UITableViewDataSource,UITableViewDelegate>
+
+@property (strong, nonatomic)UITableView *tableView;
 
 @end
 
@@ -18,14 +21,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     UIBarButtonItem *leftMenuButton = [[UIBarButtonItem alloc]initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(showSlideMenu)];
     self.navigationItem.leftBarButtonItem =leftMenuButton;
+    self.navigationItem.title = @"Engadget";
     
-    self.navigationController.title = @"Engadget";
+    _tableView = ({
+        UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
+        [self.view addSubview:tableView];
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView;
+    });
+    
+    HTMLParser *transfer = [[HTMLParser alloc]init];
+    [transfer test];
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -37,6 +47,27 @@
     ESideMenuViewController *sideMenu = [[ESideMenuViewController alloc]init];
     [self presentViewController:sideMenu animated:YES completion:nil];
 }
+
+
+#pragma mark - UITableViewDelegate
+
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 10;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [[UITableViewCell alloc]init];
+    return cell;
+}
+
 
 /*
 #pragma mark - Navigation
