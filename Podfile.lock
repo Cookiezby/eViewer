@@ -31,6 +31,7 @@ PODS:
   - CSSSelectorConverter (1.2.3):
     - CocoaLumberjack (~> 2.0.0)
     - NUIParse
+  - hpple (0.2.0)
   - IGHTMLQuery (0.8.4):
     - IGHTMLQuery/Core (= 0.8.4)
   - IGHTMLQuery/Core (0.8.4):
@@ -44,6 +45,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - hpple
   - IGHTMLQuery (~> 0.8.4)
   - Masonry (~> 0.6.2)
   - Reveal-iOS-SDK
@@ -53,6 +55,7 @@ SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
   CSSSelectorConverter: 00680dc04a48b74c7a8f792928b89e9f3def9970
+  hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   IGHTMLQuery: 6176bcb88ad36f80ee984dbfde5592bb3ccc921f
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   NUIParse: 2e3885ba7807477266396292626bd387d34c2338

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HTMLParser : NSObject
+@interface EHTMLManager : NSObject
 
 - (void)test;
 

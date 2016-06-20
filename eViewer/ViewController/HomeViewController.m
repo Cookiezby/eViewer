@@ -8,7 +8,8 @@
 
 #import "HomeViewController.h"
 #import "ESideMenuViewController.h"
-#import "HTMLParser.h"
+#import "EVHTMLManager.h"
+
 
 @interface HomeViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -33,8 +34,8 @@
         tableView;
     });
     
-    HTMLParser *transfer = [[HTMLParser alloc]init];
-    [transfer test];
+    EVHTMLManager *manager = [[EVHTMLManager alloc]init];
+    [manager test];
 }
 
 - (void)didReceiveMemoryWarning {

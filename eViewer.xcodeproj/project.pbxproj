@@ -18,7 +18,9 @@
 		76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CD41D0FF7B6000D9E4E /* EPresentationController.m */; };
 		76D80CD81D0FF7D8000D9E4E /* ESideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CD71D0FF7D8000D9E4E /* ESideMenuViewController.m */; };
 		76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CDA1D0FF839000D9E4E /* EPresentationAnimator.m */; };
-		76D80CE01D1038F7000D9E4E /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CDF1D1038F7000D9E4E /* HTMLParser.m */; };
+		76EA5B231D17C2AB00FEFF38 /* EVHTMLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B221D17C2AB00FEFF38 /* EVHTMLManager.m */; };
+		76EA5B271D17D64400FEFF38 /* ArticleSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B261D17D64400FEFF38 /* ArticleSimple.m */; };
+		76EA5B2A1D17DC1E00FEFF38 /* ArticleDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B291D17DC1E00FEFF38 /* ArticleDetail.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,8 +42,14 @@
 		76D80CD91D0FF839000D9E4E /* EPresentationAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPresentationAnimator.h; path = SideMenu/EPresentationAnimator.h; sourceTree = "<group>"; };
 		76D80CDA1D0FF839000D9E4E /* EPresentationAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPresentationAnimator.m; path = SideMenu/EPresentationAnimator.m; sourceTree = "<group>"; };
 		76D80CDC1D0FF867000D9E4E /* EViewer.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EViewer.pch; sourceTree = "<group>"; };
-		76D80CDE1D1038F7000D9E4E /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = HtmlTransfer/HTMLParser.h; sourceTree = "<group>"; };
-		76D80CDF1D1038F7000D9E4E /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLParser.m; path = HtmlTransfer/HTMLParser.m; sourceTree = "<group>"; };
+		76EA5B1A1D1640E500FEFF38 /* libHTMLReader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHTMLReader.a; path = "Pods/../build/Debug-iphoneos/libHTMLReader.a"; sourceTree = "<group>"; };
+		76EA5B1C1D17C0EF00FEFF38 /* libHTMLReader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHTMLReader.a; path = "Pods/../build/Debug-iphoneos/libHTMLReader.a"; sourceTree = "<group>"; };
+		76EA5B211D17C2AB00FEFF38 /* EVHTMLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVHTMLManager.h; path = HtmlTransfer/EVHTMLManager.h; sourceTree = "<group>"; };
+		76EA5B221D17C2AB00FEFF38 /* EVHTMLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVHTMLManager.m; path = HtmlTransfer/EVHTMLManager.m; sourceTree = "<group>"; };
+		76EA5B251D17D64400FEFF38 /* ArticleSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleSimple.h; path = Model/ArticleSimple.h; sourceTree = "<group>"; };
+		76EA5B261D17D64400FEFF38 /* ArticleSimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleSimple.m; path = Model/ArticleSimple.m; sourceTree = "<group>"; };
+		76EA5B281D17DC1E00FEFF38 /* ArticleDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleDetail.h; sourceTree = "<group>"; };
+		76EA5B291D17DC1E00FEFF38 /* ArticleDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDetail.m; sourceTree = "<group>"; };
 		D7E6D7847895DEB854CF7658 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9747B86845B34D6EE592EDE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E3B8B30E93BF7F852E56C45B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -62,6 +70,8 @@
 		376133DE49880DF02D0A116A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				76EA5B1C1D17C0EF00FEFF38 /* libHTMLReader.a */,
+				76EA5B1A1D1640E500FEFF38 /* libHTMLReader.a */,
 				D7E6D7847895DEB854CF7658 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -88,6 +98,7 @@
 		76D80CB11D0FF141000D9E4E /* eViewer */ = {
 			isa = PBXGroup;
 			children = (
+				76EA5B241D17D60D00FEFF38 /* Model */,
 				76D80CDD1D103632000D9E4E /* HTMLParser */,
 				76D80CD11D0FF5D8000D9E4E /* StoryBoard */,
 				76D80CCC1D0FF544000D9E4E /* ViewController */,
@@ -145,10 +156,21 @@
 		76D80CDD1D103632000D9E4E /* HTMLParser */ = {
 			isa = PBXGroup;
 			children = (
-				76D80CDE1D1038F7000D9E4E /* HTMLParser.h */,
-				76D80CDF1D1038F7000D9E4E /* HTMLParser.m */,
+				76EA5B211D17C2AB00FEFF38 /* EVHTMLManager.h */,
+				76EA5B221D17C2AB00FEFF38 /* EVHTMLManager.m */,
 			);
 			name = HTMLParser;
+			sourceTree = "<group>";
+		};
+		76EA5B241D17D60D00FEFF38 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				76EA5B251D17D64400FEFF38 /* ArticleSimple.h */,
+				76EA5B261D17D64400FEFF38 /* ArticleSimple.m */,
+				76EA5B281D17DC1E00FEFF38 /* ArticleDetail.h */,
+				76EA5B291D17DC1E00FEFF38 /* ArticleDetail.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		D5C20019C816884DD308D404 /* Pods */ = {
@@ -268,11 +290,13 @@
 				76D80CD81D0FF7D8000D9E4E /* ESideMenuViewController.m in Sources */,
 				76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */,
 				76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */,
-				76D80CE01D1038F7000D9E4E /* HTMLParser.m in Sources */,
 				76D80CB41D0FF141000D9E4E /* main.m in Sources */,
 				76D80CCF1D0FF5A5000D9E4E /* HomeViewController.m in Sources */,
+				76EA5B231D17C2AB00FEFF38 /* EVHTMLManager.m in Sources */,
+				76EA5B271D17D64400FEFF38 /* ArticleSimple.m in Sources */,
 				76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */,
 				76D80CC01D0FF141000D9E4E /* eViewer.xcdatamodeld in Sources */,
+				76EA5B2A1D17DC1E00FEFF38 /* ArticleDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +412,10 @@
 				INFOPLIST_FILE = eViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = zby.eViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -403,6 +431,10 @@
 				INFOPLIST_FILE = eViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = zby.eViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

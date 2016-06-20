@@ -6,16 +6,20 @@
 //  Copyright © 2016 cookie. All rights reserved.
 //
 
-#import "HTMLParser.h"
+#import "EHTMLManager.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 
-@interface HTMLParser()
+
+
+
+
+@interface EHTMLManager()
 
 @property (strong, nonatomic)AFHTTPSessionManager *manager;
 
 @end
 
-@implementation HTMLParser
+@implementation EHTMLManager
 
 - (instancetype)init{
     self = [super init];
@@ -38,6 +42,22 @@
         NSLog(@"Error%@",error);
         NSLog(@"失败");
     }];
+    
+    
+}
+
+- (void)analysisHTMLDoc:(NSString *)doc{
+    /*HTMLDocument *document = [HTMLDocument documentWithString:doc];
+    HTMLElement *article = [document firstNodeMatchingSelector:@"article"];
+    DebugLog(@"%@",article.textContent);*/
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 }
