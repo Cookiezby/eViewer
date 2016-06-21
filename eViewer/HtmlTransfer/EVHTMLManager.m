@@ -11,6 +11,7 @@
 #import <TFHpple.h>
 #import "ArticleSimple.h"
 
+const NSString *baseURL = @"http://cn.engadget.com/page";
 
 @implementation EVHTMLManager
 
@@ -22,18 +23,19 @@
     return self;
 }
 
-- (void)test{
-    NSURL *URL = [NSURL URLWithString:@"http://cn.engadget.com"];
+- (void)getPage:(NSInteger)page withHandler:(HomePageCompleteHandler)hander{
+    NSString *URLString = [NSString stringWithFormat:@"%@/%ld/",baseURL,page];
+    DebugLog(@"%@",URLString);
+    NSURL *URL = [NSURL URLWithString:URLString];
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
         //[self analysisHTMLData:responseObject];
-        
+        hander([self analysisHomePageHTMLData:responseObject]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
         NSLog(@"失败");
     }];
-    
 }
 
 

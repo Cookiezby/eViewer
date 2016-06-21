@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^HomePageCompleteHandler)(NSMutableArray *array);
+
 @interface EVHTMLManager : NSObject
 
-- (void)test;
+- (void)getPage:(NSInteger)page withHandler:(HomePageCompleteHandler)hander;
 
 @end

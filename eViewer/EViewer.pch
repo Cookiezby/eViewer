@@ -18,5 +18,6 @@
 
 #define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
+#import "UIColor+expanded.h"
 
 #endif /* EViewer_pch */
