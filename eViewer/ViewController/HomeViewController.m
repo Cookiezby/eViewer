@@ -96,8 +96,9 @@
     
     ArticleSimple *articleSimple = self.articleLists[indexPath.section];
     
-    
+    cell.authorLabel.text = articleSimple.author;
     cell.titleLabel.text = articleSimple.title;
+    cell.postTimeLabel.text = articleSimple.postTime;
     [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:articleSimple.coverImageURL]
                       placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     

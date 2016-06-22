@@ -66,51 +66,13 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
         DebugLog(@"%@",a.text);
         DebugLog(@"%@",[element objectForKey:@"data-image"]);// Get the cover Image
         DebugLog(@"%@",author.text);
-        //DebugLog(@"%@",time.text);
-        
-        NSDateFormatter *format = [[NSDateFormatter alloc] init];
-        //[format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        [format setDateFormat:@"EEEE, dd MM yyyy HH:mm:ss"];
-        
-        NSRange range = NSMakeRange(0, [time objectForKey:@"datetime"].length-6);
-        
-        NSString *newString = [[time objectForKey:@"datetime"] substringWithRange:range];
-        
-        //DebugLog(@"%@",newString);
-        NSDate *myDate = [format dateFromString:newString];
-        
-       
-        NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT-4:00"];
-        NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
-
-        
-        NSDate *sourceDate = myDate;
-        NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
-        NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
-        NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
-        
-        //DebugLog(@"%f",interval);
-        NSDate* destinationDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:sourceDate];
-        
-        NSDateFormatter *formatter2 = [[NSDateFormatter alloc]init];
-        [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-
-        DebugLog(@"post date%@",destinationDate);
-        
-        
-        DebugLog(@"now date%@",[NSDate date]);
-        
-        
-        DebugLog(@"%@", [self remaningTime:destinationDate endDate:[NSDate date]]);
-        
-        //NSDate *now = [NSDate date];
-        //NSCalendar *c = [NSCalendar currentCalendar];
-        //NSDateComponents* components = [c components:(NSCalendarUnitYear|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond) fromDate:myDate toDate:now options:0] ;
-        //NSLog(@"%ld years, %ld hours, %ld minutes, %ld seconds",  components.year, components.hour, components.minute, components.second) ;
+        DebugLog(@"%@",[self timeSiceDate:[time objectForKey:@"datetime"]]);
         
         ArticleSimple *articleSimple = [[ArticleSimple alloc]init];
         articleSimple.title = a.text;
         articleSimple.coverImageURL = [element objectForKey:@"data-image"];
+        articleSimple.postTime = [self timeSiceDate:[time objectForKey:@"datetime"]];
+        articleSimple.author = author.text;
         [articleLists addObject:articleSimple];
     }
     
@@ -118,69 +80,59 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
         
 }
 
+- (NSString *)timeSiceDate:(NSString *)string{
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"EEEE, dd MM yyyy HH:mm:ss"];
+    [format setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+    //原文的格式 最后是5位时区信息，这边截取后，将时间转化为GMT时间
+    NSRange range = NSMakeRange(0, string.length-6);
+    NSString *dateString = [string substringWithRange:range];
+    
+    NSDate *myDate = [format dateFromString:dateString];
+    
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT-4:00"];
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
 
-- (NSString*)remaningTime:(NSDate*)startDate endDate:(NSDate*)endDate{
+    NSDate *sourceDate = myDate;
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    
+    NSDate* destinationDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:sourceDate];
+    
+    
+    return [self remaningTime:destinationDate endDate:[NSDate date]];
+}
+
+
+- (NSString *)remaningTime:(NSDate*)startDate endDate:(NSDate*)endDate{
     
     NSDateComponents *components;
     NSInteger days;
     NSInteger hour;
     NSInteger minutes;
-    NSString *durationString;
-    
     
     components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute
                                                  fromDate: startDate toDate: endDate options: 0];
     days = [components day];
     hour=[components hour];
     minutes=[components minute];
+    DebugLog(@"%@",startDate);
     
     if(days>0){
-        
-        if(days>1){
-            durationString=[NSString stringWithFormat:@"%ld days",days];
-        }
-        else{
-            durationString=[NSString stringWithFormat:@"%ld day",days];
-            
-        }
-        return durationString;
+        return [NSString stringWithFormat:@"%ld天前",days];
     }
     
     if(hour>0){
-        
-        if(hour>1){
-            durationString=[NSString stringWithFormat:@"%ld hours",hour];
-        }
-        else{
-            durationString=[NSString stringWithFormat:@"%ld hour",hour];
-            
-        }
-        return durationString;
+        return [NSString stringWithFormat:@"%ld小时前",hour];
     }
     
     if(minutes>0){
-        
-        if(minutes>1){
-            durationString=[NSString stringWithFormat:@"%ld minutes",minutes];
-        }
-        else{
-            durationString=[NSString stringWithFormat:@"%ld minute",minutes];
-            
-        }
-        return durationString;
+        return [NSString stringWithFormat:@"%ld分钟前",minutes];
     }
     
     return @"";
 }
-
-- (NSDate *)dateFromString:(NSString *)string{
-    
-    
-    return [NSDate date];
-}
-    
-    
-
 
 
 @end

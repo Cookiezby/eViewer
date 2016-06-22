@@ -45,8 +45,10 @@
         self.postTimeLabel = ({
             UILabel *label = [[UILabel alloc]init];
             [self.contentView addSubview:label];
+            label.font = [UIFont systemFontOfSize:10];
+            label.textColor = [UIColor darkGrayColor];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.titleLabel.mas_bottom).with.offset(5);
+                make.bottom.equalTo(@-5);
                 make.left.equalTo(@10);
             }];
             label;
@@ -55,6 +57,8 @@
         self.authorLabel = ({
             UILabel *label = [[UILabel alloc]init];
             [self.contentView addSubview:label];
+            label.textColor = [UIColor blueColor];
+            label.font = [UIFont systemFontOfSize:12];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(@-10);
                 make.bottom.equalTo(@-5);

@@ -12,7 +12,7 @@
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *coverImageURL;
-@property (strong, nonatomic) NSString *writer;
+@property (strong, nonatomic) NSString *author;
 @property (strong, nonatomic) NSString *postTime;
 
 @end
