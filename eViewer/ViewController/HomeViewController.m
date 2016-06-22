@@ -46,7 +46,7 @@
     
     [SVProgressHUD show];
     
-    [manager getPage:2 withHandler:^(NSMutableArray *array) {
+    [manager getPage:1 withHandler:^(NSMutableArray *array) {
         [self.articleLists addObjectsFromArray:array];
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
