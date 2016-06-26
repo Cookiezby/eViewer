@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ESideMenuViewController : UIViewController <UIViewControllerTransitioningDelegate>
+@interface ESideViewController : UIViewController <UIViewControllerTransitioningDelegate>
 
 @end

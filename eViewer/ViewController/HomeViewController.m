@@ -7,7 +7,7 @@
 //
 
 #import "HomeViewController.h"
-#import "ESideMenuViewController.h"
+#import "EVSideViewController.h"
 #import "EVHTMLManager.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "ArticleSimple.h"
@@ -61,7 +61,7 @@
 
 
 - (void)showSlideMenu{
-    ESideMenuViewController *sideMenu = [[ESideMenuViewController alloc]init];
+    EVSideViewController *sideMenu = [[EVSideViewController alloc]init];
     [self presentViewController:sideMenu animated:YES completion:nil];
 }
 

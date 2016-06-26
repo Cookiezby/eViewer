@@ -6,18 +6,21 @@
 //  Copyright © 2016 cookie. All rights reserved.
 //
 
-#import "ESideMenuViewController.h"
+#import "ESideViewController.h"
 #import "EPresentationAnimator.h"
 #import "EPresentationController.h"
 #import "Masonry.h"
+#import <BlocksKit+UIKit.h>
+typedef void (^ButtonEventHandler)();
 
-@interface ESideMenuViewController ()
+@interface ESideViewController ()
 
 @property (strong, nonatomic) UIButton *closeMenuButton;
+@property (strong, nonatomic) UIButton *aboutButton;
 
 @end
 
-@implementation ESideMenuViewController
+@implementation ESideViewController
 
 - (instancetype)init{
     self = [super init];
@@ -50,6 +53,25 @@
             make.width.equalTo(@100);
             make.height.equalTo(@50);
         }];
+        button;
+    });
+    
+    _aboutButton = ({
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.view addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view);
+            make.top.equalTo(@200);
+            make.width.equalTo(@100);
+            make.height.equalTo(@50);
+        }];
+        button.backgroundColor = [UIColor darkGrayColor];
+        [button setTitle:@"About" forState:UIControlStateNormal];
+        [button bk_addEventHandler:^(id sender) {
+            DebugLog(@"About");
+            UIViewController *aboutController = [[UIViewController alloc]init];
+           
+        } forControlEvents:UIControlEventTouchUpInside];
         button;
     });
 }
@@ -93,7 +115,7 @@
 }
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -101,6 +123,5 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
 
 @end

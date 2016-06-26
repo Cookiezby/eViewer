@@ -7,7 +7,7 @@
 //
 
 #import "EPresentationAnimator.h"
-#import "ESideMenuViewController.h"
+#import "ESideViewController.h"
 
 @interface EPresentationAnimator()
 
@@ -31,7 +31,7 @@
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
     if(_isPresenting){
-        ESideMenuViewController *toVC = (ESideMenuViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+        ESideViewController *toVC = (ESideViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
         CGFloat viewWidth = toVC.view.frame.size.width;
         DebugLog(@"%f",viewWidth);
         CGRect initialFrame = CGRectMake(0, 0, viewWidth, SCREEN_HEIGHT);

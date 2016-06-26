@@ -25,7 +25,7 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
 
 - (void)getPage:(NSInteger)page withHandler:(HomePageCompleteHandler)hander{
     NSString *URLString = [NSString stringWithFormat:@"%@/%ld/",baseURL,page];
-    DebugLog(@"%@",URLString);
+    //DebugLog(@"%@",URLString);
     NSURL *URL = [NSURL URLWithString:URLString];
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -63,10 +63,12 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
         
         TFHppleElement *time = [byline firstChildWithTagName:@"time"];
         
+        /*
         DebugLog(@"%@",a.text);
         DebugLog(@"%@",[element objectForKey:@"data-image"]);// Get the cover Image
         DebugLog(@"%@",author.text);
         DebugLog(@"%@",[self timeSiceDate:[time objectForKey:@"datetime"]]);
+        */
         
         ArticleSimple *articleSimple = [[ArticleSimple alloc]init];
         articleSimple.title = a.text;
