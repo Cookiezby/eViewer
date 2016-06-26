@@ -11,5 +11,8 @@
 @interface EVSideViewController : UIViewController
 
 - (void)showMenu;
+- (void)hideMenu;
+- (void)changeToSecondViewController;
+- (void)changeToFirstViewController;
 
 @end

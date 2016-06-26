@@ -30,6 +30,7 @@
 		76FA84921D1FAE8B00BD0F22 /* DemoHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FA84911D1FAE8B00BD0F22 /* DemoHomeViewController.m */; };
 		76FA84951D1FAF4F00BD0F22 /* DemoNaviViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FA84941D1FAF4F00BD0F22 /* DemoNaviViewController.m */; };
 		76FA84971D1FB77200BD0F22 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76FA84961D1FB77200BD0F22 /* Balloon@2x.png */; };
+		76FA849A1D1FCAF400BD0F22 /* DemoSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FA84991D1FCAF400BD0F22 /* DemoSecondViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,8 @@
 		76FA84931D1FAF4F00BD0F22 /* DemoNaviViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoNaviViewController.h; path = ViewController/SideMenu2/DemoNaviViewController.h; sourceTree = "<group>"; };
 		76FA84941D1FAF4F00BD0F22 /* DemoNaviViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoNaviViewController.m; path = ViewController/SideMenu2/DemoNaviViewController.m; sourceTree = "<group>"; };
 		76FA84961D1FB77200BD0F22 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
+		76FA84981D1FCAF400BD0F22 /* DemoSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoSecondViewController.h; path = ViewController/SideMenu2/DemoSecondViewController.h; sourceTree = "<group>"; };
+		76FA84991D1FCAF400BD0F22 /* DemoSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoSecondViewController.m; path = ViewController/SideMenu2/DemoSecondViewController.m; sourceTree = "<group>"; };
 		D7E6D7847895DEB854CF7658 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9747B86845B34D6EE592EDE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E3B8B30E93BF7F852E56C45B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				76FA84911D1FAE8B00BD0F22 /* DemoHomeViewController.m */,
 				76FA84931D1FAF4F00BD0F22 /* DemoNaviViewController.h */,
 				76FA84941D1FAF4F00BD0F22 /* DemoNaviViewController.m */,
+				76FA84981D1FCAF400BD0F22 /* DemoSecondViewController.h */,
+				76FA84991D1FCAF400BD0F22 /* DemoSecondViewController.m */,
 			);
 			name = SideMenu2;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 				76EA5B631D18DCFA00FEFF38 /* HomePageTableViewCell.m in Sources */,
 				76D80CB41D0FF141000D9E4E /* main.m in Sources */,
 				76D80CCF1D0FF5A5000D9E4E /* HomeViewController.m in Sources */,
+				76FA849A1D1FCAF400BD0F22 /* DemoSecondViewController.m in Sources */,
 				76EA5B231D17C2AB00FEFF38 /* EVHTMLManager.m in Sources */,
 				76EA5B271D17D64400FEFF38 /* ArticleSimple.m in Sources */,
 				762B70591D1CD1A6002F1BF6 /* EContainerViewController.m in Sources */,
