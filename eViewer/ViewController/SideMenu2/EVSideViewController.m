@@ -17,6 +17,8 @@
 @property (strong, nonatomic) DemoNaviViewController *contentViewController;
 @property (strong, nonatomic) DemoMenuViewController *menuViewController;
 
+@property (strong, nonatomic) NSMutableArray *contentViewControllerList;
+
 @end
 
 @implementation EVSideViewController
@@ -28,10 +30,6 @@
     
     self.contentViewController = naviViewController;
     
-    [self addChildViewController:self.contentViewController];
-    [self.view addSubview:self.contentViewController.view];
-    self.contentViewController.view.frame = self.view.frame;
-    [self.contentViewController didMoveToParentViewController:self];
     
     self.menuViewController = [[DemoMenuViewController alloc]init];
     
@@ -44,48 +42,61 @@
 }
 
 - (void)showMenu{
-    DebugLog(@"EEE");
-    [self addChildViewController:self.menuViewController];
-    [self.view addSubview:self.menuViewController.view];
-    self.menuViewController.view.frame = self.view.frame;
-    [self.menuViewController didMoveToParentViewController:self];
-    
+    DebugLog(@"%ld",self.view.subviews.count);
+    [self addChildController:self.menuViewController toParentViewController:self atIndex:self.view.subviews.count];
+    //index越大表示越在前面，最里面的view的index为0，所以如果要插入到最前面的话就需要插入到 subviews.count位置
 }
 
 - (void)hideMenu{
-    [self.menuViewController willMoveToParentViewController:nil];
-    [self.menuViewController.view removeFromSuperview];
-    [self.menuViewController removeFromParentViewController];
+    [self removeChildController:self.menuViewController];
 }
 
 - (void)changeToSecondViewController{
-    [self.contentViewController willMoveToParentViewController:nil];
-    [self.contentViewController.view removeFromSuperview];
-    [self.contentViewController removeFromParentViewController];
     
     DemoSecondViewController *secondViewController = [[DemoSecondViewController alloc]init];
     DemoNaviViewController *navi = [[DemoNaviViewController alloc]initWithRootViewController:secondViewController];
     
     self.contentViewController = navi;
-    [self addChildViewController:self.contentViewController];
-    [self.view insertSubview:self.contentViewController.view atIndex:0];
-    self.contentViewController.view.frame = self.view.frame;
-    [self.contentViewController didMoveToParentViewController:self];
 }
 
 - (void)changeToFirstViewController{
-    [self.contentViewController willMoveToParentViewController:nil];
-    [self.contentViewController.view removeFromSuperview];
-    [self.contentViewController removeFromParentViewController];
     
     DemoHomeViewController *firstViewController = [[DemoHomeViewController alloc]init];
     DemoNaviViewController *navi = [[DemoNaviViewController alloc]initWithRootViewController:firstViewController];
     
     self.contentViewController = navi;
-    [self addChildViewController:self.contentViewController];
-    [self.view insertSubview:self.contentViewController.view atIndex:0];
-    self.contentViewController.view.frame = self.view.frame;
-    [self.contentViewController didMoveToParentViewController:self];
+}
+
+
+- (void)changeToViewControllerAtIndex:(NSInteger)index{
+    UIViewController *viewController = self.contentViewControllerList[index];
+    DemoNaviViewController *navigationController = [[DemoNaviViewController alloc]initWithRootViewController:viewController];
+    self.contentViewController = navigationController;
+}
+
+- (void)setContentViewController:(DemoNaviViewController *)contentViewController{
+    if(_contentViewController){
+        [self removeChildController:_contentViewController];
+    }
+    [self addChildController:contentViewController toParentViewController:self atIndex:0];
+    _contentViewController = contentViewController;
+}
+
+
+#pragma mark - ContainerViewControllerHelper
+
+- (void)addChildController:(UIViewController *)child toParentViewController:(UIViewController *)parent atIndex:(NSInteger) index{
+    [parent addChildViewController:child];
+    //切换contentViewController的时候保证在menuViewController的下面
+    [parent.view insertSubview:child.view atIndex:index];
+    child.view.frame = parent.view.frame;
+    [child didMoveToParentViewController:parent];
+}
+
+- (void)removeChildController:(UIViewController *)child{
+    [child willMoveToParentViewController:nil];
+    [child.view removeFromSuperview];
+    [child removeFromParentViewController];
 }
 
 /*
