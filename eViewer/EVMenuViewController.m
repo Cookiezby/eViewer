@@ -6,19 +6,29 @@
 //  Copyright © 2016 cookie. All rights reserved.
 //
 
-#import "DemoMenuViewController.h"
+#import "EVMenuViewController.h"
 #import "Masonry.h"
 #import "EVSideViewController.h"
 
-@interface DemoMenuViewController ()
+const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
+
+@interface EVMenuViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) UIView *backGroundView;
 @property (strong, nonatomic) UIView *menuView;
-
+@property (strong, nonatomic) NSMutableArray *viewControllerList;
 
 @end
 
-@implementation DemoMenuViewController
+@implementation EVMenuViewController
+
+- (instancetype)initWithViewControllerList:(NSMutableArray *)viewControllerList{
+    self = [super init];
+    if (self) {
+        _viewControllerList = viewControllerList;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,30 +54,18 @@
             make.height.equalTo(@(SCREEN_HEIGHT));
         }];
         
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:@"Second" forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor blueColor]];
-        [button addTarget:self action:@selector(changeToSecondViewController) forControlEvents:UIControlEventTouchUpInside];
-        [view addSubview:button];
-        [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(view);
-            make.width.equalTo(@100);
-            make.height.equalTo(@50);
+        
+        UITableView *tableView = [[UITableView alloc]init];
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        [view addSubview:tableView];
+        
+        [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@0);
+            make.right.equalTo(@0);
+            make.bottom.equalTo(@0);
+            make.top.equalTo(@100);
         }];
-        
-        
-        UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button2 setTitle:@"First" forState:UIControlStateNormal];
-        [button2 setBackgroundColor:[UIColor blueColor]];
-        [button2 addTarget:self action:@selector(changeToFirstViewController) forControlEvents:UIControlEventTouchUpInside];
-        [view addSubview:button2];
-        [button2 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(view);
-            make.top.equalTo(button.mas_bottom).with.offset(100);
-            make.width.equalTo(@100);
-            make.height.equalTo(@50);
-        }];
-        
         
         view;
     });
@@ -77,28 +75,34 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [self showMenu];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+#pragma mark - HideShowMenuAniamtion
+
+- (void)showMenu{
+    EVSideViewController *parentViewController = (EVSideViewController *)self.parentViewController;
+    
     [self.menuView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
         make.left.equalTo(@0);
         make.width.equalTo(@250);
         make.height.equalTo(@(SCREEN_HEIGHT));
     }];
-
-    [UIView animateWithDuration:0.5f animations:^{
+    
+    [UIView animateWithDuration:MENU_ANIMATION_LENGTH animations:^{
         [self.view layoutIfNeeded];
         self.backGroundView.alpha = 0.5f;
+        parentViewController.contentViewController.view.transform = CGAffineTransformMakeScale(0.95, 0.95);
     } completion:^(BOOL finished) {
         DebugLog(@"menu appear");
     }];
     
     
-    
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)hideMenu{
@@ -112,30 +116,38 @@
         make.height.equalTo(@(SCREEN_HEIGHT));
     }];
     
-    
-    [UIView animateWithDuration:0.5f animations:^{
+    [UIView animateWithDuration:MENU_ANIMATION_LENGTH animations:^{
         self.backGroundView.alpha = 0.0;
         [self.view layoutIfNeeded];
+        parentViewController.contentViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
     } completion:^(BOOL finished) {
         [parentViewController hideMenu];
     }];
-    
-    
 }
 
-- (void)changeToSecondViewController{
-    DebugLog(@"Change to Second");
-    EVSideViewController *parentViewController = (EVSideViewController *)self.parentViewController;
-    [parentViewController changeToSecondViewController];
-    [self hideMenu];
+#pragma mark - UITableViewDelagate
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    EVSideViewController *parentViewController = (EVSideViewController *)self.parentViewController;
+    [parentViewController changeToViewControllerAtIndex:indexPath.row];
+    [self hideMenu];
 }
 
-- (void)changeToFirstViewController{
-    DebugLog(@"Change to First");
-    EVSideViewController *parentViewController = (EVSideViewController *)self.parentViewController;
-    [parentViewController changeToFirstViewController];
-    [self hideMenu];
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [[UITableViewCell alloc]init];
+    cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
+    return cell;
 }
 
 /*

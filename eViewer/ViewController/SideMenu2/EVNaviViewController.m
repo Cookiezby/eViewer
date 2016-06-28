@@ -6,14 +6,14 @@
 //  Copyright © 2016 cookie. All rights reserved.
 //
 
-#import "DemoNaviViewController.h"
+#import "EVNaviViewController.h"
 #import "EVSideViewController.h"
 
-@interface DemoNaviViewController ()
+@interface EVNaviViewController ()
 
 @end
 
-@implementation DemoNaviViewController
+@implementation EVNaviViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -7,17 +7,13 @@
 //
 
 #import "EVSideViewController.h"
-#import "DemoNaviViewController.h"
-#import "DemoMenuViewController.h"
+#import "EVMenuViewController.h"
 #import "DemoHomeViewController.h"
 #import "DemoSecondViewController.h"
 
 @interface EVSideViewController ()
+@property (strong, nonatomic) EVMenuViewController *menuViewController;
 
-@property (strong, nonatomic) DemoNaviViewController *contentViewController;
-@property (strong, nonatomic) DemoMenuViewController *menuViewController;
-
-@property (strong, nonatomic) NSMutableArray *contentViewControllerList;
 
 @end
 
@@ -25,16 +21,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    DemoHomeViewController *homeViewController = [[DemoHomeViewController alloc]init];
-    DemoNaviViewController *naviViewController = [[DemoNaviViewController alloc]initWithRootViewController:homeViewController];
+    self.view.backgroundColor = [UIColor blackColor];
+    DebugLog(@"%ld",self.contentViewControllerList.count);
     
+    //DemoHomeViewController *homeViewController = [[DemoHomeViewController alloc]init];
+    EVNaviViewController *naviViewController = [[EVNaviViewController alloc]initWithRootViewController:_contentViewControllerList[0]];
     self.contentViewController = naviViewController;
     
     
-    self.menuViewController = [[DemoMenuViewController alloc]init];
+    
+    /*DemoSecondViewController *secondViewController = [[DemoSecondViewController alloc]init];
+    self.contentViewControllerList = [[NSMutableArray alloc]initWithObjects:homeViewController,secondViewController, nil];*/
+    self.menuViewController = [[EVMenuViewController alloc]init];
     
     // Do any additional setup after loading the view.
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -42,7 +44,7 @@
 }
 
 - (void)showMenu{
-    DebugLog(@"%ld",self.view.subviews.count);
+    //DebugLog(@"%ld",self.view.subviews.count);
     [self addChildController:self.menuViewController toParentViewController:self atIndex:self.view.subviews.count];
     //index越大表示越在前面，最里面的view的index为0，所以如果要插入到最前面的话就需要插入到 subviews.count位置
 }
@@ -51,30 +53,14 @@
     [self removeChildController:self.menuViewController];
 }
 
-- (void)changeToSecondViewController{
-    
-    DemoSecondViewController *secondViewController = [[DemoSecondViewController alloc]init];
-    DemoNaviViewController *navi = [[DemoNaviViewController alloc]initWithRootViewController:secondViewController];
-    
-    self.contentViewController = navi;
-}
-
-- (void)changeToFirstViewController{
-    
-    DemoHomeViewController *firstViewController = [[DemoHomeViewController alloc]init];
-    DemoNaviViewController *navi = [[DemoNaviViewController alloc]initWithRootViewController:firstViewController];
-    
-    self.contentViewController = navi;
-}
-
 
 - (void)changeToViewControllerAtIndex:(NSInteger)index{
-    UIViewController *viewController = self.contentViewControllerList[index];
-    DemoNaviViewController *navigationController = [[DemoNaviViewController alloc]initWithRootViewController:viewController];
+    EVNaviViewController *navigationController = [[EVNaviViewController alloc]initWithRootViewController:_contentViewControllerList[index]];
     self.contentViewController = navigationController;
+    self.contentViewController.view.transform = CGAffineTransformMakeScale(0.95, 0.95);
 }
 
-- (void)setContentViewController:(DemoNaviViewController *)contentViewController{
+- (void)setContentViewController:(EVNaviViewController *)contentViewController{
     if(_contentViewController){
         [self removeChildController:_contentViewController];
     }
@@ -97,7 +83,9 @@
     [child willMoveToParentViewController:nil];
     [child.view removeFromSuperview];
     [child removeFromParentViewController];
+   
 }
+
 
 /*
 #pragma mark - Navigation

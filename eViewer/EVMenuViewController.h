@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DemoMenuViewController : UIViewController
+@interface EVMenuViewController : UIViewController
+
+- (instancetype)initWithViewControllerList:(NSMutableArray *)viewControllerList;
 
 @end

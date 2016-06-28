@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DemoNaviViewController : UINavigationController
+@interface EVNaviViewController : UINavigationController
 
 - (void)showMenu;
 

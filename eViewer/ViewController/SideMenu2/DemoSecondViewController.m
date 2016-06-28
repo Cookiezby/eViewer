@@ -7,7 +7,7 @@
 //
 
 #import "DemoSecondViewController.h"
-#import "DemoNaviViewController.h"
+#import "EVNaviViewController.h"
 
 @interface DemoSecondViewController ()
 
@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Second";
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Menu"
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
@@ -34,7 +34,7 @@
 
 - (void)showMenu{
     DebugLog(@"showMenu");
-    DemoNaviViewController *naviViewController = (DemoNaviViewController *)self.navigationController;
+    EVNaviViewController *naviViewController = (EVNaviViewController *)self.navigationController;
     [naviViewController showMenu];
 }
 /*

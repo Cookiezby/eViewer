@@ -7,7 +7,7 @@
 //
 
 #import "DemoHomeViewController.h"
-#import "DemoNaviViewController.h"
+#import "EVNaviViewController.h"
 #import "Masonry.h"
 
 @interface DemoHomeViewController ()
@@ -34,6 +34,8 @@
         make.right.equalTo(@0);
         make.bottom.equalTo(@0);
     }];
+   
+    
     
     // Do any additional setup after loading the view.
 }
@@ -45,9 +47,11 @@
 
 - (void)showMenu{
     DebugLog(@"showMenu");
-    DemoNaviViewController *naviViewController = (DemoNaviViewController *)self.navigationController;
+    EVNaviViewController *naviViewController = (EVNaviViewController *)self.navigationController;
     [naviViewController showMenu];
 }
+
+
 /*
 #pragma mark - Navigation
 
