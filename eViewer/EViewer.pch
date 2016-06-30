@@ -19,5 +19,8 @@
 #define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
 #import "UIColor+expanded.h"
+#import <BlocksKit+UIKit.h>
+
+#define TABLE_VIEW_BACKGROUND_COLOR [UIColor colorWithHexString:@"ECECEC"]
 
 #endif /* EViewer_pch */

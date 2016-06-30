@@ -17,6 +17,7 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
 @property (strong, nonatomic) UIView *backGroundView;
 @property (strong, nonatomic) UIView *menuView;
 @property (strong, nonatomic) NSMutableArray *viewControllerList;
+@property (strong, nonatomic) UIVisualEffectView *backGroundBlurView;
 
 @end
 
@@ -32,6 +33,14 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    /*self.backGroundBlurView = ({
+        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        UIVisualEffectView *bluredView = [[UIVisualEffectView alloc] initWithEffect:effect];
+        
+        bluredView.frame = self.view.bounds;
+        [self.view addSubview:bluredView];
+        bluredView;
+    });*/
     
     self.backGroundView = ({
         UIView *view = [[UIView alloc]initWithFrame:self.view.frame];

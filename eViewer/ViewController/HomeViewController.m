@@ -14,7 +14,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "HomePageTableViewCell.h"
 
-@interface HomeViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface HomeViewController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property (strong, nonatomic)UITableView *tableView;
 @property (strong, nonatomic)NSMutableArray *articleLists;
@@ -30,6 +30,16 @@
     self.navigationItem.leftBarButtonItem =leftMenuButton;
     self.navigationItem.title = @"Engadget";
     
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]bk_initWithTitle:@"Menu"
+                                                                               style:UIBarButtonItemStylePlain
+                                                                             handler:^(id sender) {
+                                                                                 DebugLog(@"showMenu");
+                                                                                 EVNaviViewController *naviViewController = (EVNaviViewController *)self.navigationController;
+                                                                                 [naviViewController showMenu];
+                                                                            }];
+    
+    
     self.articleLists = [[NSMutableArray alloc]init];
     
     _tableView = ({
@@ -37,10 +47,12 @@
         [self.view addSubview:tableView];
         tableView.delegate = self;
         tableView.dataSource = self;
+    
         [tableView registerClass:[HomePageTableViewCell class] forCellReuseIdentifier:@"HomePageCell"];
-        [tableView setBackgroundColor:[UIColor colorWithHexString:@"ECECEC"]];
+        [tableView setBackgroundColor:TABLE_VIEW_BACKGROUND_COLOR];
         tableView;
     });
+    
     
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     
@@ -68,11 +80,15 @@
 
 #pragma mark - UITableViewDelegate
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 220;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
 
@@ -103,8 +119,48 @@
                       placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
     
+    
+    
     return cell;
 }
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    if(scrollView.contentOffset.y < -150.0f){
+        [UIView animateWithDuration:0.5f animations:^{
+            self.tableView.contentInset = UIEdgeInsetsMake(120.0f, 0.0f, 0.0f, 0.0f);
+        } completion:^(BOOL finished) {
+            //在这里添加refresh的动画
+            
+            
+            
+            EVHTMLManager *manager = [[EVHTMLManager alloc]init];
+            [self.articleLists removeAllObjects];
+            [manager getPage:1 withHandler:^(NSMutableArray *array) {
+                [self.articleLists addObjectsFromArray:array];
+                [self.tableView reloadData];
+                [UIView animateWithDuration:0.5f animations:^{
+                    self.tableView.contentInset = UIEdgeInsetsMake(64.0f, 0.0f, 0.0f, 0.0f);
+                } completion:^(BOOL finished) {
+                    
+                }];
+            }];
+        }];
+    }
+}
+
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if((scrollView.contentOffset.y + scrollView.frame.size.height - 20) >= scrollView.contentSize.height){
+        [UIView animateWithDuration:0.5f animations:^{
+            //self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 60.0f, 0.0f);
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+}
+
+
+
 
 
 /*

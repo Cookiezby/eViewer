@@ -10,6 +10,8 @@
 #import "EVSideViewController.h"
 #import "DemoHomeViewController.h"
 #import "DemoSecondViewController.h"
+#import "HomeViewController.h"
+#import "ArticleSimpleViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,10 +25,13 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     EVSideViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainViewController"];
     
-    DemoHomeViewController *homeViewController = [[DemoHomeViewController alloc]init];
+    //DemoHomeViewController *homeViewController = [[DemoHomeViewController alloc]init];
     DemoSecondViewController *secondViewController = [[DemoSecondViewController alloc]init];
+    //HomeViewController *homeViewController = [[HomeViewController alloc]init];
+    ArticleSimpleViewController *firstViewController = [[ArticleSimpleViewController alloc]init];
     
-    NSMutableArray *contentViewControllerList = [[NSMutableArray alloc]initWithObjects:homeViewController,secondViewController, nil];
+    
+    NSMutableArray *contentViewControllerList = [[NSMutableArray alloc]initWithObjects:firstViewController,secondViewController, nil];
     mainViewController.contentViewControllerList = contentViewControllerList;
     
     DebugLog(@"%ld",mainViewController.contentViewControllerList.count);

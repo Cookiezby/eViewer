@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4459B1CD1874B02E4855742D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7E6D7847895DEB854CF7658 /* libPods.a */; };
+		66904763BE1E8BD80CA274BA /* libPods-eViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B277C9AB12DA5061FC96973 /* libPods-eViewer.a */; };
+		7600C44C1D229EDC005C26C6 /* ArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */; };
 		762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */; };
 		76D80CB41D0FF141000D9E4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB31D0FF141000D9E4E /* main.m */; };
 		76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB61D0FF141000D9E4E /* AppDelegate.m */; };
@@ -25,6 +26,8 @@
 		76EA5B631D18DCFA00FEFF38 /* HomePageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B621D18DCFA00FEFF38 /* HomePageTableViewCell.m */; };
 		76EA5B661D18F91400FEFF38 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 76EA5B651D18F91400FEFF38 /* placeholder.png */; };
 		76EA5B691D190B8900FEFF38 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B681D190B8900FEFF38 /* UIColor+expanded.m */; };
+		76F2EA8D1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F2EA8C1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.m */; };
+		76F2EA901D24E32A0013D4E9 /* ArticleSimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F2EA8F1D24E32A0013D4E9 /* ArticleSimpleViewController.m */; };
 		76FA848F1D1FADAB00BD0F22 /* EVMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FA848E1D1FADAB00BD0F22 /* EVMenuViewController.m */; };
 		76FA84921D1FAE8B00BD0F22 /* DemoHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FA84911D1FAE8B00BD0F22 /* DemoHomeViewController.m */; };
 		76FA84951D1FAF4F00BD0F22 /* EVNaviViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FA84941D1FAF4F00BD0F22 /* EVNaviViewController.m */; };
@@ -33,6 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		73742F31F91E4902FB237753 /* Pods-eViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-eViewer/Pods-eViewer.release.xcconfig"; sourceTree = "<group>"; };
+		7600C44A1D229EDC005C26C6 /* ArticleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleDetailViewController.h; sourceTree = "<group>"; };
+		7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDetailViewController.m; sourceTree = "<group>"; };
 		762B705A1D1EDA0F002F1BF6 /* EVSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVSideViewController.h; path = ViewController/SideMenu2/EVSideViewController.h; sourceTree = "<group>"; };
 		762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVSideViewController.m; path = ViewController/SideMenu2/EVSideViewController.m; sourceTree = "<group>"; };
 		76D80CAF1D0FF141000D9E4E /* eViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,8 +59,6 @@
 		76D80CD91D0FF839000D9E4E /* EPresentationAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPresentationAnimator.h; path = SideMenu/EPresentationAnimator.h; sourceTree = "<group>"; };
 		76D80CDA1D0FF839000D9E4E /* EPresentationAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPresentationAnimator.m; path = SideMenu/EPresentationAnimator.m; sourceTree = "<group>"; };
 		76D80CDC1D0FF867000D9E4E /* EViewer.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EViewer.pch; sourceTree = "<group>"; };
-		76EA5B1A1D1640E500FEFF38 /* libHTMLReader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHTMLReader.a; path = "Pods/../build/Debug-iphoneos/libHTMLReader.a"; sourceTree = "<group>"; };
-		76EA5B1C1D17C0EF00FEFF38 /* libHTMLReader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHTMLReader.a; path = "Pods/../build/Debug-iphoneos/libHTMLReader.a"; sourceTree = "<group>"; };
 		76EA5B211D17C2AB00FEFF38 /* EVHTMLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVHTMLManager.h; path = HtmlTransfer/EVHTMLManager.h; sourceTree = "<group>"; };
 		76EA5B221D17C2AB00FEFF38 /* EVHTMLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVHTMLManager.m; path = HtmlTransfer/EVHTMLManager.m; sourceTree = "<group>"; };
 		76EA5B251D17D64400FEFF38 /* ArticleSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleSimple.h; path = Model/ArticleSimple.h; sourceTree = "<group>"; };
@@ -66,6 +70,10 @@
 		76EA5B651D18F91400FEFF38 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		76EA5B671D190B8900FEFF38 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
 		76EA5B681D190B8900FEFF38 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
+		76F2EA8B1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleSimpleCollectionViewCell.h; path = View/Cell/ArticleSimpleCollectionViewCell.h; sourceTree = "<group>"; };
+		76F2EA8C1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleSimpleCollectionViewCell.m; path = View/Cell/ArticleSimpleCollectionViewCell.m; sourceTree = "<group>"; };
+		76F2EA8E1D24E32A0013D4E9 /* ArticleSimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleSimpleViewController.h; path = ViewController/ArticleSimpleViewController.h; sourceTree = "<group>"; };
+		76F2EA8F1D24E32A0013D4E9 /* ArticleSimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleSimpleViewController.m; path = ViewController/ArticleSimpleViewController.m; sourceTree = "<group>"; };
 		76FA848D1D1FADAB00BD0F22 /* EVMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVMenuViewController.h; sourceTree = "<group>"; };
 		76FA848E1D1FADAB00BD0F22 /* EVMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVMenuViewController.m; sourceTree = "<group>"; };
 		76FA84901D1FAE8B00BD0F22 /* DemoHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoHomeViewController.h; path = ViewController/SideMenu2/DemoHomeViewController.h; sourceTree = "<group>"; };
@@ -75,9 +83,8 @@
 		76FA84961D1FB77200BD0F22 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
 		76FA84981D1FCAF400BD0F22 /* DemoSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoSecondViewController.h; path = ViewController/SideMenu2/DemoSecondViewController.h; sourceTree = "<group>"; };
 		76FA84991D1FCAF400BD0F22 /* DemoSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoSecondViewController.m; path = ViewController/SideMenu2/DemoSecondViewController.m; sourceTree = "<group>"; };
-		D7E6D7847895DEB854CF7658 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D9747B86845B34D6EE592EDE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		E3B8B30E93BF7F852E56C45B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		7B277C9AB12DA5061FC96973 /* libPods-eViewer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-eViewer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FE467970BAB484FB38E288E /* Pods-eViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eViewer/Pods-eViewer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,19 +92,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4459B1CD1874B02E4855742D /* libPods.a in Frameworks */,
+				66904763BE1E8BD80CA274BA /* libPods-eViewer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		376133DE49880DF02D0A116A /* Frameworks */ = {
+		2A51A933FDC3D98F0401E064 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				76EA5B1C1D17C0EF00FEFF38 /* libHTMLReader.a */,
-				76EA5B1A1D1640E500FEFF38 /* libHTMLReader.a */,
-				D7E6D7847895DEB854CF7658 /* libPods.a */,
+				7B277C9AB12DA5061FC96973 /* libPods-eViewer.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -124,8 +129,8 @@
 			children = (
 				76D80CB11D0FF141000D9E4E /* eViewer */,
 				76D80CB01D0FF141000D9E4E /* Products */,
-				D5C20019C816884DD308D404 /* Pods */,
-				376133DE49880DF02D0A116A /* Frameworks */,
+				D43CF38B8731391A1D84B6D0 /* Pods */,
+				2A51A933FDC3D98F0401E064 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -174,6 +179,10 @@
 				76D80CD21D0FF738000D9E4E /* SideMenu */,
 				76D80CCD1D0FF5A5000D9E4E /* HomeViewController.h */,
 				76D80CCE1D0FF5A5000D9E4E /* HomeViewController.m */,
+				7600C44A1D229EDC005C26C6 /* ArticleDetailViewController.h */,
+				7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */,
+				76F2EA8E1D24E32A0013D4E9 /* ArticleSimpleViewController.h */,
+				76F2EA8F1D24E32A0013D4E9 /* ArticleSimpleViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -233,6 +242,8 @@
 			children = (
 				76EA5B611D18DCFA00FEFF38 /* HomePageTableViewCell.h */,
 				76EA5B621D18DCFA00FEFF38 /* HomePageTableViewCell.m */,
+				76F2EA8B1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.h */,
+				76F2EA8C1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -246,11 +257,11 @@
 			name = Image;
 			sourceTree = "<group>";
 		};
-		D5C20019C816884DD308D404 /* Pods */ = {
+		D43CF38B8731391A1D84B6D0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E3B8B30E93BF7F852E56C45B /* Pods.debug.xcconfig */,
-				D9747B86845B34D6EE592EDE /* Pods.release.xcconfig */,
+				7FE467970BAB484FB38E288E /* Pods-eViewer.debug.xcconfig */,
+				73742F31F91E4902FB237753 /* Pods-eViewer.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -262,11 +273,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 76D80CC91D0FF141000D9E4E /* Build configuration list for PBXNativeTarget "eViewer" */;
 			buildPhases = (
-				1DF41B946E1BEB0DBBF83426 /* Check Pods Manifest.lock */,
+				B998F9C8BA2E62B972D65903 /* [CP] Check Pods Manifest.lock */,
 				76D80CAB1D0FF141000D9E4E /* Sources */,
 				76D80CAC1D0FF141000D9E4E /* Frameworks */,
 				76D80CAD1D0FF141000D9E4E /* Resources */,
-				4F002C1E53CA72E9BCB1B5E9 /* Copy Pods Resources */,
+				0ABC1A52DCA714BB6C36058F /* [CP] Embed Pods Frameworks */,
+				3673A68EFD87D3068D8C87D8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -325,34 +337,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1DF41B946E1BEB0DBBF83426 /* Check Pods Manifest.lock */ = {
+		0ABC1A52DCA714BB6C36058F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eViewer/Pods-eViewer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3673A68EFD87D3068D8C87D8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eViewer/Pods-eViewer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B998F9C8BA2E62B972D65903 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		4F002C1E53CA72E9BCB1B5E9 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -364,11 +391,14 @@
 			files = (
 				762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */,
 				76FA84921D1FAE8B00BD0F22 /* DemoHomeViewController.m in Sources */,
+				7600C44C1D229EDC005C26C6 /* ArticleDetailViewController.m in Sources */,
+				76F2EA8D1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.m in Sources */,
 				76D80CD81D0FF7D8000D9E4E /* ESideViewController.m in Sources */,
 				76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */,
 				76EA5B691D190B8900FEFF38 /* UIColor+expanded.m in Sources */,
 				76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */,
 				76EA5B631D18DCFA00FEFF38 /* HomePageTableViewCell.m in Sources */,
+				76F2EA901D24E32A0013D4E9 /* ArticleSimpleViewController.m in Sources */,
 				76D80CB41D0FF141000D9E4E /* main.m in Sources */,
 				76D80CCF1D0FF5A5000D9E4E /* HomeViewController.m in Sources */,
 				76FA849A1D1FCAF400BD0F22 /* DemoSecondViewController.m in Sources */,
@@ -486,13 +516,13 @@
 		};
 		76D80CCA1D0FF141000D9E4E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E3B8B30E93BF7F852E56C45B /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 7FE467970BAB484FB38E288E /* Pods-eViewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PREFIX_HEADER = eViewer/EViewer.pch;
 				INFOPLIST_FILE = eViewer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -505,13 +535,13 @@
 		};
 		76D80CCB1D0FF141000D9E4E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9747B86845B34D6EE592EDE /* Pods.release.xcconfig */;
+			baseConfigurationReference = 73742F31F91E4902FB237753 /* Pods-eViewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PREFIX_HEADER = eViewer/EViewer.pch;
 				INFOPLIST_FILE = eViewer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
