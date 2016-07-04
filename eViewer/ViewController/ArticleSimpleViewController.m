@@ -13,12 +13,13 @@
 #import "ArticleSimple.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ArticleSimpleCollectionViewCell.h"
+#import "ArticleDetailViewController.h"
 
 const static NSInteger CELL_HEIGHT = 220;
 //const static NSInteger CELL_WIDTH = [UIScreen mainScreen].bounds.size.width-10;
 
 
-@interface ArticleSimpleViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
+@interface ArticleSimpleViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate>
 
 @property (strong, nonatomic)UICollectionView *collectionView;
 @property (strong, nonatomic)NSMutableArray *articleSimpleList;
@@ -51,17 +52,14 @@ const static NSInteger CELL_HEIGHT = 220;
         collectionView.backgroundColor = TABLE_VIEW_BACKGROUND_COLOR;
         [collectionView registerClass:[ArticleSimpleCollectionViewCell class] forCellWithReuseIdentifier:@"ArticleSimpleCell"];
         collectionView.showsVerticalScrollIndicator = NO;
-        collectionView.bounces = NO;
+        //collectionView.bounces = NO;
         [self.view addSubview:collectionView];
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView;
     });
     
-    
-    
-    
-    
+
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     [SVProgressHUD show];
     [manager getPage:1 withHandler:^(NSMutableArray *array) {
@@ -79,6 +77,12 @@ const static NSInteger CELL_HEIGHT = 220;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ArticleDetailViewController *detailViewController = [[ArticleDetailViewController alloc]init];
+    [self.navigationController pushViewController:detailViewController animated:YES];
+}
 
 
 #pragma mark - UICollectionViewDataSource
@@ -104,6 +108,101 @@ const static NSInteger CELL_HEIGHT = 220;
 
     return cell;
 }
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    if(scrollView.contentOffset.y < -150){
+        
+        CGFloat refreshSpace = 50.0f;
+        //self.collectionView.bounces = NO;
+        
+        //CGPoint newContentOffset = CGPointMake(0, scrollView.contentOffset.y + 100);
+        
+        //scrollView.contentOffset = newContentOffset;
+        
+        UILabel *testLabel = [[UILabel alloc]init];
+        testLabel.text = @"hahahha";
+        testLabel.frame = CGRectMake(180, 80, 100, 50);
+        testLabel.textColor = [UIColor redColor];
+        
+        [self.view addSubview:testLabel];
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            //self.collectionView.contentInset = UIEdgeInsetsMake(114.0f, 0.0f, 0.0f, 0.0f);
+            
+            [scrollView setContentOffset:CGPointMake(0,-(64+refreshSpace)) animated:NO];
+        } completion:^(BOOL finished) {
+            //DebugLog(@"Refresh Complete");
+            EVHTMLManager *manager = [[EVHTMLManager alloc]init];
+            [SVProgressHUD show];
+            [manager getPage:1 withHandler:^(NSMutableArray *array) {
+                [self.articleSimpleList removeAllObjects];
+                [self.articleSimpleList addObjectsFromArray:array];
+                [self.collectionView reloadData];
+                [SVProgressHUD dismiss];
+                 
+                [UIView animateWithDuration:0.5f animations:^{
+                    [scrollView setContentOffset:CGPointMake(0, -64) animated:NO];
+                } completion:^(BOOL finished) {
+                    //self.collectionView.contentInset = UIEdgeInsetsMake(64.0f, 0.0f, 0.0f, 0.0f);
+                    //self.collectionView.bounces = YES;
+                }];
+            }];
+        }];
+    }else if(scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height){
+        DebugLog(@"more");
+        NSLog(@"%f",scrollView.contentOffset.y);
+        NSLog(@"%f",scrollView.frame.size.height);
+        NSLog(@"%f",scrollView.contentSize.height);
+        //CGPoint contentOffset = scrollView.contentOffset;
+        //UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
+        
+        CGPoint finalContentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.frame.size.height + 50.f);
+        
+        [UIView animateWithDuration:0.5f animations:^{
+            [self.collectionView setContentOffset:finalContentOffset animated:NO];
+        } completion:^(BOOL finished) {
+            EVHTMLManager *manager = [[EVHTMLManager alloc]init];
+            [SVProgressHUD show];
+            [manager getPage:self.articleSimpleList.count/10+1 withHandler:^(NSMutableArray *array) {
+                //[self.articleSimpleList removeAllObjects];
+                [self.articleSimpleList addObjectsFromArray:array];
+                [self.collectionView reloadData];
+                [SVProgressHUD dismiss];
+            }];
+        }];
+    }
+
+}
+//用collectionview 的insertItem 来代替reload
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+}
+
+
+
+- (void)setLoadingScrollViewInsets:(UIScrollView *)scrollView
+{
+    UIEdgeInsets loadingInset = scrollView.contentInset;
+    loadingInset.top += self.view.frame.size.height;
+    
+    CGPoint contentOffset = scrollView.contentOffset;
+    
+    [UIView animateWithDuration:0.2 animations:^
+     {
+         scrollView.contentInset = loadingInset;
+         scrollView.contentOffset = contentOffset;
+     }];
+}
+
+/*(- (UIImageView *)cellBackGroundView{
+    CGRect rect = CGRectMake(0, 0, SCREEN_WIDTH-10, CELL_HEIGHT);
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, [UIScreen mainScreen].scale);
+    CGContextAddPath(UIGraphicsGetCurrentContext(),
+}*/
 
 /*
 #pragma mark - Navigation
