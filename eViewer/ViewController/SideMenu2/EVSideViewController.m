@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    DebugLog(@"%ld",self.contentViewControllerList.count);
+    //DebugLog(@"%ld",self.contentViewControllerList.count);
     
     //DemoHomeViewController *homeViewController = [[DemoHomeViewController alloc]init];
     EVNaviViewController *naviViewController = [[EVNaviViewController alloc]initWithRootViewController:_contentViewControllerList[0]];

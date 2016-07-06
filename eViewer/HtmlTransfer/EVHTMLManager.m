@@ -10,6 +10,8 @@
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <TFHpple.h>
 #import "ArticleSimple.h"
+#import "PhotoGallery.h"
+#import "ArticleDetail.h"
 
 const NSString *baseURL = @"http://cn.engadget.com/page";
 
@@ -23,7 +25,9 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     return self;
 }
 
-- (void)getPage:(NSInteger)page withHandler:(HomePageCompleteHandler)hander{
+#pragma mark - Interface
+
+- (void)getPage:(NSInteger)page withHandler:(HomePageCompleteHandler)handler{
     NSString *URLString = [NSString stringWithFormat:@"%@/%ld/",baseURL,page];
     //DebugLog(@"%@",URLString);
     NSURL *URL = [NSURL URLWithString:URLString];
@@ -31,13 +35,49 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
         //[self analysisHTMLData:responseObject];
-        hander([self analysisHomePageHTMLData:responseObject]);
+        handler([self analysisHomePageHTMLData:responseObject]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
         NSLog(@"失败");
     }];
 }
 
+- (void)getDetail:(NSString *)url withHandler:(DetailPageCompleteHandler)handler{
+    NSString *URLString = @"http://cn.engadget.com/2016/07/05/backpaix-hands-on/";
+    NSURL *URL = [NSURL URLWithString:URLString];
+    
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
+        //[self analysisHTMLData:responseObject];
+        handler([self analysisDetailPageHTMLData:responseObject]);
+        //NSString *htmlString = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        //DebugLog(@"%@",htmlString);
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error%@",error);
+        NSLog(@"失败");
+    }];
+
+}
+
+- (void)getAllGalleryImage:(NSString *)url withCompleteHandler:(GalleryPageCompleteHandler)handler{
+    NSString *urlString = @"http://cn.engadget.com/gallery/backpaix/";
+    NSURL *URL = [NSURL URLWithString:urlString];
+    
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
+        //[self analysisGalleryPageHTMLData:responseObject];
+        handler([self analysisGalleryPageHTMLData:responseObject]);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error%@",error);
+        NSLog(@"失败");
+    }];
+}
+
+
+#pragma mark - HTMLAnalysis
 
 - (NSMutableArray *)analysisHomePageHTMLData:(NSData *)data{
     TFHpple *parser = [[TFHpple alloc]initWithHTMLData:data];
@@ -64,11 +104,11 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
         TFHppleElement *time = [byline firstChildWithTagName:@"time"];
         
         /*
-        DebugLog(@"%@",a.text);
-        DebugLog(@"%@",[element objectForKey:@"data-image"]);// Get the cover Image
-        DebugLog(@"%@",author.text);
-        DebugLog(@"%@",[self timeSiceDate:[time objectForKey:@"datetime"]]);
-        */
+         DebugLog(@"%@",a.text);
+         DebugLog(@"%@",[element objectForKey:@"data-image"]);// Get the cover Image
+         DebugLog(@"%@",author.text);
+         DebugLog(@"%@",[self timeSiceDate:[time objectForKey:@"datetime"]]);
+         */
         
         ArticleSimple *articleSimple = [[ArticleSimple alloc]init];
         articleSimple.title = a.text;
@@ -79,8 +119,132 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     }
     
     return articleLists;
-        
 }
+
+
+
+- (NSMutableAttributedString *)analysisDetailPageHTMLData:(NSData *)data{
+    TFHpple *parser = [[TFHpple alloc]initWithHTMLData:data];
+    NSString *articleTextQuery = @"//div[@itemprop='text']";
+    NSArray *elements = [parser searchWithXPathQuery:articleTextQuery];
+    TFHppleElement *post_body = elements[0];
+    
+    NSArray *childrenElements = post_body.children;
+    //DebugLog(@"%ld",childrenElements.count);
+    
+    NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
+    //there are 4 kinds of elements in the detail page
+    //1 text
+    //2 text with link
+    //3 image
+    //4 image gallery (we need to take out the thumb image (most time 6 pieces)
+    
+    [childrenElements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        TFHppleElement *childElement = (TFHppleElement *)obj;
+        
+        //this is the link in the article (most time it is a part of the text, so we need to use the text
+        if([childElement.tagName isEqualToString:@"a"]){
+            //DebugLog(@"%@",childElement.text);
+            if(childElement.text.length > 0){
+                NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:childElement.text];
+                [str addAttribute: NSLinkAttributeName value: @"http://www.google.com" range: NSMakeRange(0, str.length)];
+                [detailText appendAttributedString:str];
+            }
+        }
+        
+        //this is the text in the detail article
+        if([childElement isTextNode]){
+            //DebugLog(@"%ld",idx);
+            //DebugLog(@"%@",childElement.content);
+            if(childElement.content.length > 0){
+                NSAttributedString *str = [[NSAttributedString alloc]initWithString:childElement.content];
+                [detailText appendAttributedString:str];
+            }
+        }
+        
+        // this is the image element in the detail article
+        if([childElement.tagName isEqualToString:@"div"] && [[childElement objectForKey:@"style"] isEqualToString:@"text-align: center;"]){
+            //DebugLog(@"%ld",idx);
+            TFHppleElement *imageElement = [childElement firstChildWithTagName:@"img"];
+            if(imageElement){
+                //DebugLog(@"%@",[imageElement objectForKey:@"src"]);
+            }
+        }
+        
+        //this is the gallery of this detail article (normally it has 1, or 2 galleries in one article)
+        
+        if([childElement .tagName isEqualToString:@"div"] && [[childElement objectForKey:@"class"]isEqualToString:@"post-gallery"]){
+            //DebugLog(@"%ld",idx);
+            PhotoGallery *gallery = [[PhotoGallery alloc]init];
+            NSString *title = [childElement firstChildWithClassName:@"title"].text;
+            gallery.galleryTitle = title;
+            //DebugLog(@"%@",title);
+            
+            NSMutableArray *thumbnialImageLinkList = [[NSMutableArray alloc]init];
+            TFHppleElement *thumbs = [childElement firstChildWithClassName:@"thumbs"];
+            NSArray *thumbList = thumbs.children;
+            [thumbList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                TFHppleElement *thumb = (TFHppleElement *)obj;
+                if([thumb.tagName isEqualToString:@"li"]){
+                    NSString *link = [[[thumb firstChildWithClassName:@"gallery-link"]firstChildWithTagName:@"img"]objectForKey:@"src"];
+                    //DebugLog(@"%@",link);
+                    [thumbnialImageLinkList addObject:link];
+                }
+            }];
+            gallery.thumbImageLinkList = [NSArray arrayWithArray:thumbnialImageLinkList];
+            
+            NSString *moreImageLink = [[childElement firstChildWithClassName:@"more gallery-link"] objectForKey:@"href"];
+            //DebugLog(@"more = %@",moreImageLink);
+            gallery.galleryLink = moreImageLink;
+            
+            NSString *imageAmountText = [childElement firstChildWithClassName:@"photo-number"].text;
+            NSArray *stringArray = [imageAmountText componentsSeparatedByString:@" "];
+            NSInteger imageAmount = [(NSString *)stringArray[0] intValue];
+            //DebugLog(@"%ld",imageAmount);
+            gallery.imageAmount = imageAmount;
+        }
+        
+        
+        
+    }];
+    
+    
+    //[self getAllGalleryImage];
+    
+    //DebugLog(@"%@",post_body.text);
+    
+    //DebugLog(@"%@",detailText.string);
+    
+    return detailText;
+}
+
+
+
+
+- (NSMutableArray *)analysisGalleryPageHTMLData:(NSData *)data{
+    NSMutableArray *imageLinkList = [[NSMutableArray alloc]init];
+    
+    TFHpple *parser = [[TFHpple alloc]initWithHTMLData:data];
+    NSString *galleryQuery = @"//ul[@class='knot-slideshow-data']";
+    NSArray *resultElements= [parser searchWithXPathQuery:galleryQuery];
+    TFHppleElement *galleryElement = resultElements[0];
+    [galleryElement.children enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        TFHppleElement *li = (TFHppleElement *)obj;
+        if([li.tagName isEqualToString:@"li"]){
+            TFHppleElement *a = [li firstChildWithTagName:@"a"];
+            NSString *imageLink = [a objectForKey:@"href"];
+            //DebugLog(@"%@",imageLink);
+            [imageLinkList addObject:imageLink];
+        }
+    }];
+    
+    return imageLinkList;
+}
+
+
+
+
+#pragma mark - TimeHelper
 
 - (NSString *)timeSiceDate:(NSString *)string{
     NSDateFormatter *format = [[NSDateFormatter alloc] init];

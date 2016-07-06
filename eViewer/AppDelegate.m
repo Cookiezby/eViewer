@@ -34,7 +34,7 @@
     NSMutableArray *contentViewControllerList = [[NSMutableArray alloc]initWithObjects:firstViewController,secondViewController, nil];
     mainViewController.contentViewControllerList = contentViewControllerList;
     
-    DebugLog(@"%ld",mainViewController.contentViewControllerList.count);
+    //DebugLog(@"%ld",mainViewController.contentViewControllerList.count);
     self.window.rootViewController = mainViewController;
     return YES;
 }

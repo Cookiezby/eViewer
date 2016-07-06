@@ -16,6 +16,7 @@
 #import "ArticleDetailViewController.h"
 
 const static NSInteger CELL_HEIGHT = 220;
+const static NSInteger REFRESH_HEIGHT = 50;
 //const static NSInteger CELL_WIDTH = [UIScreen mainScreen].bounds.size.width-10;
 
 
@@ -67,8 +68,7 @@ const static NSInteger CELL_HEIGHT = 220;
         [self.collectionView reloadData];
         [SVProgressHUD dismiss];
     }];
-
-
+    
     // Do any additional setup after loading the view.
 }
 
@@ -81,6 +81,7 @@ const static NSInteger CELL_HEIGHT = 220;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ArticleDetailViewController *detailViewController = [[ArticleDetailViewController alloc]init];
+    
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
@@ -115,24 +116,12 @@ const static NSInteger CELL_HEIGHT = 220;
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     if(scrollView.contentOffset.y < -150){
         
-        CGFloat refreshSpace = 50.0f;
-        //self.collectionView.bounces = NO;
-        
-        //CGPoint newContentOffset = CGPointMake(0, scrollView.contentOffset.y + 100);
-        
-        //scrollView.contentOffset = newContentOffset;
-        
-        UILabel *testLabel = [[UILabel alloc]init];
-        testLabel.text = @"hahahha";
-        testLabel.frame = CGRectMake(180, 80, 100, 50);
-        testLabel.textColor = [UIColor redColor];
-        
-        [self.view addSubview:testLabel];
+        //CGFloat refreshSpace = 50.0f;
         
         [UIView animateWithDuration:0.5f animations:^{
             //self.collectionView.contentInset = UIEdgeInsetsMake(114.0f, 0.0f, 0.0f, 0.0f);
             
-            [scrollView setContentOffset:CGPointMake(0,-(64+refreshSpace)) animated:NO];
+            [scrollView setContentOffset:CGPointMake(0,-(64+REFRESH_HEIGHT)) animated:NO];
         } completion:^(BOOL finished) {
             //DebugLog(@"Refresh Complete");
             EVHTMLManager *manager = [[EVHTMLManager alloc]init];
@@ -159,7 +148,7 @@ const static NSInteger CELL_HEIGHT = 220;
         //CGPoint contentOffset = scrollView.contentOffset;
         //UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
         
-        CGPoint finalContentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.frame.size.height + 50.f);
+        CGPoint finalContentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.frame.size.height + REFRESH_HEIGHT);
         
         [UIView animateWithDuration:0.5f animations:^{
             [self.collectionView setContentOffset:finalContentOffset animated:NO];

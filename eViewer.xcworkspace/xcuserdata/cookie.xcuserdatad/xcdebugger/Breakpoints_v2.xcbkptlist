@@ -24,27 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488168465.092713"
+            timestampString = "489480445.254765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "-analysisHomePageHTMLData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488299631.506802"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "@implementation EVHTMLManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -56,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488299631.506802"
+            timestampString = "489480445.254765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "@implementation EVHTMLManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -72,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488168465.092713"
+            timestampString = "489470935.210419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
             landmarkName = "-getPage:withHandler:"
             landmarkType = "5">
          </BreakpointContent>
@@ -88,59 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488294903.133413"
+            timestampString = "489480445.254765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "-analysisHomePageHTMLData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488191115.621744"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "-analysisHomePageHTMLData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488191848.130463"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "-analysisHomePageHTMLData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488299631.506802"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "-timeSiceDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488299631.506802"
+            timestampString = "489480445.254765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "-remaningTime:endDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -168,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488299631.506802"
+            timestampString = "489480445.254765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "-timeSiceDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -184,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488299631.506802"
+            timestampString = "489480445.254765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "-timeSiceDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -200,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488299631.506802"
+            timestampString = "489480445.254765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
             landmarkName = "-timeSiceDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -216,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
-            timestampString = "488299631.506802"
+            timestampString = "489480445.254765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
             landmarkName = "-timeSiceDate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -280,12 +216,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "eViewer/ViewController/ArticleSimpleViewController.m"
-            timestampString = "489246370.747071"
+            timestampString = "489401351.124269"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "-scrollViewWillBeginDecelerating:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
+            timestampString = "489480445.254765"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "-analysisDetailPageHTMLData:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
+            timestampString = "489480445.254765"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "-analysisDetailPageHTMLData:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eViewer/HtmlTransfer/EVHTMLManager.m"
+            timestampString = "489480445.254765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "147"
             endingLineNumber = "147"
-            landmarkName = "-scrollViewWillBeginDecelerating:"
+            landmarkName = "-analysisDetailPageHTMLData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

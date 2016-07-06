@@ -45,6 +45,7 @@ PODS:
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
   - SVProgressHUD (2.0.3)
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -57,6 +58,7 @@ DEPENDENCIES:
   - Reveal-iOS-SDK
   - SDWebImage (~> 3.7)
   - SVProgressHUD
+  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -69,7 +71,8 @@ SPEC CHECKSUMS:
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 1065a231e7b9ad0cb3c3bacc20eefc08c4ca5556
+PODFILE CHECKSUM: 61d384365a669f96007b125739e082f437c05117
 
 COCOAPODS: 1.0.1

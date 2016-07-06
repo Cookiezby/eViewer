@@ -11,4 +11,5 @@ target 'eViewer' do
     pod 'REFrostedViewController', '~> 2.4'
     pod 'MJRefresh'
     pod 'pop'
+    pod 'TTTAttributedLabel'
 end

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		66904763BE1E8BD80CA274BA /* libPods-eViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B277C9AB12DA5061FC96973 /* libPods-eViewer.a */; };
 		7600C44C1D229EDC005C26C6 /* ArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */; };
+		760EDAC51D2CB96F00D64D0F /* PhotoGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */; };
 		762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */; };
 		76D80CB41D0FF141000D9E4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB31D0FF141000D9E4E /* main.m */; };
 		76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB61D0FF141000D9E4E /* AppDelegate.m */; };
@@ -39,6 +40,8 @@
 		73742F31F91E4902FB237753 /* Pods-eViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-eViewer/Pods-eViewer.release.xcconfig"; sourceTree = "<group>"; };
 		7600C44A1D229EDC005C26C6 /* ArticleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleDetailViewController.h; sourceTree = "<group>"; };
 		7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDetailViewController.m; sourceTree = "<group>"; };
+		760EDAC31D2CB96F00D64D0F /* PhotoGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoGallery.h; path = Model/PhotoGallery.h; sourceTree = "<group>"; };
+		760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGallery.m; path = Model/PhotoGallery.m; sourceTree = "<group>"; };
 		762B705A1D1EDA0F002F1BF6 /* EVSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVSideViewController.h; path = ViewController/SideMenu2/EVSideViewController.h; sourceTree = "<group>"; };
 		762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVSideViewController.m; path = ViewController/SideMenu2/EVSideViewController.m; sourceTree = "<group>"; };
 		76D80CAF1D0FF141000D9E4E /* eViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,6 +228,8 @@
 				76EA5B261D17D64400FEFF38 /* ArticleSimple.m */,
 				76EA5B281D17DC1E00FEFF38 /* ArticleDetail.h */,
 				76EA5B291D17DC1E00FEFF38 /* ArticleDetail.m */,
+				760EDAC31D2CB96F00D64D0F /* PhotoGallery.h */,
+				760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 				76F2EA901D24E32A0013D4E9 /* ArticleSimpleViewController.m in Sources */,
 				76D80CB41D0FF141000D9E4E /* main.m in Sources */,
 				76D80CCF1D0FF5A5000D9E4E /* HomeViewController.m in Sources */,
+				760EDAC51D2CB96F00D64D0F /* PhotoGallery.m in Sources */,
 				76FA849A1D1FCAF400BD0F22 /* DemoSecondViewController.m in Sources */,
 				76EA5B231D17C2AB00FEFF38 /* EVHTMLManager.m in Sources */,
 				76EA5B271D17D64400FEFF38 /* ArticleSimple.m in Sources */,
