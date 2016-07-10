@@ -12,6 +12,26 @@
 #import "ArticleSimple.h"
 #import "PhotoGallery.h"
 #import "ArticleDetail.h"
+#import <SDWebImage/SDWebImageManager.h>
+#import <YYText/YYText.h>
+
+
+#define IS_IMAGE [childElement.tagName isEqualToString:@"div"] && [[childElement objectForKey:@"style"] isEqualToString:@"text-align: center;"]
+
+typedef NS_ENUM(NSUInteger,ELEMENT_TYPE){
+    TEXT = 0,
+    LINK = 1,
+    IMAGE = 2,
+    GALLERY = 3
+};
+
+@interface EVHTMLManager()
+
+@property (strong,nonatomic) SDWebImageManager *sdManager;
+@property (nonatomic)ELEMENT_TYPE preElementType;
+
+@end
+
 
 const NSString *baseURL = @"http://cn.engadget.com/page";
 
@@ -20,7 +40,8 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
 - (instancetype)init{
     self = [super init];
     if(self){
-       
+        _sdManager = [SDWebImageManager sharedManager];
+        _preElementType = TEXT;
     }
     return self;
 }
@@ -133,6 +154,7 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     //DebugLog(@"%ld",childrenElements.count);
     
     NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
+    
     //there are 4 kinds of elements in the detail page
     //1 text
     //2 text with link
@@ -146,19 +168,56 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
         if([childElement.tagName isEqualToString:@"a"]){
             //DebugLog(@"%@",childElement.text);
             if(childElement.text.length > 0){
+                [detailText deleteCharactersInRange:NSMakeRange(detailText.length-2, 2)];
                 NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:childElement.text];
                 [str addAttribute: NSLinkAttributeName value: @"http://www.google.com" range: NSMakeRange(0, str.length)];
+                UIFont *font = [UIFont systemFontOfSize:17];
+                [str addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [str length])];
+
                 [detailText appendAttributedString:str];
+                _preElementType = LINK;
             }
         }
-        
-        //this is the text in the detail article
+              //this is the text in the detail article
         if([childElement isTextNode]){
             //DebugLog(@"%ld",idx);
-            //DebugLog(@"%@",childElement.content);
-            if(childElement.content.length > 0){
-                NSAttributedString *str = [[NSAttributedString alloc]initWithString:childElement.content];
-                [detailText appendAttributedString:str];
+            DebugLog(@"%@\n",childElement.content);
+            //DebugLog(@"------------ %ld",[childElement.content length]);
+        
+            if(childElement.content.length > 4){
+                
+                //NSMutableAttributedString *text = []
+                NSMutableString *rawString = [[NSMutableString alloc]initWithString:[childElement.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+               
+                //TFHppleElement *preElement = (TFHppleElement *)childrenElements[idx-1];
+                [rawString appendString:@"\n\n"];
+                
+                switch (_preElementType) {
+                    case LINK:
+                    case TEXT:
+                        break;
+                    case IMAGE:
+                    case GALLERY:
+                        [rawString insertString:@"\n\n" atIndex:0];
+                        break;
+                }
+                
+                NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:rawString];
+                NSDictionary *attribute = @{NSForegroundColorAttributeName:[UIColor darkGrayColor]};
+                [attributedString addAttributes:attribute range:NSMakeRange(0, attributedString.length)];
+                //NSAttributedString *str = [[NSAttributedString alloc]initWithString:attributedString attributes:attribute];
+                
+                UIFont *font = [UIFont systemFontOfSize:17];
+                [attributedString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [attributedString length])];
+                
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+                paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+                paragraphStyle.lineHeightMultiple = 1.4;
+                [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributedString length])];
+                [detailText appendAttributedString:attributedString];
+                
+                _preElementType = TEXT;
+                
             }
         }
         
@@ -167,6 +226,31 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
             //DebugLog(@"%ld",idx);
             TFHppleElement *imageElement = [childElement firstChildWithTagName:@"img"];
             if(imageElement){
+                NSString *imageSizeString = [imageElement objectForKey:@"style"];
+                CGSize imageSize = [self getImageSize:imageSizeString];
+                UIImage *image = [UIImage imageNamed:@"placeholder.png"];
+                NSTextAttachment *imgAttachment = [[NSTextAttachment alloc]init];
+                imgAttachment.image = image;
+                imgAttachment.bounds = CGRectMake(0,0, imageSize.width, imageSize.height);
+                
+                //DebugLog(@"height  = %f , width = %f",size.height,size.width);
+                
+                [detailText insertAttributedString:[NSAttributedString attributedStringWithAttachment:imgAttachment] atIndex:[detailText length]];
+                //UIFont *font = [UIFont systemFontOfSize:16];
+                //NSMutableAttributedString *attachment = [NSMutableAttributedString yy_attachmentStringWithContent:image contentMode:UIViewContentModeCenter attachmentSize:imageSize alignToFont:font alignment:YYTextVerticalAlignmentCenter];
+                
+                //[detailText appendAttributedString:attachment];
+                NSURL *imgURL = [[NSURL alloc]initWithString:[imageElement objectForKey:@"src"]];
+                [_sdManager downloadImageWithURL:(NSURL *)imgURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                    
+                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                    //DebugLog(@"width = %f,height = %f",image.size.width,image.size.height);
+                    //imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH, image.size.height/(image.size.width/SCREEN_WIDTH));
+                    imgAttachment.image = image;
+                }];
+                
+                _preElementType = IMAGE;
+                
                 //DebugLog(@"%@",[imageElement objectForKey:@"src"]);
             }
         }
@@ -202,6 +286,8 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
             NSInteger imageAmount = [(NSString *)stringArray[0] intValue];
             //DebugLog(@"%ld",imageAmount);
             gallery.imageAmount = imageAmount;
+            
+            _preElementType = GALLERY;
         }
         
         
@@ -214,7 +300,7 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     //DebugLog(@"%@",post_body.text);
     
     //DebugLog(@"%@",detailText.string);
-    
+    //return post_body.raw;
     return detailText;
 }
 
@@ -298,6 +384,17 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     }
     
     return @"";
+}
+
+- (CGSize)getImageSize:(NSString *)string{
+    NSArray *size = [string componentsSeparatedByString:@";"];
+    NSString *heightString = [size[0] componentsSeparatedByString:@": "][1];
+    NSString *widthString = [size[1]componentsSeparatedByString:@": "][1];
+    
+    NSInteger height = [[heightString substringWithRange:NSMakeRange(0, heightString.length-2)] intValue];
+    NSInteger width = [[widthString substringWithRange:NSMakeRange(0, widthString.length-2)] intValue];
+    
+    return CGSizeMake(SCREEN_WIDTH, height/(width/SCREEN_WIDTH));
 }
 
 

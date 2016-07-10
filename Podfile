@@ -12,4 +12,6 @@ target 'eViewer' do
     pod 'MJRefresh'
     pod 'pop'
     pod 'TTTAttributedLabel'
+    pod 'TYAttributedLabel', '~> 2.6.1'
+    pod 'YYText'
 end

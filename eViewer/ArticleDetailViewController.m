@@ -14,11 +14,8 @@
 
 @interface ArticleDetailViewController ()
 
-
 @property (strong, nonatomic) UIImageView *coverImageView;
 @property (strong, nonatomic) UITextView *testTextView;
-
-
 
 @end
 
@@ -26,27 +23,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor darkGrayColor];
     
     self.testTextView = ({
-        UITextView *textView = [[UITextView alloc]init];
+        UITextView *textView = [UITextView new];
         [self.view addSubview:textView];
+        textView.frame = CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT);
+        //textView.layoutManager.allowsNonContiguousLayout = NO;
         [textView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@10);
+            make.right.equalTo(@-10);
             make.top.equalTo(@0);
-            make.left.equalTo(@0);
-            make.right.equalTo(@0);
-            make.height.equalTo(@300);
+            make.bottom.equalTo(@0);
         }];
+        textView.textContainerInset = UIEdgeInsetsZero;
         textView.text = @"init text";
+        textView.editable = NO;
+        textView.textAlignment = NSTextAlignmentNatural;
         textView;
     });
     
     
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
-    /*[manager getDetailwithHandler:^(NSMutableAttributedString *string) {
-        self.testTextView.attributedText = string;
-    }];*/
-    
+    [manager getDetail:@"" withHandler:^(NSMutableAttributedString *string) {
+        self.testTextView.attributedText = [self setParagraph:string];
+        //DebugLog(@"%@",string.string);
+    }];
     
     // Do any additional setup after loading the view.
 }
@@ -54,6 +56,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSMutableAttributedString *)setParagraph:(NSMutableAttributedString *)attributeString{
+    //NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    //paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    //paragraphStyle.lineHeightMultiple = 1.4;
+    //[attributeString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributeString length])];
+    
+    
+    return attributeString;
 }
 
 /*
