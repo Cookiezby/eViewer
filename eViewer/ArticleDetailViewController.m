@@ -21,9 +21,10 @@
 
 @implementation ArticleDetailViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor darkGrayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.testTextView = ({
         UITextView *textView = [UITextView new];
@@ -31,7 +32,7 @@
         textView.frame = CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT);
         //textView.layoutManager.allowsNonContiguousLayout = NO;
         [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@10);
+            make.left.equalTo(@5);
             make.right.equalTo(@-10);
             make.top.equalTo(@0);
             make.bottom.equalTo(@0);
@@ -40,14 +41,17 @@
         textView.text = @"init text";
         textView.editable = NO;
         textView.textAlignment = NSTextAlignmentNatural;
+        textView.showsVerticalScrollIndicator = NO;
         textView;
     });
     
     
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
-    [manager getDetail:@"" withHandler:^(NSMutableAttributedString *string) {
-        self.testTextView.attributedText = [self setParagraph:string];
-        //DebugLog(@"%@",string.string);
+    [manager getDetail:self.simpleArticle.detailURL withHandler:^(NSMutableAttributedString *string) {
+        self.testTextView.attributedText = string;
+        DebugLog(@"%@",string.string);
+        
+        DebugLog(@"%f",self.testTextView.textContainer.size.height);
     }];
     
     // Do any additional setup after loading the view.

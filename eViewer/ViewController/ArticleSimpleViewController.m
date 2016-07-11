@@ -81,7 +81,7 @@ const static NSInteger REFRESH_HEIGHT = 50;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ArticleDetailViewController *detailViewController = [[ArticleDetailViewController alloc]init];
-    
+    detailViewController.simpleArticle = self.articleSimpleList[indexPath.row];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

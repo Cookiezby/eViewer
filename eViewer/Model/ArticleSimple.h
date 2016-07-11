@@ -14,5 +14,6 @@
 @property (strong, nonatomic) NSString *coverImageURL;
 @property (strong, nonatomic) NSString *author;
 @property (strong, nonatomic) NSString *postTime;
+@property (strong, nonatomic) NSString *detailURL;
 
 @end

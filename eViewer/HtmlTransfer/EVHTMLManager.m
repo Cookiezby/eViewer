@@ -14,21 +14,14 @@
 #import "ArticleDetail.h"
 #import <SDWebImage/SDWebImageManager.h>
 #import <YYText/YYText.h>
+#import <QuartzCore/QuartzCore.h>
 
 
 #define IS_IMAGE [childElement.tagName isEqualToString:@"div"] && [[childElement objectForKey:@"style"] isEqualToString:@"text-align: center;"]
 
-typedef NS_ENUM(NSUInteger,ELEMENT_TYPE){
-    TEXT = 0,
-    LINK = 1,
-    IMAGE = 2,
-    GALLERY = 3
-};
-
 @interface EVHTMLManager()
 
 @property (strong,nonatomic) SDWebImageManager *sdManager;
-@property (nonatomic)ELEMENT_TYPE preElementType;
 
 @end
 
@@ -41,7 +34,6 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     self = [super init];
     if(self){
         _sdManager = [SDWebImageManager sharedManager];
-        _preElementType = TEXT;
     }
     return self;
 }
@@ -64,14 +56,21 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
 }
 
 - (void)getDetail:(NSString *)url withHandler:(DetailPageCompleteHandler)handler{
-    NSString *URLString = @"http://cn.engadget.com/2016/07/05/backpaix-hands-on/";
-    NSURL *URL = [NSURL URLWithString:URLString];
+    //NSString *URLString = @"http://cn.engadget.com/2016/07/05/backpaix-hands-on/";
+    NSURL *URL = [NSURL URLWithString:url];
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
         //[self analysisHTMLData:responseObject];
-        handler([self analysisDetailPageHTMLData:responseObject]);
+        
+        if([self isReviewPage:url]){
+            
+        }else if([self isCommentPage:url]){
+            
+        }else{
+            handler([self analysisDetailPageHTMLData:responseObject]);
+        }
         //NSString *htmlString = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
         //DebugLog(@"%@",htmlString);
         
@@ -83,8 +82,8 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
 }
 
 - (void)getAllGalleryImage:(NSString *)url withCompleteHandler:(GalleryPageCompleteHandler)handler{
-    NSString *urlString = @"http://cn.engadget.com/gallery/backpaix/";
-    NSURL *URL = [NSURL URLWithString:urlString];
+    //NSString *urlString = @"http://cn.engadget.com/gallery/backpaix/";
+    NSURL *URL = [NSURL URLWithString:url];
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -133,6 +132,7 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
         
         ArticleSimple *articleSimple = [[ArticleSimple alloc]init];
         articleSimple.title = a.text;
+        articleSimple.detailURL = [a objectForKey:@"href"];
         articleSimple.coverImageURL = [element objectForKey:@"data-image"];
         articleSimple.postTime = [self timeSiceDate:[time objectForKey:@"datetime"]];
         articleSimple.author = author.text;
@@ -153,7 +153,7 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     NSArray *childrenElements = post_body.children;
     //DebugLog(@"%ld",childrenElements.count);
     
-    NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
+    NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]initWithString:@" "];
     
     //there are 4 kinds of elements in the detail page
     //1 text
@@ -163,100 +163,65 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     
     [childrenElements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         TFHppleElement *childElement = (TFHppleElement *)obj;
-        
+        //==============================================================
         //this is the link in the article (most time it is a part of the text, so we need to use the text
         if([childElement.tagName isEqualToString:@"a"]){
-            //DebugLog(@"%@",childElement.text);
             if(childElement.text.length > 0){
-                [detailText deleteCharactersInRange:NSMakeRange(detailText.length-2, 2)];
                 NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:childElement.text];
                 [str addAttribute: NSLinkAttributeName value: @"http://www.google.com" range: NSMakeRange(0, str.length)];
-                UIFont *font = [UIFont systemFontOfSize:17];
-                [str addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [str length])];
-
+                [detailText appendAttributedString:[self changeLineHeight:1.4 font:[UIFont systemFontOfSize:16] color:[UIColor blueColor] inAttributedString:str]];
                 [detailText appendAttributedString:str];
-                _preElementType = LINK;
-            }
-        }
-              //this is the text in the detail article
-        if([childElement isTextNode]){
-            //DebugLog(@"%ld",idx);
-            DebugLog(@"%@\n",childElement.content);
-            //DebugLog(@"------------ %ld",[childElement.content length]);
-        
-            if(childElement.content.length > 4){
-                
-                //NSMutableAttributedString *text = []
-                NSMutableString *rawString = [[NSMutableString alloc]initWithString:[childElement.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
                
-                //TFHppleElement *preElement = (TFHppleElement *)childrenElements[idx-1];
-                [rawString appendString:@"\n\n"];
-                
-                switch (_preElementType) {
-                    case LINK:
-                    case TEXT:
-                        break;
-                    case IMAGE:
-                    case GALLERY:
-                        [rawString insertString:@"\n\n" atIndex:0];
-                        break;
-                }
-                
-                NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:rawString];
-                NSDictionary *attribute = @{NSForegroundColorAttributeName:[UIColor darkGrayColor]};
-                [attributedString addAttributes:attribute range:NSMakeRange(0, attributedString.length)];
-                //NSAttributedString *str = [[NSAttributedString alloc]initWithString:attributedString attributes:attribute];
-                
-                UIFont *font = [UIFont systemFontOfSize:17];
-                [attributedString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [attributedString length])];
-                
-                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-                paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-                paragraphStyle.lineHeightMultiple = 1.4;
-                [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributedString length])];
-                [detailText appendAttributedString:attributedString];
-                
-                _preElementType = TEXT;
-                
             }
         }
-        
+        //==============================================================
+        if([childElement.tagName isEqualToString:@"s"]){
+            DebugLog(@"%@",childElement.text);
+        }
+        //==============================================================
+        //this is the text in the detail article
+        if([childElement isTextNode]){
+            DebugLog(@"%@",childElement.content);
+            NSMutableString *rawString = [[NSMutableString alloc]initWithString:childElement.content];
+            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:rawString];
+            [detailText appendAttributedString:[self changeLineHeight:1.4 font:[UIFont systemFontOfSize:16] color:[UIColor darkGrayColor] inAttributedString:attributedString]];
+        }
+        //==============================================================
         // this is the image element in the detail article
-        if([childElement.tagName isEqualToString:@"div"] && [[childElement objectForKey:@"style"] isEqualToString:@"text-align: center;"]){
-            //DebugLog(@"%ld",idx);
-            TFHppleElement *imageElement = [childElement firstChildWithTagName:@"img"];
+        if(([childElement.tagName isEqualToString:@"div"] && [[childElement objectForKey:@"style"] isEqualToString:@"text-align: center;"])||[childElement.tagName isEqualToString:@"img"]){
+                      TFHppleElement *imageElement;
+            if([childElement.tagName isEqualToString:@"img"]){
+                imageElement = childElement;
+            }else{
+                imageElement = [childElement firstChildWithTagName:@"img"];
+            }
+            
             if(imageElement){
-                NSString *imageSizeString = [imageElement objectForKey:@"style"];
-                CGSize imageSize = [self getImageSize:imageSizeString];
                 UIImage *image = [UIImage imageNamed:@"placeholder.png"];
                 NSTextAttachment *imgAttachment = [[NSTextAttachment alloc]init];
                 imgAttachment.image = image;
-                imgAttachment.bounds = CGRectMake(0,0, imageSize.width, imageSize.height);
+                CGSize imageSize;
+                NSString *imageSizeString = [imageElement objectForKey:@"style"];
+                if(imageSizeString){
+                    imageSize = [self getImageSize:imageSizeString];
+                }else{
+                    imageSize = CGSizeMake(0, 0);
+                }
+                imgAttachment.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
+                NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithAttributedString:[NSAttributedString attributedStringWithAttachment:imgAttachment]];
+                [detailText appendAttributedString:[self changeLineHeight:1.0 inAttributedString:attributedString]];
                 
-                //DebugLog(@"height  = %f , width = %f",size.height,size.width);
-                
-                [detailText insertAttributedString:[NSAttributedString attributedStringWithAttachment:imgAttachment] atIndex:[detailText length]];
-                //UIFont *font = [UIFont systemFontOfSize:16];
-                //NSMutableAttributedString *attachment = [NSMutableAttributedString yy_attachmentStringWithContent:image contentMode:UIViewContentModeCenter attachmentSize:imageSize alignToFont:font alignment:YYTextVerticalAlignmentCenter];
-                
-                //[detailText appendAttributedString:attachment];
                 NSURL *imgURL = [[NSURL alloc]initWithString:[imageElement objectForKey:@"src"]];
                 [_sdManager downloadImageWithURL:(NSURL *)imgURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                     
                 } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                    //DebugLog(@"width = %f,height = %f",image.size.width,image.size.height);
-                    //imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH, image.size.height/(image.size.width/SCREEN_WIDTH));
+                    imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
                     imgAttachment.image = image;
                 }];
-                
-                _preElementType = IMAGE;
-                
-                //DebugLog(@"%@",[imageElement objectForKey:@"src"]);
             }
         }
-        
+        //==============================================================
         //this is the gallery of this detail article (normally it has 1, or 2 galleries in one article)
-        
         if([childElement .tagName isEqualToString:@"div"] && [[childElement objectForKey:@"class"]isEqualToString:@"post-gallery"]){
             //DebugLog(@"%ld",idx);
             PhotoGallery *gallery = [[PhotoGallery alloc]init];
@@ -287,24 +252,31 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
             //DebugLog(@"%ld",imageAmount);
             gallery.imageAmount = imageAmount;
             
-            _preElementType = GALLERY;
+            NSMutableString *mutableString = [[NSMutableString alloc]init];
+            [mutableString appendString:[NSString stringWithFormat:@"%@\n",title]];
+            [mutableString appendString:@"浏览图集\n"];
+            [mutableString appendString:imageAmountText];
+            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:mutableString attributes:nil];
+            [detailText appendAttributedString:attributedString];
+            NSAttributedString *line = [[NSAttributedString alloc]initWithString:@"\n\n"];
+            [detailText insertAttributedString:line atIndex:0];
         }
-        
-        
-        
     }];
     
     
-    //[self getAllGalleryImage];
-    
-    //DebugLog(@"%@",post_body.text);
-    
-    //DebugLog(@"%@",detailText.string);
-    //return post_body.raw;
     return detailText;
 }
 
 
+- (NSMutableAttributedString *)analysisDetailReviewPage:(NSData *)data{
+    NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
+    return detailText;
+}
+
+- (NSMutableAttributedString *)analysisDetailCommentPage:(NSData *)data{
+    NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
+    return detailText;
+}
 
 
 - (NSMutableArray *)analysisGalleryPageHTMLData:(NSData *)data{
@@ -387,15 +359,51 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
 }
 
 - (CGSize)getImageSize:(NSString *)string{
-    NSArray *size = [string componentsSeparatedByString:@";"];
-    NSString *heightString = [size[0] componentsSeparatedByString:@": "][1];
-    NSString *widthString = [size[1]componentsSeparatedByString:@": "][1];
+    NSArray *size = [string componentsSeparatedByString:@"; "];
     
+    NSString *heightString;
+    NSString *widthString;
+    if([(NSString *)size[0] containsString:@"width"]){
+        heightString = [size[1] componentsSeparatedByString:@": "][1];
+        widthString = [size[0]componentsSeparatedByString:@": "][1];
+    }else{
+        heightString = [size[0] componentsSeparatedByString:@": "][1];
+        widthString = [size[1]componentsSeparatedByString:@": "][1];
+    }
     NSInteger height = [[heightString substringWithRange:NSMakeRange(0, heightString.length-2)] intValue];
     NSInteger width = [[widthString substringWithRange:NSMakeRange(0, widthString.length-2)] intValue];
     
-    return CGSizeMake(SCREEN_WIDTH, height/(width/SCREEN_WIDTH));
+    return CGSizeMake(SCREEN_WIDTH-10, height/(width/(SCREEN_WIDTH-10)));
 }
+
+- (BOOL)isReviewPage:(NSString *)url{
+    return [url containsString:@"-review"];
+}
+
+- (BOOL)isCommentPage:(NSString *)url{
+    return [url containsString:@"comments-of-the-week"];
+}
+
+- (NSMutableAttributedString *)changeLineHeight:(CGFloat)height font:(UIFont *)font color:(UIColor *)color inAttributedString:(NSMutableAttributedString *)attributedString{
+    
+    attributedString = [self changeLineHeight:height inAttributedString:attributedString];
+    
+    [attributedString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [attributedString length])];
+
+    NSDictionary *attribute = @{NSForegroundColorAttributeName:color};
+    [attributedString addAttributes:attribute range:NSMakeRange(0, attributedString.length)];
+
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)changeLineHeight:(CGFloat)height inAttributedString:(NSMutableAttributedString *)attributedString{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraphStyle.lineHeightMultiple = height;
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributedString length])];
+    return attributedString;
+}
+
 
 
 @end
