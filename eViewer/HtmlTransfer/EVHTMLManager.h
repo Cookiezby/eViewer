@@ -8,11 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol EVHTMLDelegate <NSObject>
+
+@required
+- (void)refreshTextViewAtRange:(NSRange)range;
+
+@end
+
 typedef void (^HomePageCompleteHandler)(NSMutableArray *array);
 typedef void (^DetailPageCompleteHandler)(NSMutableAttributedString *string);
 typedef void (^GalleryPageCompleteHandler)(NSMutableArray *array);
 
 @interface EVHTMLManager : NSObject
+
+
+
+@property (strong, nonatomic) id<EVHTMLDelegate>delegate;
 
 - (void)getPage:(NSInteger)page withHandler:(HomePageCompleteHandler)handler;
 - (void)getDetail:(NSString *)url withHandler:(DetailPageCompleteHandler)handler;
