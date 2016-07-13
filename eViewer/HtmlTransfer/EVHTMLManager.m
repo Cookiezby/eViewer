@@ -16,6 +16,7 @@
 #import <YYText/YYText.h>
 #import <QuartzCore/QuartzCore.h>
 
+#define TEXT_FONT [UIFont systemFontOfSize:15]
 
 #define IS_IMAGE [childElement.tagName isEqualToString:@"div"] && [[childElement objectForKey:@"style"] isEqualToString:@"text-align: center;"]
 
@@ -28,6 +29,7 @@
 
 
 const NSString *baseURL = @"http://cn.engadget.com/page";
+const NSString *engadgetHOST = @"http://cn.engadget.com";
 
 @implementation EVHTMLManager
 
@@ -41,13 +43,13 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
             paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
             paragraphStyle.lineHeightMultiple = 1.4;
-            NSDictionary *textAttribute = @{NSParagraphStyleAttributeName:paragraphStyle,NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor darkGrayColor]};
+            NSDictionary *textAttribute = @{NSParagraphStyleAttributeName:paragraphStyle,NSFontAttributeName:TEXT_FONT,NSForegroundColorAttributeName:[UIColor darkGrayColor]};
             dictionary[@"text"] = textAttribute;
             
-            NSDictionary *aAttribute = @{NSParagraphStyleAttributeName:paragraphStyle,NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor blueColor]};
+            NSDictionary *aAttribute = @{NSParagraphStyleAttributeName:paragraphStyle,NSFontAttributeName:TEXT_FONT,NSForegroundColorAttributeName:[UIColor blueColor]};
             dictionary[@"a"] = aAttribute;
             
-            NSDictionary *sAttribute =  @{NSParagraphStyleAttributeName:paragraphStyle, NSFontAttributeName:[UIFont systemFontOfSize:16],NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle),NSStrikethroughColorAttributeName:[UIColor darkGrayColor],NSForegroundColorAttributeName:[UIColor darkGrayColor]};
+            NSDictionary *sAttribute =  @{NSParagraphStyleAttributeName:paragraphStyle, NSFontAttributeName:TEXT_FONT,NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle),NSStrikethroughColorAttributeName:[UIColor darkGrayColor],NSForegroundColorAttributeName:[UIColor darkGrayColor]};
             dictionary[@"s"] = sAttribute;
             
             NSMutableParagraphStyle *imgParagraphStyle = [[NSMutableParagraphStyle alloc]init];
@@ -57,6 +59,9 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
             NSDictionary *imgAttribute = @{NSParagraphStyleAttributeName:imgParagraphStyle};
             dictionary[@"img"] = imgAttribute;
             
+            NSDictionary *h3Attribute =  @{NSParagraphStyleAttributeName:paragraphStyle, NSFontAttributeName:[UIFont boldSystemFontOfSize:20],NSForegroundColorAttributeName:[UIColor blackColor]};
+            dictionary[@"h3"] = h3Attribute;
+
             
             
             dictionary;
@@ -86,21 +91,18 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
 }
 
 - (void)getDetail:(NSString *)url withHandler:(DetailPageCompleteHandler)handler{
-    //NSString *URLString = @"http://cn.engadget.com/2016/07/05/backpaix-hands-on/";
-    NSURL *URL = [NSURL URLWithString:url];
+    //NSString *URLString = @"http://cn.engadget.com/2016/07/08/oneplus-3-review/";
+    NSString *URLString = @"http://cn.engadget.com/2016/07/10/comments-of-the-week-16-07-10/";
+    NSURL *URL = [NSURL URLWithString:URLString];
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
         //[self analysisHTMLData:responseObject];
         
-        if([self isReviewPage:url]){
-            
-        }else if([self isCommentPage:url]){
-            
-        }else{
-            handler([self analysisDetailPageHTMLData2:responseObject]);
-        }
+       
+        handler([self analysisDetailPageHTMLData2:responseObject]);
+        
         //NSString *htmlString = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
         //DebugLog(@"%@",htmlString);
         
@@ -482,10 +484,49 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     if(![element hasChildren]){
         [self addElement:element toAttributedString:attributedString];
     }else{
-        for (int i = 0; i < element.children.count; i++) {
-            [self depthSearch:element.children[i] addTo:attributedString];
+        if([[element objectForKey:@"class"]isEqualToString:@"post-gallery"]){
+            [self addPostGalleryElement:element toAttributedString:attributedString];
+        }else if([element.tagName isEqualToString:@"table"]){
+            [self addTable:element toAttributedString:attributedString];
+        }else{
+            for (int i = 0; i < element.children.count; i++) {
+                [self depthSearch:element.children[i] addTo:attributedString];
+            }
         }
     }
+}
+
+- (void)addTable:(TFHppleElement *)element toAttributedString:(NSAttributedString *)attributedString{
+    
+}
+
+- (void)addPostGalleryElement:(TFHppleElement *)element toAttributedString:(NSMutableAttributedString *)attributedString{
+    [element.children enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        TFHppleElement *child = (TFHppleElement *)obj;
+        NSString *className = [child objectForKey:@"class"];
+        
+        if([className isEqualToString:@"title"]||[className isEqualToString:@"more gallery-link"]||[className isEqualToString:@"photo-number"]){
+            NSMutableString *mutableString = [[NSMutableString alloc]initWithString:child.text];
+            [mutableString appendString:@"\n"];
+            NSMutableAttributedString *childAttributedString = [[NSMutableAttributedString alloc]initWithString:mutableString];
+
+            if([className isEqualToString:@"title"]){
+                [mutableString insertString:@"\n\n" atIndex:0];
+                 NSMutableAttributedString *childAttributedString = [[NSMutableAttributedString alloc]initWithString:mutableString];
+                [childAttributedString addAttributes:self.tagAttributeDictionary[@"text"] range:NSMakeRange(0, childAttributedString.length)];
+                [attributedString appendAttributedString:childAttributedString];
+            }else if([className isEqualToString:@"more gallery-link"]){
+                [childAttributedString addAttributes:self.tagAttributeDictionary[@"a"] range:NSMakeRange(0, childAttributedString.length)];
+                NSString *link = [NSString stringWithFormat:@"%@%@",engadgetHOST,[child objectForKey:@"href"]];
+                [childAttributedString addAttribute: NSLinkAttributeName value:link range: NSMakeRange(0, childAttributedString.length)];
+                [attributedString appendAttributedString:childAttributedString];
+            }else if([className isEqualToString:@"photo-number"]){
+                [childAttributedString addAttributes:self.tagAttributeDictionary[@"text"] range:NSMakeRange(0, childAttributedString.length)];
+                [attributedString appendAttributedString:childAttributedString];
+            }
+        }
+        
+    }];
 }
 
 - (void)addElement:(TFHppleElement *)element toAttributedString:(NSMutableAttributedString *)attributedString{
@@ -493,17 +534,30 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
     if([element isTextNode]){
         NSString *content = element.content;
         //DebugLog(@"%@ = %@",element.tagName,content);
-        /*if(idx == 0){
-            content = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        }*/
-        //DebugLog(@"%@",element.content);
+        //NSString *correctString = [NSString stringWithCString:[content cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
+        //NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
+        //NSString *str = [content stringByAddingPercentEncodingWithAllowedCharacters:set];
+        //DebugLog(@"%@",str);
+        if(content.length < 5){
+            content = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        }
+        
+        //NSMutableString *contentWithLineBreak = [[NSMutableString alloc]initWithString:content];
+        //[contentWithLineBreak appendString:@"\n"];
         NSMutableAttributedString *textAttributedString = [[NSMutableAttributedString alloc]initWithString:content];
-
         if([element.parent.tagName isEqualToString:@"a"]){
             //DebugLog(@"%@",element.content);
             [textAttributedString addAttributes:self.tagAttributeDictionary[@"a"] range:NSMakeRange(0, content.length)];
+             NSString *link = [NSString stringWithFormat:@"%@",[element.parent objectForKey:@"href"]];
+            //DebugLog(@"%@",link);
+            [textAttributedString addAttribute: NSLinkAttributeName value:link range: NSMakeRange(0, textAttributedString.length)];
         }else if([element.parent.tagName isEqualToString:@"s"]){
             [textAttributedString addAttributes:self.tagAttributeDictionary[@"s"] range:NSMakeRange(0, content.length)];
+            if([element.parent.parent.tagName isEqualToString:@"a"]){
+                [textAttributedString addAttributes:self.tagAttributeDictionary[@"a"] range:NSMakeRange(0, content.length)];
+            }
+        }else if([element.parent.tagName isEqualToString:@"h3"]){
+            [textAttributedString addAttributes:self.tagAttributeDictionary[@"h3"] range:NSMakeRange(0, content.length)];
         }else{
             [textAttributedString addAttributes:self.tagAttributeDictionary[@"text"] range:NSMakeRange(0, content.length)];
         }
@@ -518,15 +572,9 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
         UIImage *image = [UIImage imageNamed:@"placeholder.png"];
         NSTextAttachment *imgAttachment = [[NSTextAttachment alloc]init];
         imgAttachment.image = image;
-        CGSize imageSize;
-        NSString *imageSizeString = [element objectForKey:@"style"];
-        if(imageSizeString){
-            imageSize = [self getImageSize:imageSizeString];
-        }else{
-            imageSize = CGSizeMake(0, 0);
-        }
-        
-        DebugLog(@"location = %ld",attributedString.length);
+        CGSize imageSize = CGSizeMake(SCREEN_WIDTH-10, 150);
+    
+        NSRange range = NSMakeRange(attributedString.length, 1);
         
         imgAttachment.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
         NSMutableAttributedString *imgAttributedString = [[NSMutableAttributedString alloc]initWithAttributedString:[NSAttributedString attributedStringWithAttachment:imgAttachment]];
@@ -541,26 +589,11 @@ const NSString *baseURL = @"http://cn.engadget.com/page";
             imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
             DebugLog(@"%f %f",imgAttachment.bounds.size.width,imgAttachment.bounds.size.height);
             imgAttachment.image = image;
-            [self.delegate refreshTextViewAtRange:[self rangeOfAttachment:imgAttachment in:attributedString]];
+            [self.delegate refreshTextViewAtRange:range];
         }];
     }
     
 }
-
-- (NSRange)rangeOfAttachment:(NSTextAttachment *)attachment in:(NSMutableAttributedString *)attributedString {
-    __block NSRange ret;
-    [attributedString enumerateAttribute:NSAttachmentAttributeName
-                                 inRange:NSMakeRange(0, attributedString.length)
-                                 options:0
-                              usingBlock:^(id value, NSRange range, BOOL *stop) {
-                                  if (attachment == value) {
-                                      ret = range;
-                                      *stop = YES;
-                                  }
-                              }];
-    return ret;
-}
-
 
 
 @end

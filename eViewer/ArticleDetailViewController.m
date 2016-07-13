@@ -40,7 +40,7 @@
         textView.textContainerInset = UIEdgeInsetsZero;
         textView.text = @"init text";
         textView.editable = NO;
-        textView.textAlignment = NSTextAlignmentNatural;
+        textView.textAlignment = NSTextAlignmentJustified;
         textView.showsVerticalScrollIndicator = NO;
         textView;
     });
