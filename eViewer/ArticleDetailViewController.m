@@ -78,9 +78,13 @@
 - (void)refreshTextViewAtRange:(NSRange)range{
     DebugLog(@"refresh");
     DebugLog(@"%ld,%ld",range.location,range.length);
-    [self.testTextView.layoutManager invalidateLayoutForCharacterRange:range actualCharacterRange:nil];
+    //[self.testTextView.layoutManager invalidateLayoutForCharacterRange:range actualCharacterRange:NULL];
+   
 }
 
+- (void)refresImageAtRange:(NSRange)range toSize:(CGSize)size{
+    [self.testTextView.layoutManager setAttachmentSize:size forGlyphRange:range];
+}
 
 /*
 #pragma mark - Navigation

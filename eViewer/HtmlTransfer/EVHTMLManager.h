@@ -11,7 +11,7 @@
 @protocol EVHTMLDelegate <NSObject>
 
 @required
-- (void)refreshTextViewAtRange:(NSRange)range;
+- (void)refresImageAtRange:(NSRange)range toSize:(CGSize)size;
 
 @end
 

@@ -16,10 +16,7 @@
 #import <YYText/YYText.h>
 #import <QuartzCore/QuartzCore.h>
 
-#define TEXT_FONT [UIFont systemFontOfSize:15]
-
-#define IS_IMAGE [childElement.tagName isEqualToString:@"div"] && [[childElement objectForKey:@"style"] isEqualToString:@"text-align: center;"]
-
+#define TEXT_FONT [UIFont systemFontOfSize:16]
 @interface EVHTMLManager()
 
 @property (strong,nonatomic) SDWebImageManager *sdManager;
@@ -59,11 +56,16 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
             NSDictionary *imgAttribute = @{NSParagraphStyleAttributeName:imgParagraphStyle};
             dictionary[@"img"] = imgAttribute;
             
-            NSDictionary *h3Attribute =  @{NSParagraphStyleAttributeName:paragraphStyle, NSFontAttributeName:[UIFont boldSystemFontOfSize:20],NSForegroundColorAttributeName:[UIColor blackColor]};
+            NSDictionary *h3Attribute =  @{NSParagraphStyleAttributeName:paragraphStyle, NSFontAttributeName:[UIFont boldSystemFontOfSize:20],NSForegroundColorAttributeName:[UIColor darkGrayColor]};
             dictionary[@"h3"] = h3Attribute;
+            
+            NSDictionary *strongAttribute = @{NSParagraphStyleAttributeName:paragraphStyle, NSFontAttributeName:[UIFont boldSystemFontOfSize:16],NSForegroundColorAttributeName:[UIColor darkGrayColor]};
+            dictionary[@"strong"] = strongAttribute;
+            
+            
+            NSDictionary *imgDescriotionAttribute = @{NSParagraphStyleAttributeName:paragraphStyle, NSFontAttributeName:[UIFont boldSystemFontOfSize:13],NSForegroundColorAttributeName:[UIColor darkGrayColor]};
+            dictionary[@"imgDp"] = imgDescriotionAttribute;
 
-            
-            
             dictionary;
         });
     }
@@ -71,9 +73,6 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 }
 
 #pragma mark - Interface
-
-
-
 
 - (void)getPage:(NSInteger)page withHandler:(HomePageCompleteHandler)handler{
     NSString *URLString = [NSString stringWithFormat:@"%@/%ld/",baseURL,page];
@@ -92,23 +91,14 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 
 - (void)getDetail:(NSString *)url withHandler:(DetailPageCompleteHandler)handler{
     //NSString *URLString = @"http://cn.engadget.com/2016/07/08/oneplus-3-review/";
-    NSString *URLString = @"http://cn.engadget.com/2016/07/10/comments-of-the-week-16-07-10/";
-    NSURL *URL = [NSURL URLWithString:URLString];
-    
+    //NSString *URLString = @"http://cn.engadget.com/2016/07/04/samsung-galaxy-c5-review/";
+    NSURL *URL = [NSURL URLWithString:url];
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
-        //[self analysisHTMLData:responseObject];
-        
-       
         handler([self analysisDetailPageHTMLData2:responseObject]);
-        
-        //NSString *htmlString = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        //DebugLog(@"%@",htmlString);
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
-        NSLog(@"失败");
     }];
 
 }
@@ -155,13 +145,6 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         
         TFHppleElement *time = [byline firstChildWithTagName:@"time"];
         
-        /*
-         DebugLog(@"%@",a.text);
-         DebugLog(@"%@",[element objectForKey:@"data-image"]);// Get the cover Image
-         DebugLog(@"%@",author.text);
-         DebugLog(@"%@",[self timeSiceDate:[time objectForKey:@"datetime"]]);
-         */
-        
         ArticleSimple *articleSimple = [[ArticleSimple alloc]init];
         articleSimple.title = a.text;
         articleSimple.detailURL = [a objectForKey:@"href"];
@@ -175,185 +158,25 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 }
 
 
-
-- (NSMutableAttributedString *)analysisDetailPageHTMLData:(NSData *)data{
-    TFHpple *parser = [[TFHpple alloc]initWithHTMLData:data];
-    NSString *articleTextQuery = @"//div[@itemprop='text']";
-    NSArray *elements = [parser searchWithXPathQuery:articleTextQuery];
-    TFHppleElement *post_body = elements[0];
-    
-    NSArray *childrenElements = post_body.children;
-    //DebugLog(@"%ld",childrenElements.count);
-    
-    NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
-    
-    //there are 4 kinds of elements in the detail page
-    //1 text
-    //2 text with link
-    //3 image
-    //4 image gallery (we need to take out the thumb image (most time 6 pieces)
-    
-    [childrenElements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        TFHppleElement *childElement = (TFHppleElement *)obj;
-        //==============================================================
-        //this is the link in the article (most time it is a part of the text, so we need to use the text
-        if([childElement.tagName isEqualToString:@"a"]){
-#warning  a标签里面也会有图片哦
-            if(childElement.text.length > 0){
-                NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:childElement.text];
-                [str addAttribute: NSLinkAttributeName value: @"http://www.google.com" range: NSMakeRange(0, str.length)];
-                [detailText appendAttributedString:[self changeLineHeight:1.4 font:[UIFont systemFontOfSize:16] color:[UIColor blueColor] inAttributedString:str]];
-                [detailText appendAttributedString:str];
-               
-            }
-        }
-        //==============================================================
-        if([childElement.tagName isEqualToString:@"s"]){
-            DebugLog(@"%@",childElement.text);
-            NSDictionary *attributeDict = @{NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle),NSStrikethroughColorAttributeName:[UIColor darkGrayColor],NSForegroundColorAttributeName:[UIColor darkGrayColor]};
-            NSAttributedString *attributedString = [[NSAttributedString alloc]initWithString:childElement.text attributes:attributeDict];
-            [detailText appendAttributedString:attributedString];
-        }
-        //==============================================================
-        //this is the text in the detail article
-        if([childElement isTextNode]){
-            
-            NSString *content = childElement.content;
-            if(idx == 0){
-                content = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            }
-            
-            DebugLog(@"%@",childElement.content);
-            NSMutableString *rawString = [[NSMutableString alloc]initWithString:content];
-            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:rawString];
-            [detailText appendAttributedString:[self changeLineHeight:1.4 font:[UIFont systemFontOfSize:16] color:[UIColor darkGrayColor] inAttributedString:attributedString]];
-        }
-        //==============================================================
-        // this is the image element in the detail article
-        
-        
-        
-        
-        
-        
-        
-        if(([childElement.tagName isEqualToString:@"div"] && [[childElement objectForKey:@"style"] isEqualToString:@"text-align: center;"])||[childElement.tagName isEqualToString:@"img"]){
-                      TFHppleElement *imageElement;
-            if([childElement.tagName isEqualToString:@"img"]){
-                imageElement = childElement;
-            }else{
-                imageElement = [childElement firstChildWithTagName:@"img"];
-            }
-            
-            if(imageElement){
-                UIImage *image = [UIImage imageNamed:@"placeholder.png"];
-                NSTextAttachment *imgAttachment = [[NSTextAttachment alloc]init];
-                imgAttachment.image = image;
-                CGSize imageSize;
-                NSString *imageSizeString = [imageElement objectForKey:@"style"];
-                if(imageSizeString){
-                    imageSize = [self getImageSize:imageSizeString];
-                }else{
-                    imageSize = CGSizeMake(0, 0);
-                }
-                imgAttachment.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
-                NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithAttributedString:[NSAttributedString attributedStringWithAttachment:imgAttachment]];
-                [detailText appendAttributedString:[self changeLineHeight:1.0 inAttributedString:attributedString]];
-                
-                NSURL *imgURL = [[NSURL alloc]initWithString:[imageElement objectForKey:@"src"]];
-                [_sdManager downloadImageWithURL:(NSURL *)imgURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                    
-                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                    imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
-                    imgAttachment.image = image;
-                }];
-            }
-        }
-        //==============================================================
-        //this is the gallery of this detail article (normally it has 1, or 2 galleries in one article)
-        if([childElement .tagName isEqualToString:@"div"] && [[childElement objectForKey:@"class"]isEqualToString:@"post-gallery"]){
-            //DebugLog(@"%ld",idx);
-            PhotoGallery *gallery = [[PhotoGallery alloc]init];
-            NSString *title = [childElement firstChildWithClassName:@"title"].text;
-            gallery.galleryTitle = title;
-            //DebugLog(@"%@",title);
-            
-            NSMutableArray *thumbnialImageLinkList = [[NSMutableArray alloc]init];
-            TFHppleElement *thumbs = [childElement firstChildWithClassName:@"thumbs"];
-            NSArray *thumbList = thumbs.children;
-            [thumbList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                TFHppleElement *thumb = (TFHppleElement *)obj;
-                if([thumb.tagName isEqualToString:@"li"]){
-                    NSString *link = [[[thumb firstChildWithClassName:@"gallery-link"]firstChildWithTagName:@"img"]objectForKey:@"src"];
-                    //DebugLog(@"%@",link);
-                    [thumbnialImageLinkList addObject:link];
-                }
-            }];
-            gallery.thumbImageLinkList = [NSArray arrayWithArray:thumbnialImageLinkList];
-            
-            NSString *moreImageLink = [[childElement firstChildWithClassName:@"more gallery-link"] objectForKey:@"href"];
-            //DebugLog(@"more = %@",moreImageLink);
-            gallery.galleryLink = moreImageLink;
-            
-            NSString *imageAmountText = [childElement firstChildWithClassName:@"photo-number"].text;
-            NSArray *stringArray = [imageAmountText componentsSeparatedByString:@" "];
-            NSInteger imageAmount = [(NSString *)stringArray[0] intValue];
-            //DebugLog(@"%ld",imageAmount);
-            gallery.imageAmount = imageAmount;
-            
-            NSMutableString *mutableString = [[NSMutableString alloc]init];
-            [mutableString appendString:[NSString stringWithFormat:@"%@\n",title]];
-            [mutableString appendString:@"浏览图集\n"];
-            [mutableString appendString:imageAmountText];
-            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:mutableString attributes:nil];
-            [detailText appendAttributedString:attributedString];
-            NSAttributedString *line = [[NSAttributedString alloc]initWithString:@"\n\n"];
-            [detailText insertAttributedString:line atIndex:0];
-        }
-    }];
-    
-    
-    return detailText;
-}
-
-
 - (NSMutableAttributedString *)analysisDetailPageHTMLData2:(NSData *)data{
     TFHpple *parser = [[TFHpple alloc]initWithHTMLData:data];
     NSString *articleTextQuery = @"//div[@itemprop='text']";
     NSArray *elements = [parser searchWithXPathQuery:articleTextQuery];
     TFHppleElement *post_body = elements[0];
-    
     NSArray *childrenElements = post_body.children;
     NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
-    
-    
     [childrenElements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         /**
          * Content这个 标签里面的子标签只有两种可能，1 TextNode 2 非TextNode， TextNode比较好处理，非TextNode需要不断的去遍历他的子标签，直到这个标签没有子标签为止，然后根据tag去处理这个标签的样式
          */
         TFHppleElement *child = (TFHppleElement *)obj;
         [self depthSearch:child addTo:detailText];
-        
     }];
     
 
     return detailText;
 
 }
-
-
-
-
-- (NSMutableAttributedString *)analysisDetailReviewPage:(NSData *)data{
-    NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
-    return detailText;
-}
-
-- (NSMutableAttributedString *)analysisDetailCommentPage:(NSData *)data{
-    NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
-    return detailText;
-}
-
 
 - (NSMutableArray *)analysisGalleryPageHTMLData:(NSData *)data{
     NSMutableArray *imageLinkList = [[NSMutableArray alloc]init];
@@ -488,6 +311,8 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
             [self addPostGalleryElement:element toAttributedString:attributedString];
         }else if([element.tagName isEqualToString:@"table"]){
             [self addTable:element toAttributedString:attributedString];
+        }else if([[element objectForKey:@"class"]isEqualToString:@"read-more"]){
+            //忽略这个标签
         }else{
             for (int i = 0; i < element.children.count; i++) {
                 [self depthSearch:element.children[i] addTo:attributedString];
@@ -542,8 +367,6 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
             content = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         }
         
-        //NSMutableString *contentWithLineBreak = [[NSMutableString alloc]initWithString:content];
-        //[contentWithLineBreak appendString:@"\n"];
         NSMutableAttributedString *textAttributedString = [[NSMutableAttributedString alloc]initWithString:content];
         if([element.parent.tagName isEqualToString:@"a"]){
             //DebugLog(@"%@",element.content);
@@ -558,6 +381,8 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
             }
         }else if([element.parent.tagName isEqualToString:@"h3"]){
             [textAttributedString addAttributes:self.tagAttributeDictionary[@"h3"] range:NSMakeRange(0, content.length)];
+        }else if([element.parent.tagName isEqualToString:@"strong"]){
+            [textAttributedString addAttributes:self.tagAttributeDictionary[@"strong"] range:NSMakeRange(0, content.length)];
         }else{
             [textAttributedString addAttributes:self.tagAttributeDictionary[@"text"] range:NSMakeRange(0, content.length)];
         }
@@ -572,7 +397,7 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         UIImage *image = [UIImage imageNamed:@"placeholder.png"];
         NSTextAttachment *imgAttachment = [[NSTextAttachment alloc]init];
         imgAttachment.image = image;
-        CGSize imageSize = CGSizeMake(SCREEN_WIDTH-10, 150);
+        CGSize imageSize = CGSizeMake(SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
     
         NSRange range = NSMakeRange(attributedString.length, 1);
         
@@ -585,15 +410,16 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         [_sdManager downloadImageWithURL:(NSURL *)imgURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-           
             imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
             DebugLog(@"%f %f",imgAttachment.bounds.size.width,imgAttachment.bounds.size.height);
             imgAttachment.image = image;
-            [self.delegate refreshTextViewAtRange:range];
+            [self.delegate refresImageAtRange:range toSize:imgAttachment.bounds.size];
         }];
     }
     
 }
+
+
 
 
 @end
