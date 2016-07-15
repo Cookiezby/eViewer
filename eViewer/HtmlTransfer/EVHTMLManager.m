@@ -13,8 +13,7 @@
 #import "PhotoGallery.h"
 #import "ArticleDetail.h"
 #import <SDWebImage/SDWebImageManager.h>
-#import <YYText/YYText.h>
-#import <QuartzCore/QuartzCore.h>
+#import "UIImage+Compress.h"
 
 #define TEXT_FONT [UIFont systemFontOfSize:16]
 @interface EVHTMLManager()
@@ -40,6 +39,7 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
             paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
             paragraphStyle.lineHeightMultiple = 1.4;
+            paragraphStyle.alignment = NSTextAlignmentJustified;
             NSDictionary *textAttribute = @{NSParagraphStyleAttributeName:paragraphStyle,NSFontAttributeName:TEXT_FONT,NSForegroundColorAttributeName:[UIColor darkGrayColor]};
             dictionary[@"text"] = textAttribute;
             
@@ -52,12 +52,14 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
             NSMutableParagraphStyle *imgParagraphStyle = [[NSMutableParagraphStyle alloc]init];
             imgParagraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
             imgParagraphStyle.lineHeightMultiple = 1.0;
+            imgParagraphStyle.alignment = NSTextAlignmentNatural;
 
             NSDictionary *imgAttribute = @{NSParagraphStyleAttributeName:imgParagraphStyle};
             dictionary[@"img"] = imgAttribute;
             
             NSDictionary *h3Attribute =  @{NSParagraphStyleAttributeName:paragraphStyle, NSFontAttributeName:[UIFont boldSystemFontOfSize:20],NSForegroundColorAttributeName:[UIColor darkGrayColor]};
             dictionary[@"h3"] = h3Attribute;
+            
             
             NSDictionary *strongAttribute = @{NSParagraphStyleAttributeName:paragraphStyle, NSFontAttributeName:[UIFont boldSystemFontOfSize:16],NSForegroundColorAttributeName:[UIColor darkGrayColor]};
             dictionary[@"strong"] = strongAttribute;
@@ -109,9 +111,11 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
+    __weak __typeof__(self) weakSelf = self;
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
         //[self analysisGalleryPageHTMLData:responseObject];
-        handler([self analysisGalleryPageHTMLData:responseObject]);
+        __strong __typeof(self) strongSelf = weakSelf;
+        handler([strongSelf analysisGalleryPageHTMLData:responseObject]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
         NSLog(@"失败");
@@ -165,12 +169,14 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     TFHppleElement *post_body = elements[0];
     NSArray *childrenElements = post_body.children;
     NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc]init];
+    __weak __typeof__(self) weakSelf = self;
     [childrenElements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         /**
          * Content这个 标签里面的子标签只有两种可能，1 TextNode 2 非TextNode， TextNode比较好处理，非TextNode需要不断的去遍历他的子标签，直到这个标签没有子标签为止，然后根据tag去处理这个标签的样式
          */
+        __strong __typeof(self) strongSelf = weakSelf;
         TFHppleElement *child = (TFHppleElement *)obj;
-        [self depthSearch:child addTo:detailText];
+        [strongSelf depthSearch:child addTo:detailText];
     }];
     
 
@@ -240,7 +246,7 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     days = [components day];
     hour=[components hour];
     minutes=[components minute];
-    DebugLog(@"%@",startDate);
+    //DebugLog(@"%@",startDate);
     
     if(days>0){
         return [NSString stringWithFormat:@"%ld天前",days];
@@ -257,51 +263,6 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     return @"";
 }
 
-- (CGSize)getImageSize:(NSString *)string{
-    NSArray *size = [string componentsSeparatedByString:@"; "];
-    
-    NSString *heightString;
-    NSString *widthString;
-    if([(NSString *)size[0] containsString:@"width"]){
-        heightString = [size[1] componentsSeparatedByString:@": "][1];
-        widthString = [size[0]componentsSeparatedByString:@": "][1];
-    }else{
-        heightString = [size[0] componentsSeparatedByString:@": "][1];
-        widthString = [size[1]componentsSeparatedByString:@": "][1];
-    }
-    NSInteger height = [[heightString substringWithRange:NSMakeRange(0, heightString.length-2)] intValue];
-    NSInteger width = [[widthString substringWithRange:NSMakeRange(0, widthString.length-2)] intValue];
-    
-    return CGSizeMake(SCREEN_WIDTH-10, height/(width/(SCREEN_WIDTH-10)));
-}
-
-- (BOOL)isReviewPage:(NSString *)url{
-    return [url containsString:@"-review"];
-}
-
-- (BOOL)isCommentPage:(NSString *)url{
-    return [url containsString:@"comments-of-the-week"];
-}
-
-- (NSMutableAttributedString *)changeLineHeight:(CGFloat)height font:(UIFont *)font color:(UIColor *)color inAttributedString:(NSMutableAttributedString *)attributedString{
-    
-    attributedString = [self changeLineHeight:height inAttributedString:attributedString];
-    
-    [attributedString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [attributedString length])];
-
-    NSDictionary *attribute = @{NSForegroundColorAttributeName:color};
-    [attributedString addAttributes:attribute range:NSMakeRange(0, attributedString.length)];
-
-    return attributedString;
-}
-
-- (NSMutableAttributedString *)changeLineHeight:(CGFloat)height inAttributedString:(NSMutableAttributedString *)attributedString{
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraphStyle.lineHeightMultiple = height;
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributedString length])];
-    return attributedString;
-}
 
 - (void)depthSearch:(TFHppleElement *)element addTo:(NSMutableAttributedString *)attributedString{
     if(![element hasChildren]){
@@ -326,7 +287,9 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 }
 
 - (void)addPostGalleryElement:(TFHppleElement *)element toAttributedString:(NSMutableAttributedString *)attributedString{
+    __weak __typeof__(self) weakSelf = self;
     [element.children enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        __strong __typeof__(self) strongSelf = weakSelf;
         TFHppleElement *child = (TFHppleElement *)obj;
         NSString *className = [child objectForKey:@"class"];
         
@@ -338,15 +301,15 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
             if([className isEqualToString:@"title"]){
                 [mutableString insertString:@"\n\n" atIndex:0];
                  NSMutableAttributedString *childAttributedString = [[NSMutableAttributedString alloc]initWithString:mutableString];
-                [childAttributedString addAttributes:self.tagAttributeDictionary[@"text"] range:NSMakeRange(0, childAttributedString.length)];
+                [childAttributedString addAttributes:strongSelf.tagAttributeDictionary[@"text"] range:NSMakeRange(0, childAttributedString.length)];
                 [attributedString appendAttributedString:childAttributedString];
             }else if([className isEqualToString:@"more gallery-link"]){
-                [childAttributedString addAttributes:self.tagAttributeDictionary[@"a"] range:NSMakeRange(0, childAttributedString.length)];
+                [childAttributedString addAttributes:strongSelf.tagAttributeDictionary[@"a"] range:NSMakeRange(0, childAttributedString.length)];
                 NSString *link = [NSString stringWithFormat:@"%@%@",engadgetHOST,[child objectForKey:@"href"]];
                 [childAttributedString addAttribute: NSLinkAttributeName value:link range: NSMakeRange(0, childAttributedString.length)];
                 [attributedString appendAttributedString:childAttributedString];
             }else if([className isEqualToString:@"photo-number"]){
-                [childAttributedString addAttributes:self.tagAttributeDictionary[@"text"] range:NSMakeRange(0, childAttributedString.length)];
+                [childAttributedString addAttributes:strongSelf.tagAttributeDictionary[@"text"] range:NSMakeRange(0, childAttributedString.length)];
                 [attributedString appendAttributedString:childAttributedString];
             }
         }
@@ -407,17 +370,33 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         [attributedString appendAttributedString:imgAttributedString];
         
         NSURL *imgURL = [[NSURL alloc]initWithString:[element objectForKey:@"src"]];
-        [_sdManager downloadImageWithURL:(NSURL *)imgURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        
+        
+        if([_sdManager diskImageExistsForURL:imgURL]){
+            //imgAttachment.bounds = CGRectMake(0, 0, 300, 100);
+            UIImage *cachedImage = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:[_sdManager cacheKeyForURL:imgURL]];
+            imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, cachedImage.size.height/(cachedImage.size.width/(SCREEN_WIDTH-10)));
+            UIImage *compressedImage = [cachedImage compressByRatio:0.5 toSize:imgAttachment.bounds.size];
+            imgAttachment.image = compressedImage;
             
-        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-            imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
-            DebugLog(@"%f %f",imgAttachment.bounds.size.width,imgAttachment.bounds.size.height);
-            imgAttachment.image = image;
-            [self.delegate refresImageAtRange:range toSize:imgAttachment.bounds.size];
-        }];
+        }else{
+            [_sdManager downloadImageWithURL:(NSURL *)imgURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                //show the download process here
+            } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
+                //DebugLog(@"%f %f",imgAttachment.bounds.size.width,imgAttachment.bounds.size.height);
+                UIImage *compressedImage = [image compressByRatio:0.5 toSize:imgAttachment.bounds.size];
+                imgAttachment.image = compressedImage;
+                [[SDImageCache sharedImageCache]removeImageForKey:[_sdManager cacheKeyForURL:imgURL] fromDisk:YES];
+                [[SDImageCache sharedImageCache]storeImage:compressedImage forKey:[_sdManager cacheKeyForURL:imgURL] toDisk:YES];
+                [self.delegate refresImageAtRange:range toSize:imgAttachment.bounds.size];
+            }];
+        }
     }
     
 }
+
+
 
 
 

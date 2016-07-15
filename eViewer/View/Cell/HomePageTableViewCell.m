@@ -18,6 +18,7 @@
             UIImageView *imageView = [[UIImageView alloc]init];
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.clipsToBounds = YES;
+            //[imageView stopAnimating];
             [self.contentView addSubview:imageView];
             [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(@0);

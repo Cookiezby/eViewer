@@ -10,12 +10,13 @@
 #import <TTTAttributedLabel.h>
 #import "EVHTMLManager.h"
 #import "Masonry.h"
-
+#import <YYText/YYText.h>
 
 @interface ArticleDetailViewController () <EVHTMLDelegate>
 
 @property (strong, nonatomic) UIImageView *coverImageView;
 @property (strong, nonatomic) UITextView *testTextView;
+
 
 @end
 
@@ -40,7 +41,7 @@
         textView.textContainerInset = UIEdgeInsetsZero;
         textView.text = @"init text";
         textView.editable = NO;
-        textView.textAlignment = NSTextAlignmentJustified;
+        //textView.textAlignment = NSTextAlignmentJustified;
         textView.showsVerticalScrollIndicator = NO;
         textView;
     });
@@ -48,11 +49,9 @@
     
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     manager.delegate = self;
+    
     [manager getDetail:self.simpleArticle.detailURL withHandler:^(NSMutableAttributedString *string) {
         self.testTextView.attributedText = string;
-        //DebugLog(@"%@",string.string);
-        
-        //DebugLog(@"%f",self.testTextView.textContainer.size.height);
     }];
     
     // Do any additional setup after loading the view.
@@ -75,14 +74,19 @@
 
 
 #pragma mark - EVHTMLDelegate
-- (void)refreshTextViewAtRange:(NSRange)range{
+/*- (void)refreshTextViewAtRange:(NSRange)range{
     DebugLog(@"refresh");
     DebugLog(@"%ld,%ld",range.location,range.length);
     //[self.testTextView.layoutManager invalidateLayoutForCharacterRange:range actualCharacterRange:NULL];
    
-}
+}*/
 
 - (void)refresImageAtRange:(NSRange)range toSize:(CGSize)size{
+    //[self.testTextView.layoutManager setAttachmentSize:size forGlyphRange:range];
+    //[self.testTextView.layoutManager ensureLayoutForCharacterRange:range];
+    //[self.testTextView setNeedsDisplay];
+    
+    [self.testTextView.layoutManager invalidateLayoutForCharacterRange:range actualCharacterRange:NULL];
     [self.testTextView.layoutManager setAttachmentSize:size forGlyphRange:range];
 }
 
