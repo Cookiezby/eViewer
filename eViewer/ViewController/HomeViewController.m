@@ -148,7 +148,6 @@
     }
 }
 
-
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if((scrollView.contentOffset.y + scrollView.frame.size.height - 20) >= scrollView.contentSize.height){
         [UIView animateWithDuration:0.5f animations:^{

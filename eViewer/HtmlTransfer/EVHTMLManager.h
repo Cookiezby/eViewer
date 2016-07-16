@@ -16,7 +16,7 @@
 @end
 
 typedef void (^HomePageCompleteHandler)(NSMutableArray *array);
-typedef void (^DetailPageCompleteHandler)(NSMutableAttributedString *string);
+typedef void (^DetailPageCompleteHandler)(NSMutableAttributedString *string, NSMutableArray* galleryLinkList);
 typedef void (^GalleryPageCompleteHandler)(NSMutableArray *array);
 
 @interface EVHTMLManager : NSObject

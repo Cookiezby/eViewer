@@ -14,12 +14,16 @@
 #import "ArticleDetail.h"
 #import <SDWebImage/SDWebImageManager.h>
 #import "UIImage+Compress.h"
+#import "NSString+DateTransfer.h"
+
+const static CGFloat IMAGE_COMPRESS_RATIO = 0.8;
 
 #define TEXT_FONT [UIFont systemFontOfSize:16]
 @interface EVHTMLManager()
 
 @property (strong,nonatomic) SDWebImageManager *sdManager;
 @property (strong,nonatomic) NSMutableDictionary *tagAttributeDictionary;
+@property (strong,nonatomic) NSMutableArray *galleryLinkList;
 
 @end
 
@@ -33,6 +37,7 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     self = [super init];
     if(self){
         _sdManager = [SDWebImageManager sharedManager];
+        _galleryLinkList = [[NSMutableArray alloc]init];
         _tagAttributeDictionary  = ({
             NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
             
@@ -92,13 +97,13 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 }
 
 - (void)getDetail:(NSString *)url withHandler:(DetailPageCompleteHandler)handler{
-    //NSString *URLString = @"http://cn.engadget.com/2016/07/08/oneplus-3-review/";
+    NSString *URLString = @"http://cn.engadget.com/2016/07/08/oneplus-3-review/";
     //NSString *URLString = @"http://cn.engadget.com/2016/07/04/samsung-galaxy-c5-review/";
-    NSURL *URL = [NSURL URLWithString:url];
+    NSURL *URL = [NSURL URLWithString:URLString];
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
-        handler([self analysisDetailPageHTMLData2:responseObject]);
+        handler([self analysisDetailPageHTMLData2:responseObject],self.galleryLinkList);
      } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
     }];
@@ -153,7 +158,7 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         articleSimple.title = a.text;
         articleSimple.detailURL = [a objectForKey:@"href"];
         articleSimple.coverImageURL = [element objectForKey:@"data-image"];
-        articleSimple.postTime = [self timeSiceDate:[time objectForKey:@"datetime"]];
+        articleSimple.postTime = [NSString timeSiceDate:[time objectForKey:@"datetime"]];
         articleSimple.author = author.text;
         [articleLists addObject:articleSimple];
     }
@@ -179,7 +184,6 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         [strongSelf depthSearch:child addTo:detailText];
     }];
     
-
     return detailText;
 
 }
@@ -207,62 +211,6 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 
 
 
-#pragma mark - TimeHelper
-
-- (NSString *)timeSiceDate:(NSString *)string{
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"EEEE, dd MM yyyy HH:mm:ss"];
-    [format setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-    //原文的格式 最后是5位时区信息，这边截取后，将时间转化为GMT时间
-    NSRange range = NSMakeRange(0, string.length-6);
-    NSString *dateString = [string substringWithRange:range];
-    
-    NSDate *myDate = [format dateFromString:dateString];
-    
-    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT-4:00"];
-    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
-
-    NSDate *sourceDate = myDate;
-    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
-    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
-    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
-    
-    NSDate* destinationDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:sourceDate];
-    
-    
-    return [self remaningTime:destinationDate endDate:[NSDate date]];
-}
-
-
-- (NSString *)remaningTime:(NSDate*)startDate endDate:(NSDate*)endDate{
-    
-    NSDateComponents *components;
-    NSInteger days;
-    NSInteger hour;
-    NSInteger minutes;
-    
-    components = [[NSCalendar currentCalendar] components: NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute
-                                                 fromDate: startDate toDate: endDate options: 0];
-    days = [components day];
-    hour=[components hour];
-    minutes=[components minute];
-    //DebugLog(@"%@",startDate);
-    
-    if(days>0){
-        return [NSString stringWithFormat:@"%ld天前",days];
-    }
-    
-    if(hour>0){
-        return [NSString stringWithFormat:@"%ld小时前",hour];
-    }
-    
-    if(minutes>0){
-        return [NSString stringWithFormat:@"%ld分钟前",minutes];
-    }
-    
-    return @"";
-}
-
 
 - (void)depthSearch:(TFHppleElement *)element addTo:(NSMutableAttributedString *)attributedString{
     if(![element hasChildren]){
@@ -288,6 +236,9 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 
 - (void)addPostGalleryElement:(TFHppleElement *)element toAttributedString:(NSMutableAttributedString *)attributedString{
     __weak __typeof__(self) weakSelf = self;
+    
+    NSMutableArray *galleryLinkList = [[NSMutableArray alloc]init];
+    
     [element.children enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         __strong __typeof__(self) strongSelf = weakSelf;
         TFHppleElement *child = (TFHppleElement *)obj;
@@ -306,6 +257,7 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
             }else if([className isEqualToString:@"more gallery-link"]){
                 [childAttributedString addAttributes:strongSelf.tagAttributeDictionary[@"a"] range:NSMakeRange(0, childAttributedString.length)];
                 NSString *link = [NSString stringWithFormat:@"%@%@",engadgetHOST,[child objectForKey:@"href"]];
+                [galleryLinkList addObject:link];
                 [childAttributedString addAttribute: NSLinkAttributeName value:link range: NSMakeRange(0, childAttributedString.length)];
                 [attributedString appendAttributedString:childAttributedString];
             }else if([className isEqualToString:@"photo-number"]){
@@ -315,6 +267,8 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         }
         
     }];
+    
+    [self.galleryLinkList addObjectsFromArray:galleryLinkList];
 }
 
 - (void)addElement:(TFHppleElement *)element toAttributedString:(NSMutableAttributedString *)attributedString{
@@ -374,18 +328,19 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         
         if([_sdManager diskImageExistsForURL:imgURL]){
             //imgAttachment.bounds = CGRectMake(0, 0, 300, 100);
+            //DebugLog(@"Exist");
             UIImage *cachedImage = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:[_sdManager cacheKeyForURL:imgURL]];
             imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, cachedImage.size.height/(cachedImage.size.width/(SCREEN_WIDTH-10)));
-            UIImage *compressedImage = [cachedImage compressByRatio:0.5 toSize:imgAttachment.bounds.size];
+            UIImage *compressedImage = [UIImage compressImage:cachedImage ByRatio:IMAGE_COMPRESS_RATIO toSize:cachedImage.size];
             imgAttachment.image = compressedImage;
-            
+            //[self.delegate refresImageAtRange:range toSize:imgAttachment.bounds.size];
         }else{
             [_sdManager downloadImageWithURL:(NSURL *)imgURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                 //show the download process here
             } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
                 //DebugLog(@"%f %f",imgAttachment.bounds.size.width,imgAttachment.bounds.size.height);
-                UIImage *compressedImage = [image compressByRatio:0.5 toSize:imgAttachment.bounds.size];
+                UIImage *compressedImage = [UIImage compressImage:image ByRatio:IMAGE_COMPRESS_RATIO toSize:imgAttachment.bounds.size];
                 imgAttachment.image = compressedImage;
                 [[SDImageCache sharedImageCache]removeImageForKey:[_sdManager cacheKeyForURL:imgURL] fromDisk:YES];
                 [[SDImageCache sharedImageCache]storeImage:compressedImage forKey:[_sdManager cacheKeyForURL:imgURL] toDisk:YES];
@@ -395,6 +350,8 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     }
     
 }
+
+
 
 
 

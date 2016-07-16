@@ -151,6 +151,7 @@ const static NSInteger REFRESH_HEIGHT = 50;
         CGPoint finalContentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.frame.size.height + REFRESH_HEIGHT);
         
         [UIView animateWithDuration:0.5f animations:^{
+            self.collectionView.scrollEnabled = NO;
             [self.collectionView setContentOffset:finalContentOffset animated:NO];
         } completion:^(BOOL finished) {
             EVHTMLManager *manager = [[EVHTMLManager alloc]init];
@@ -160,6 +161,7 @@ const static NSInteger REFRESH_HEIGHT = 50;
                 [self.articleSimpleList addObjectsFromArray:array];
                 [self.collectionView reloadData];
                 [SVProgressHUD dismiss];
+                self.collectionView.scrollEnabled = YES;
             }];
         }];
     }
@@ -180,8 +182,7 @@ const static NSInteger REFRESH_HEIGHT = 50;
     
     CGPoint contentOffset = scrollView.contentOffset;
     
-    [UIView animateWithDuration:0.2 animations:^
-     {
+    [UIView animateWithDuration:0.2 animations:^{
          scrollView.contentInset = loadingInset;
          scrollView.contentOffset = contentOffset;
      }];

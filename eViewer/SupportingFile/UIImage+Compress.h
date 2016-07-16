@@ -10,6 +10,6 @@
 
 @interface UIImage (Compress)
 
-- (UIImage *)compressByRatio:(CGFloat)ratio toSize:(CGSize)size;
++ (UIImage *)compressImage:(UIImage *)sourceImage ByRatio:(CGFloat)ratio toSize:(CGSize)size;
 
 @end

@@ -11,11 +11,13 @@
 #import "EVHTMLManager.h"
 #import "Masonry.h"
 #import <YYText/YYText.h>
+#import "PhotoGalleryViewController.h"
 
-@interface ArticleDetailViewController () <EVHTMLDelegate>
+@interface ArticleDetailViewController () <EVHTMLDelegate,UITextViewDelegate>
 
 @property (strong, nonatomic) UIImageView *coverImageView;
 @property (strong, nonatomic) UITextView *testTextView;
+@property (strong, nonatomic) NSMutableArray *galleryLinkList;
 
 
 @end
@@ -41,6 +43,7 @@
         textView.textContainerInset = UIEdgeInsetsZero;
         textView.text = @"init text";
         textView.editable = NO;
+        textView.delegate = self;
         //textView.textAlignment = NSTextAlignmentJustified;
         textView.showsVerticalScrollIndicator = NO;
         textView;
@@ -50,8 +53,10 @@
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     manager.delegate = self;
     
-    [manager getDetail:self.simpleArticle.detailURL withHandler:^(NSMutableAttributedString *string) {
+    [manager getDetail:self.simpleArticle.detailURL withHandler:^(NSMutableAttributedString *string, NSMutableArray *galleryLinkList) {
         self.testTextView.attributedText = string;
+        self.galleryLinkList = galleryLinkList;
+        DebugLog(@"%ld",galleryLinkList.count);
     }];
     
     // Do any additional setup after loading the view.
@@ -89,6 +94,25 @@
     [self.testTextView.layoutManager invalidateLayoutForCharacterRange:range actualCharacterRange:NULL];
     [self.testTextView.layoutManager setAttachmentSize:size forGlyphRange:range];
 }
+
+
+#pragma mark UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
+    for(int i = 0; i < self.galleryLinkList.count; i++){
+        NSString *link = (NSString *)self.galleryLinkList[i];
+        if([[URL absoluteString]isEqualToString:link]){
+            PhotoGalleryViewController * test = [[PhotoGalleryViewController alloc]init];
+            //[self presentViewController:test animated:YES completion:nil];
+            [self.navigationController pushViewController:test animated:YES];
+            DebugLog(@"%@",[URL absoluteString]);
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
 
 /*
 #pragma mark - Navigation
