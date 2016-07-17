@@ -13,6 +13,7 @@
 #import <SDWebImage/SDWebImageManager.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "EVHTMLManager.h"
+#import "ZPhotoReviewViewController.h"
 
 @interface PhotoGalleryViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -57,7 +58,6 @@
         collectionView;
     });
     
-    
     self.navigationItem.title = self.photoGallery.galleryTitle;
     
     
@@ -89,6 +89,12 @@
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     return 1;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    DebugLog(@"try to presntation");
+    ZPhotoReviewViewController *toView = [[ZPhotoReviewViewController alloc]init];
+    [self presentViewController:toView animated:YES completion:nil];
 }
 
 #pragma mark - UICollectionViewdataSource

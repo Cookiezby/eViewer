@@ -23,6 +23,9 @@
 		761637081D3A8235001A2CDF /* PhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */; };
 		762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */; };
 		76C9FB891D3B45F0007B60A7 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C9FB881D3B45F0007B60A7 /* PhotoCollectionViewCell.m */; };
+		76C9FB8D1D3BC9DA007B60A7 /* ZPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C9FB8C1D3BC9DA007B60A7 /* ZPresentationController.m */; };
+		76C9FB901D3BCB8D007B60A7 /* ZPhotoReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C9FB8F1D3BCB8D007B60A7 /* ZPhotoReviewViewController.m */; };
+		76C9FB931D3BCBBB007B60A7 /* ZPresentationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C9FB921D3BCBBB007B60A7 /* ZPresentationAnimator.m */; };
 		76D80CB41D0FF141000D9E4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB31D0FF141000D9E4E /* main.m */; };
 		76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB61D0FF141000D9E4E /* AppDelegate.m */; };
 		76D80CBD1D0FF141000D9E4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D80CBB1D0FF141000D9E4E /* Main.storyboard */; };
@@ -75,6 +78,12 @@
 		762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVSideViewController.m; path = ViewController/SideMenu2/EVSideViewController.m; sourceTree = "<group>"; };
 		76C9FB871D3B45F0007B60A7 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoCollectionViewCell.h; path = View/PhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		76C9FB881D3B45F0007B60A7 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoCollectionViewCell.m; path = View/PhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		76C9FB8B1D3BC9DA007B60A7 /* ZPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZPresentationController.h; path = ViewController/PhotoReview/ZPresentationController.h; sourceTree = "<group>"; };
+		76C9FB8C1D3BC9DA007B60A7 /* ZPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZPresentationController.m; path = ViewController/PhotoReview/ZPresentationController.m; sourceTree = "<group>"; };
+		76C9FB8E1D3BCB8D007B60A7 /* ZPhotoReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZPhotoReviewViewController.h; path = ViewController/PhotoReview/ZPhotoReviewViewController.h; sourceTree = "<group>"; };
+		76C9FB8F1D3BCB8D007B60A7 /* ZPhotoReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZPhotoReviewViewController.m; path = ViewController/PhotoReview/ZPhotoReviewViewController.m; sourceTree = "<group>"; };
+		76C9FB911D3BCBBB007B60A7 /* ZPresentationAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZPresentationAnimator.h; path = ViewController/PhotoReview/ZPresentationAnimator.h; sourceTree = "<group>"; };
+		76C9FB921D3BCBBB007B60A7 /* ZPresentationAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZPresentationAnimator.m; path = ViewController/PhotoReview/ZPresentationAnimator.m; sourceTree = "<group>"; };
 		76D80CAF1D0FF141000D9E4E /* eViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D80CB31D0FF141000D9E4E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		76D80CB51D0FF141000D9E4E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -158,6 +167,19 @@
 			name = SideMenu2;
 			sourceTree = "<group>";
 		};
+		76C9FB8A1D3BC98E007B60A7 /* PhotoReview */ = {
+			isa = PBXGroup;
+			children = (
+				76C9FB8B1D3BC9DA007B60A7 /* ZPresentationController.h */,
+				76C9FB8C1D3BC9DA007B60A7 /* ZPresentationController.m */,
+				76C9FB8E1D3BCB8D007B60A7 /* ZPhotoReviewViewController.h */,
+				76C9FB8F1D3BCB8D007B60A7 /* ZPhotoReviewViewController.m */,
+				76C9FB911D3BCBBB007B60A7 /* ZPresentationAnimator.h */,
+				76C9FB921D3BCBBB007B60A7 /* ZPresentationAnimator.m */,
+			);
+			name = PhotoReview;
+			sourceTree = "<group>";
+		};
 		76D80CA61D0FF141000D9E4E = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +237,7 @@
 		76D80CCC1D0FF544000D9E4E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				76C9FB8A1D3BC98E007B60A7 /* PhotoReview */,
 				762B70561D1CD17C002F1BF6 /* SideMenu2 */,
 				76D80CD21D0FF738000D9E4E /* SideMenu */,
 				76D80CCD1D0FF5A5000D9E4E /* HomeViewController.h */,
@@ -451,6 +474,7 @@
 			files = (
 				762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */,
 				76FA84921D1FAE8B00BD0F22 /* DemoHomeViewController.m in Sources */,
+				76C9FB8D1D3BC9DA007B60A7 /* ZPresentationController.m in Sources */,
 				7600C44C1D229EDC005C26C6 /* ArticleDetailViewController.m in Sources */,
 				76F2EA8D1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.m in Sources */,
 				76D80CD81D0FF7D8000D9E4E /* ESideViewController.m in Sources */,
@@ -458,6 +482,7 @@
 				76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */,
 				761636F51D38AA15001A2CDF /* GalleryDrawer.m in Sources */,
 				76EA5B691D190B8900FEFF38 /* UIColor+expanded.m in Sources */,
+				76C9FB901D3BCB8D007B60A7 /* ZPhotoReviewViewController.m in Sources */,
 				76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */,
 				76EA5B631D18DCFA00FEFF38 /* HomePageTableViewCell.m in Sources */,
 				76F2EA901D24E32A0013D4E9 /* ArticleSimpleViewController.m in Sources */,
@@ -474,6 +499,7 @@
 				761637051D3A39F8001A2CDF /* TestView.m in Sources */,
 				76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */,
 				76D80CC01D0FF141000D9E4E /* eViewer.xcdatamodeld in Sources */,
+				76C9FB931D3BCBBB007B60A7 /* ZPresentationAnimator.m in Sources */,
 				761636EF1D37776D001A2CDF /* UIImage+Compress.m in Sources */,
 				76EA5B2A1D17DC1E00FEFF38 /* ArticleDetail.m in Sources */,
 				76FA84951D1FAF4F00BD0F22 /* EVNaviViewController.m in Sources */,

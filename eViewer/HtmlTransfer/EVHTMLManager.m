@@ -120,8 +120,8 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         //[self analysisGalleryPageHTMLData:responseObject];
         NSDictionary *dict = [self analysisGalleryPageHTMLData:responseObject];
         
-        NSString *result = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        DebugLog(@"%@",result);
+        //NSString *result = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        //DebugLog(@"%@",result);
         handler(dict[@"fullSize"],dict[@"thumbSize"]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
