@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PhotoGallery.h"
 
 @interface PhotoGalleryViewController : UIViewController
 
 @property (strong, nonatomic) NSString *galleryLink;
-@property (nonatomic) NSInteger *photoAmount;
+@property (nonatomic) NSInteger photoAmount;
+@property (strong, nonatomic) NSString *navigationTitle;
+
+@property (strong, nonatomic)PhotoGallery *photoGallery;
 
 @end

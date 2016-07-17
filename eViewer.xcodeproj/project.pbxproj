@@ -22,6 +22,7 @@
 		761637051D3A39F8001A2CDF /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637041D3A39F8001A2CDF /* TestView.m */; };
 		761637081D3A8235001A2CDF /* PhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */; };
 		762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */; };
+		76C9FB891D3B45F0007B60A7 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C9FB881D3B45F0007B60A7 /* PhotoCollectionViewCell.m */; };
 		76D80CB41D0FF141000D9E4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB31D0FF141000D9E4E /* main.m */; };
 		76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D80CB61D0FF141000D9E4E /* AppDelegate.m */; };
 		76D80CBD1D0FF141000D9E4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D80CBB1D0FF141000D9E4E /* Main.storyboard */; };
@@ -72,6 +73,8 @@
 		761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGalleryViewController.m; path = ViewController/PhotoGalleryViewController.m; sourceTree = "<group>"; };
 		762B705A1D1EDA0F002F1BF6 /* EVSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVSideViewController.h; path = ViewController/SideMenu2/EVSideViewController.h; sourceTree = "<group>"; };
 		762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVSideViewController.m; path = ViewController/SideMenu2/EVSideViewController.m; sourceTree = "<group>"; };
+		76C9FB871D3B45F0007B60A7 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoCollectionViewCell.h; path = View/PhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		76C9FB881D3B45F0007B60A7 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoCollectionViewCell.m; path = View/PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		76D80CAF1D0FF141000D9E4E /* eViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D80CB31D0FF141000D9E4E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		76D80CB51D0FF141000D9E4E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -289,6 +292,8 @@
 				76EA5B621D18DCFA00FEFF38 /* HomePageTableViewCell.m */,
 				76F2EA8B1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.h */,
 				76F2EA8C1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.m */,
+				76C9FB871D3B45F0007B60A7 /* PhotoCollectionViewCell.h */,
+				76C9FB881D3B45F0007B60A7 /* PhotoCollectionViewCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -465,6 +470,7 @@
 				76EA5B231D17C2AB00FEFF38 /* EVHTMLManager.m in Sources */,
 				76EA5B271D17D64400FEFF38 /* ArticleSimple.m in Sources */,
 				76FA848F1D1FADAB00BD0F22 /* EVMenuViewController.m in Sources */,
+				76C9FB891D3B45F0007B60A7 /* PhotoCollectionViewCell.m in Sources */,
 				761637051D3A39F8001A2CDF /* TestView.m in Sources */,
 				76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */,
 				76D80CC01D0FF141000D9E4E /* eViewer.xcdatamodeld in Sources */,

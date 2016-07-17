@@ -12,12 +12,13 @@
 #import "Masonry.h"
 #import <YYText/YYText.h>
 #import "PhotoGalleryViewController.h"
+#import "PhotoGallery.h"
 
 @interface ArticleDetailViewController () <EVHTMLDelegate,UITextViewDelegate>
 
 @property (strong, nonatomic) UIImageView *coverImageView;
 @property (strong, nonatomic) UITextView *testTextView;
-@property (strong, nonatomic) NSMutableArray *galleryLinkList;
+@property (strong, nonatomic) NSMutableArray *galleryList;
 
 
 @end
@@ -53,10 +54,10 @@
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     manager.delegate = self;
     
-    [manager getDetail:self.simpleArticle.detailURL withHandler:^(NSMutableAttributedString *string, NSMutableArray *galleryLinkList) {
+    [manager getDetail:self.simpleArticle.detailURL withHandler:^(NSMutableAttributedString *string, NSMutableArray *galleryList) {
         self.testTextView.attributedText = string;
-        self.galleryLinkList = galleryLinkList;
-        DebugLog(@"%ld",galleryLinkList.count);
+        self.galleryList = galleryList;
+        DebugLog(@"%ld",galleryList.count);
     }];
     
     // Do any additional setup after loading the view.
@@ -99,12 +100,22 @@
 #pragma mark UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
-    for(int i = 0; i < self.galleryLinkList.count; i++){
-        NSString *link = (NSString *)self.galleryLinkList[i];
+    for(int i = 0; i < self.galleryList.count; i++){
+        PhotoGallery *photoGallery = self.galleryList[i];
+        NSString *link = photoGallery.galleryLink;
+        DebugLog(@"%@",link);
         if([[URL absoluteString]isEqualToString:link]){
-            PhotoGalleryViewController * test = [[PhotoGalleryViewController alloc]init];
+            
+            /*EVHTMLManager *manager = [[EVHTMLManager alloc]init];
+            [manager getAllGalleryImage:@"" withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
+                
+                
+                
+            }];*/
+            PhotoGalleryViewController * photoGalleyViewController = [[PhotoGalleryViewController alloc]init];
+            photoGalleyViewController.photoGallery = photoGallery;
             //[self presentViewController:test animated:YES completion:nil];
-            [self.navigationController pushViewController:test animated:YES];
+            [self.navigationController pushViewController:photoGalleyViewController animated:YES];
             DebugLog(@"%@",[URL absoluteString]);
             return NO;
         }

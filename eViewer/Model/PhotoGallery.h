@@ -11,8 +11,9 @@
 @interface PhotoGallery : NSObject
 
 @property (strong, nonatomic) NSString *galleryTitle;
-@property (nonatomic) NSInteger imageAmount;
-@property (strong, nonatomic) NSArray *thumbImageLinkList;
+@property (strong, nonatomic) NSMutableArray *thumbImageLinkList;
+@property (strong, nonatomic) NSMutableArray *fullSizeLinkList;
 @property (strong, nonatomic) NSString *galleryLink;
+@property (nonatomic) NSInteger photoAmount;
 
 @end

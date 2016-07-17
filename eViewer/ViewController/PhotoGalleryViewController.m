@@ -9,10 +9,17 @@
 #import "PhotoGalleryViewController.h"
 #import "Masonry.h"
 #import "ArticleSimpleCollectionViewCell.h"
+#import "PhotoCollectionViewCell.h"
+#import <SDWebImage/SDWebImageManager.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "EVHTMLManager.h"
 
 @interface PhotoGalleryViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (strong, nonatomic) UICollectionView *collectionView;
+@property (strong, nonatomic) SDWebImageManager *manager;
+@property (strong, nonatomic) NSMutableArray *thumbLinkList;
+@property (strong, nonatomic) NSMutableArray *fullSizeImageLinkList;
 
 @end
 
@@ -21,7 +28,8 @@
 - (instancetype)init{
     self = [super init];
     if(self){
-           }
+        _manager = [SDWebImageManager sharedManager];
+    }
     return self;
 }
 
@@ -30,24 +38,17 @@
     [super viewDidLoad];
     _collectionView = ({
         
+        CGFloat imageSize = (SCREEN_WIDTH-5)/4;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        layout.itemSize = CGSizeMake(SCREEN_WIDTH-10,100);
-        layout.minimumLineSpacing = 10;
-        
+        layout.itemSize = CGSizeMake(imageSize,imageSize);
+        //flow.minimumLineSpacing = 0;
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:layout];
         [self.view addSubview:collectionView];
-        [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@0);
-            make.left.equalTo(@0);
-            make.right.equalTo(@0);
-            make.bottom.equalTo(@0);
-        }];
-        
         //CollectionView Setting
-        
+        collectionView.contentInset = UIEdgeInsetsMake(0, 1, 0, 1);
         collectionView.backgroundColor = TABLE_VIEW_BACKGROUND_COLOR;
-        [collectionView registerClass:[ArticleSimpleCollectionViewCell class] forCellWithReuseIdentifier:@"ArticleSimpleCell"];
+        [collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
         collectionView.showsVerticalScrollIndicator = NO;
         //collectionView.bounces = NO;
         [self.view addSubview:collectionView];
@@ -55,7 +56,19 @@
         collectionView.dataSource = self;
         collectionView;
     });
-
+    
+    
+    self.navigationItem.title = self.photoGallery.galleryTitle;
+    
+    
+    
+    EVHTMLManager *manager = [[EVHTMLManager alloc]init];
+    [manager getAllGalleryImage:self.photoGallery.galleryLink withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
+        //self.photoAmount = thumbArray.count;
+        self.thumbLinkList = thumbArray;
+        self.fullSizeImageLinkList = fullSizeArray;
+        [self.collectionView reloadData];
+    }];
     
     //self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
@@ -70,6 +83,14 @@
 
 #pragma mark - UICollectionViewDelegate
 
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return 1;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return 1;
+}
+
 #pragma mark - UICollectionViewdataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -77,11 +98,16 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 20;
+    return self.photoGallery.photoAmount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    ArticleSimpleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ArticleSimpleCell" forIndexPath:indexPath];
+    PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+
+    [cell.imageView sd_setImageWithURL:self.thumbLinkList[indexPath.item] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        //DebugLog(@"ok");
+    }];
+    
     return cell;
 }
 
