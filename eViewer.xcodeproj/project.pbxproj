@@ -22,6 +22,8 @@
 		761637051D3A39F8001A2CDF /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637041D3A39F8001A2CDF /* TestView.m */; };
 		761637081D3A8235001A2CDF /* PhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */; };
 		762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */; };
+		763227061D3C8DA300676027 /* PlaceHolderSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 763227051D3C8DA300676027 /* PlaceHolderSquare.png */; };
+		768F27AF1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 768F27AE1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.m */; };
 		76C9FB891D3B45F0007B60A7 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C9FB881D3B45F0007B60A7 /* PhotoCollectionViewCell.m */; };
 		76C9FB8D1D3BC9DA007B60A7 /* ZPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C9FB8C1D3BC9DA007B60A7 /* ZPresentationController.m */; };
 		76C9FB901D3BCB8D007B60A7 /* ZPhotoReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C9FB8F1D3BCB8D007B60A7 /* ZPhotoReviewViewController.m */; };
@@ -76,6 +78,9 @@
 		761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGalleryViewController.m; path = ViewController/PhotoGalleryViewController.m; sourceTree = "<group>"; };
 		762B705A1D1EDA0F002F1BF6 /* EVSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVSideViewController.h; path = ViewController/SideMenu2/EVSideViewController.h; sourceTree = "<group>"; };
 		762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVSideViewController.m; path = ViewController/SideMenu2/EVSideViewController.m; sourceTree = "<group>"; };
+		763227051D3C8DA300676027 /* PlaceHolderSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHolderSquare.png; sourceTree = "<group>"; };
+		768F27AD1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZPhotoCollectionViewCell.h; path = View/Cell/ZPhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		768F27AE1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZPhotoCollectionViewCell.m; path = View/Cell/ZPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		76C9FB871D3B45F0007B60A7 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoCollectionViewCell.h; path = View/PhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		76C9FB881D3B45F0007B60A7 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoCollectionViewCell.m; path = View/PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		76C9FB8B1D3BC9DA007B60A7 /* ZPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZPresentationController.h; path = ViewController/PhotoReview/ZPresentationController.h; sourceTree = "<group>"; };
@@ -317,6 +322,8 @@
 				76F2EA8C1D24E1BF0013D4E9 /* ArticleSimpleCollectionViewCell.m */,
 				76C9FB871D3B45F0007B60A7 /* PhotoCollectionViewCell.h */,
 				76C9FB881D3B45F0007B60A7 /* PhotoCollectionViewCell.m */,
+				768F27AD1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.h */,
+				768F27AE1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -324,6 +331,7 @@
 		76EA5B641D18F8F200FEFF38 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				763227051D3C8DA300676027 /* PlaceHolderSquare.png */,
 				761637011D3A30A4001A2CDF /* 2.jpg */,
 				761636FB1D3A3095001A2CDF /* 3.jpg */,
 				761636FC1D3A3095001A2CDF /* 4.jpg */,
@@ -408,6 +416,7 @@
 				76D80CC51D0FF141000D9E4E /* LaunchScreen.storyboard in Resources */,
 				761637021D3A30A4001A2CDF /* 2.jpg in Resources */,
 				76EA5B661D18F91400FEFF38 /* placeholder.png in Resources */,
+				763227061D3C8DA300676027 /* PlaceHolderSquare.png in Resources */,
 				761637001D3A3095001A2CDF /* 5.jpg in Resources */,
 				76FA84971D1FB77200BD0F22 /* Balloon@2x.png in Resources */,
 				761636FA1D3A307A001A2CDF /* 1.jpg in Resources */,
@@ -472,6 +481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				768F27AF1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.m in Sources */,
 				762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */,
 				76FA84921D1FAE8B00BD0F22 /* DemoHomeViewController.m in Sources */,
 				76C9FB8D1D3BC9DA007B60A7 /* ZPresentationController.m in Sources */,

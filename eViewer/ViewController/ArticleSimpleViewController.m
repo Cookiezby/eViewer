@@ -47,7 +47,7 @@ const static NSInteger REFRESH_HEIGHT = 50;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         layout.itemSize = CGSizeMake(SCREEN_WIDTH-10,CELL_HEIGHT);
-        layout.minimumLineSpacing = 10;
+        //layout.minimumLineSpacing = 10;
         //CollectionView Setting
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:layout];
         collectionView.backgroundColor = TABLE_VIEW_BACKGROUND_COLOR;

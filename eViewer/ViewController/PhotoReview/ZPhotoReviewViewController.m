@@ -10,14 +10,25 @@
 #import "Masonry.h"
 #import "ZPresentationController.h"
 #import "ZPresentationAnimator.h"
+#import "ZPhotoCollectionViewCell.h"
 
-@interface ZPhotoReviewViewController ()
+@interface ZPhotoReviewViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 
 @property (strong, nonatomic)UIView *test;
+//@property (strong, nonatomic)UIScrollView *imageScrollView;
+@property (strong, nonatomic)UICollectionView *collectionView;
+@property (nonatomic)SOURCE_TYPE sourceType;
+@property (strong, nonatomic)NSMutableArray *source;
 
 @end
 
 @implementation ZPhotoReviewViewController
+
+- (instancetype)initWithType:(SOURCE_TYPE)type source:(NSMutableArray *)sourceArray{
+    self = [self init];
+    _sourceType = type;
+    return self;
+}
 
 - (instancetype)init{
     self = [super init];
@@ -35,7 +46,8 @@
         UIView *view = [[UIView alloc]init];
         [self.view addSubview:view];
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self.view);
+            make.top.equalTo(@50);
+            make.left.equalTo(@50);
             make.width.equalTo(@100);
             make.height.equalTo(@100);
         }];
@@ -47,6 +59,29 @@
         view.backgroundColor = [UIColor blackColor];
         view;
     });
+    
+    self.collectionView = ({
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.itemSize = CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
+        
+        UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+        [self.view addSubview:collectionView];
+        [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
+        
+        collectionView.delegate = self;
+        collectionView.dataSource = self;
+        collectionView.backgroundColor = [UIColor whiteColor];
+
+        [collectionView registerClass:[ZPhotoCollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
+        collectionView;
+    });
+    
+    
+    
+    
     // Do any additional setup after loading the view.
 }
 
@@ -85,6 +120,65 @@
     return nil;
 }
 
+
+#pragma mark - UICollectionViewDelegate
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return 1;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return 1;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    CGFloat currentContentOffsetX = scrollView.contentOffset.x;
+    //DebugLog(@"%f",currentContentOffsetX);
+    
+    NSInteger remain = (int)currentContentOffsetX % (int)SCREEN_WIDTH;
+    NSInteger a = (int)currentContentOffsetX / (int)SCREEN_WIDTH;
+    if(remain > SCREEN_WIDTH/2){
+        CGFloat contentOffsetX = (a + 1) * SCREEN_WIDTH;
+        [scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
+        DebugLog(@"%f",contentOffsetX);
+    }else{
+        CGFloat contentOffsetX = a * SCREEN_WIDTH;
+        [scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
+    }
+}
+
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    CGFloat currentContentOffsetX = scrollView.contentOffset.x;
+    //DebugLog(@"%f",currentContentOffsetX);
+    
+    NSInteger remain = (int)currentContentOffsetX % (int)SCREEN_WIDTH;
+    NSInteger a = (int)currentContentOffsetX / (int)SCREEN_WIDTH;
+    if(remain > SCREEN_WIDTH/2){
+        CGFloat contentOffsetX = (a + 1) * SCREEN_WIDTH;
+        [scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
+        DebugLog(@"%f",contentOffsetX);
+    }else{
+        CGFloat contentOffsetX = a * SCREEN_WIDTH;
+        [scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
+    }
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return  3;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ZPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    cell.imageView.image = [UIImage imageNamed:@"PlaceHolderSquare.png"];
+    return cell;
+}
 
 
 /*

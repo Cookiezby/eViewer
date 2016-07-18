@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger,SOURCE_TYPE){
+    IMAGE_TYPE = 0,
+    LINK_TYPE = 1,
+};
+
 @interface ZPhotoReviewViewController : UIViewController <UIViewControllerTransitioningDelegate>
+
+
+
 
 @end
