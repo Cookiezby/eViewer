@@ -108,9 +108,6 @@
             
             /*EVHTMLManager *manager = [[EVHTMLManager alloc]init];
             [manager getAllGalleryImage:@"" withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
-                
-                
-                
             }];*/
             PhotoGalleryViewController * photoGalleyViewController = [[PhotoGalleryViewController alloc]init];
             photoGalleyViewController.photoGallery = photoGallery;

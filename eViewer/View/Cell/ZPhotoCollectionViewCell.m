@@ -37,18 +37,6 @@
             }];
             
             scrollView.userInteractionEnabled = YES;
-            /*UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipe)];
-            UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipe)];
-            
-            leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
-            rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
-            
-            [scrollView addGestureRecognizer:leftSwipe];
-            [scrollView addGestureRecognizer:rightSwipe];*/
-            //[scrollView.panGestureRecognizer requireGestureRecognizerToFail:leftSwipe];
-            //[scrollView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
-            
-            
             scrollView;
         });
         
@@ -79,16 +67,17 @@
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale{
     DebugLog(@"%f",scale);
-    if(scale == 1){
-        //DebugLog(@"ok");
-        [self setPagingEnable:YES];
+    if(scale <= 1){
+        self.scrollView.scrollEnabled = NO;
+        [self setCollectionViewScrollEnable:YES];
     }else{
-        [self setPagingEnable:NO];
+        self.scrollView.scrollEnabled = YES;
+        [self setCollectionViewScrollEnable:NO];
     }
 }
 
 
-- (void)setPagingEnable:(BOOL)enable{
+- (void)setCollectionViewScrollEnable:(BOOL)enable{
     UICollectionView *collectionView = nil;
     UIView *view = self.contentView;
     while(view!=nil){

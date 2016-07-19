@@ -11,6 +11,7 @@
 #import "ZPresentationController.h"
 #import "ZPresentationAnimator.h"
 #import "ZPhotoCollectionViewCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 
@@ -20,7 +21,6 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 //@property (strong, nonatomic)UIScrollView *imageScrollView;
 @property (strong, nonatomic)UICollectionView *collectionView;
 @property (nonatomic)SOURCE_TYPE sourceType;
-@property (strong, nonatomic)NSMutableArray *source;
 @property (nonatomic)CGPoint startDragPositon;
 
 @end
@@ -78,6 +78,7 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
         collectionView.dataSource = self;
         collectionView.backgroundColor = [UIColor whiteColor];
         collectionView.pagingEnabled = YES;
+        collectionView.showsHorizontalScrollIndicator = NO;
         [collectionView registerClass:[ZPhotoCollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
         collectionView;
     });
@@ -128,7 +129,7 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    return 1;
+    return 0;
 }
 
 /*- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -192,21 +193,24 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return  4;
+    return  self.source.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ZPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     cell.imageView.image = [UIImage imageNamed:@"PlaceHolderSquare.png"];
+    
+    NSURL *url = [NSURL URLWithString:self.source[indexPath.item]];
+    
+    DebugLog(@"%@",self.source[indexPath.item]);
+    [[SDWebImageManager sharedManager] downloadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        cell.imageView.image = image;
+    }];
     //cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
 }
-
-
-
-
-
-
 
 /*
 #pragma mark - Navigation

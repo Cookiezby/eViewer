@@ -94,6 +94,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     DebugLog(@"try to presntation");
     ZPhotoReviewViewController *toView = [[ZPhotoReviewViewController alloc]init];
+    toView.source = self.fullSizeImageLinkList;
     [self presentViewController:toView animated:YES completion:nil];
 }
 
@@ -109,10 +110,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
-
-    [cell.imageView sd_setImageWithURL:self.thumbLinkList[indexPath.item] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        //DebugLog(@"ok");
-    }];
+    [cell.imageView sd_setImageWithURL:self.thumbLinkList[indexPath.item] placeholderImage:[UIImage imageNamed:@"PlaceHolderSquare.png"] options:0];
     
     return cell;
 }

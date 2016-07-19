@@ -122,7 +122,7 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         
         //NSString *result = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
         //DebugLog(@"%@",result);
-        handler(dict[@"fullSize"],dict[@"thumbSize"]);
+        handler(dict[@"thumbSize"],dict[@"fullSize"]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
         NSLog(@"失败");
