@@ -25,28 +25,43 @@
             scrollView.delegate = self;
             scrollView.minimumZoomScale = 1.0;
             scrollView.maximumZoomScale = 2.0;
+            //[scrollView setZoomScale:1.0 animated:NO];
             [self.contentView addSubview:scrollView];
+            scrollView.showsVerticalScrollIndicator = NO;
+            scrollView.showsHorizontalScrollIndicator = NO;
             [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
+                make.top.equalTo(self.contentView);
+                make.bottom.equalTo(self.contentView);
+                make.left.equalTo(@0);
+                make.right.equalTo(@0);
             }];
-            scrollView;
             
+            scrollView.userInteractionEnabled = YES;
+            /*UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipe)];
+            UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipe)];
+            
+            leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+            rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+            
+            [scrollView addGestureRecognizer:leftSwipe];
+            [scrollView addGestureRecognizer:rightSwipe];*/
+            //[scrollView.panGestureRecognizer requireGestureRecognizerToFail:leftSwipe];
+            //[scrollView.panGestureRecognizer requireGestureRecognizerToFail:rightSwipe];
+            
+            
+            scrollView;
         });
         
         
         
         _imageView = ({
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, (SCREEN_HEIGHT-SCREEN_WIDTH)/2 ,SCREEN_WIDTH,SCREEN_WIDTH)];
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, (SCREEN_HEIGHT-frame.size.width)/2 ,frame.size.width,frame.size.width)];
             imageView.userInteractionEnabled = YES;
             imageView.contentMode = UIViewContentModeScaleAspectFit;
             [_scrollView addSubview:imageView];
             
             imageView;
         });
-        
-        
-        
-        
         //self.scrollView.contentSize = self.contentView.frame.size;
     }
     return self;
@@ -59,11 +74,32 @@
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView{
     CGFloat originY = MAX(0,self.contentView.frame.size.height/2 - self.imageView.frame.size.height/2);
     self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, originY, self.imageView.frame.size.width, self.imageView.frame.size.height);
-    DebugLog(@"x = %f y = %f width = %f height = %f",self.imageView.frame.origin.x,self.imageView.frame.origin.y,self.imageView.frame.size.width,self.imageView.frame.size.height);
+    //DebugLog(@"x = %f y = %f width = %f height = %f",self.imageView.frame.origin.x,self.imageView.frame.origin.y,self.imageView.frame.size.width,self.imageView.frame.size.height);
 }
 
-- (void)swipe{
-    
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale{
+    DebugLog(@"%f",scale);
+    if(scale == 1){
+        //DebugLog(@"ok");
+        [self setPagingEnable:YES];
+    }else{
+        [self setPagingEnable:NO];
+    }
+}
+
+
+- (void)setPagingEnable:(BOOL)enable{
+    UICollectionView *collectionView = nil;
+    UIView *view = self.contentView;
+    while(view!=nil){
+        if([view isKindOfClass:[UICollectionView class]]) {
+            collectionView = (UICollectionView *)view;
+            collectionView.pagingEnabled = enable;
+            collectionView.scrollEnabled = enable;
+            break;
+        }
+        view = [view superview];
+    }
 }
 
 

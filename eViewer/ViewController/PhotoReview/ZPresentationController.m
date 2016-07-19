@@ -19,8 +19,6 @@
 
 - (void)presentationTransitionWillBegin{
     
-    
-    
     id<UIViewControllerTransitionCoordinator> transitionCoordinator = self.presentingViewController.transitionCoordinator;
     [transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         //设置Presentaion时候的动画

@@ -21,8 +21,7 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 @property (strong, nonatomic)UICollectionView *collectionView;
 @property (nonatomic)SOURCE_TYPE sourceType;
 @property (strong, nonatomic)NSMutableArray *source;
-@property (nonatomic)CGFloat startDragXPositon;
-@property (nonatomic)BOOL isSwipe;
+@property (nonatomic)CGPoint startDragPositon;
 
 @end
 
@@ -74,18 +73,15 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
         [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
-        
+        //collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView.backgroundColor = [UIColor whiteColor];
+        collectionView.pagingEnabled = YES;
         [collectionView registerClass:[ZPhotoCollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
         collectionView;
     });
-    
-    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeHandler:)];
-    swipe.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipe];
-    
+
     // Do any additional setup after loading the view.
 }
 
@@ -135,11 +131,15 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
     return 1;
 }
 
+/*- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    ZPhotoCollectionViewCell *customCell = (ZPhotoCollectionViewCell *)cell;
+    [customCell recoverZoom];
+}*/
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    self.startDragXPositon = scrollView.contentOffset.x;
+/*- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    self.startDragPositon = scrollView.contentOffset;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
@@ -150,18 +150,20 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     [self adjustScrollView:scrollView];
     //self.isSwipe = false;
-}
+}*/
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    if(velocity.x > SWIPE_VELOCITY_THRESHOULD && (scrollView.contentOffset.x-self.startDragXPositon) < SCREEN_WIDTH/2){
-         //DebugLog(@"right");
-        //self.isSwipe = true;
-        //[scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
-    }else if(velocity.x < -SWIPE_VELOCITY_THRESHOULD && (self.startDragXPositon - scrollView.contentOffset.x) < SCREEN_WIDTH/2){
-        //DebugLog(@"left");
+/*- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    if(velocity.x > 1.5){
+        DebugLog(@"right");
+        CGPoint temp = CGPointMake(self.startDragPositon.x + SCREEN_WIDTH, self.startDragPositon.y);
+        //CGPoint* point = &temp;
+        //[scrollView setContentOffset:temp animated:YES]
+        targetContentOffset->x = temp.x;
+    }else if(velocity.x < -SWIPE_VELOCITY_THRESHOULD){
         
     }
-}
+}*/
+
 
 - (void)adjustScrollView:(UIScrollView *)scrollView{
     CGFloat currentContentOffsetX = scrollView.contentOffset.x;
@@ -182,6 +184,7 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
     }
 }
 
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -189,19 +192,20 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return  3;
+    return  4;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ZPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     cell.imageView.image = [UIImage imageNamed:@"PlaceHolderSquare.png"];
-    cell.backgroundColor = [UIColor lightGrayColor];
+    //cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
 }
 
-- (void)swipeHandler:(UISwipeGestureRecognizer *)swipe{
-    DebugLog(@"swipe");
-}
+
+
+
+
 
 
 /*
