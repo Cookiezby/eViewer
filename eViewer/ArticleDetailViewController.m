@@ -57,7 +57,7 @@
     [manager getDetail:self.simpleArticle.detailURL withHandler:^(NSMutableAttributedString *string, NSMutableArray *galleryList) {
         self.testTextView.attributedText = string;
         self.galleryList = galleryList;
-        DebugLog(@"%ld",galleryList.count);
+        //DebugLog(@"%ld",galleryList.count);
     }];
     
     // Do any additional setup after loading the view.
@@ -103,7 +103,7 @@
     for(int i = 0; i < self.galleryList.count; i++){
         PhotoGallery *photoGallery = self.galleryList[i];
         NSString *link = photoGallery.galleryLink;
-        DebugLog(@"%@",link);
+        //DebugLog(@"%@",link);
         if([[URL absoluteString]isEqualToString:link]){
             
             /*EVHTMLManager *manager = [[EVHTMLManager alloc]init];
@@ -116,7 +116,7 @@
             photoGalleyViewController.photoGallery = photoGallery;
             //[self presentViewController:test animated:YES completion:nil];
             [self.navigationController pushViewController:photoGalleyViewController animated:YES];
-            DebugLog(@"%@",[URL absoluteString]);
+            //DebugLog(@"%@",[URL absoluteString]);
             return NO;
         }
     }

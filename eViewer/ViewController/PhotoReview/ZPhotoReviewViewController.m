@@ -12,6 +12,8 @@
 #import "ZPresentationAnimator.h"
 #import "ZPhotoCollectionViewCell.h"
 
+const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
+
 @interface ZPhotoReviewViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 
 @property (strong, nonatomic)UIView *test;
@@ -19,6 +21,8 @@
 @property (strong, nonatomic)UICollectionView *collectionView;
 @property (nonatomic)SOURCE_TYPE sourceType;
 @property (strong, nonatomic)NSMutableArray *source;
+@property (nonatomic)CGFloat startDragXPositon;
+@property (nonatomic)BOOL isSwipe;
 
 @end
 
@@ -74,13 +78,13 @@
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView.backgroundColor = [UIColor whiteColor];
-
         [collectionView registerClass:[ZPhotoCollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
         collectionView;
     });
     
-    
-    
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeHandler:)];
+    swipe.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipe];
     
     // Do any additional setup after loading the view.
 }
@@ -131,24 +135,35 @@
     return 1;
 }
 
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    self.startDragXPositon = scrollView.contentOffset.x;
+}
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    CGFloat currentContentOffsetX = scrollView.contentOffset.x;
-    //DebugLog(@"%f",currentContentOffsetX);
-    
-    NSInteger remain = (int)currentContentOffsetX % (int)SCREEN_WIDTH;
-    NSInteger a = (int)currentContentOffsetX / (int)SCREEN_WIDTH;
-    if(remain > SCREEN_WIDTH/2){
-        CGFloat contentOffsetX = (a + 1) * SCREEN_WIDTH;
-        [scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
-        DebugLog(@"%f",contentOffsetX);
-    }else{
-        CGFloat contentOffsetX = a * SCREEN_WIDTH;
-        [scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
-    }
+    [self adjustScrollView:scrollView];
 }
 
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    [self adjustScrollView:scrollView];
+    //self.isSwipe = false;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    if(velocity.x > SWIPE_VELOCITY_THRESHOULD && (scrollView.contentOffset.x-self.startDragXPositon) < SCREEN_WIDTH/2){
+         //DebugLog(@"right");
+        //self.isSwipe = true;
+        //[scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
+    }else if(velocity.x < -SWIPE_VELOCITY_THRESHOULD && (self.startDragXPositon - scrollView.contentOffset.x) < SCREEN_WIDTH/2){
+        //DebugLog(@"left");
+        
+    }
+}
+
+- (void)adjustScrollView:(UIScrollView *)scrollView{
     CGFloat currentContentOffsetX = scrollView.contentOffset.x;
     //DebugLog(@"%f",currentContentOffsetX);
     
@@ -156,11 +171,14 @@
     NSInteger a = (int)currentContentOffsetX / (int)SCREEN_WIDTH;
     if(remain > SCREEN_WIDTH/2){
         CGFloat contentOffsetX = (a + 1) * SCREEN_WIDTH;
-        [scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
-        DebugLog(@"%f",contentOffsetX);
+        if(contentOffsetX > (scrollView.contentSize.width-SCREEN_WIDTH)){
+            contentOffsetX = scrollView.contentSize.width - SCREEN_WIDTH;
+        }
+        [scrollView setContentOffset:CGPointMake(contentOffsetX, scrollView.contentOffset.y) animated:YES];
+        //DebugLog(@"%f",contentOffsetX);
     }else{
         CGFloat contentOffsetX = a * SCREEN_WIDTH;
-        [scrollView setContentOffset:CGPointMake(contentOffsetX, 0) animated:YES];
+        [scrollView setContentOffset:CGPointMake(contentOffsetX, scrollView.contentOffset.y) animated:YES];
     }
 }
 
@@ -177,7 +195,12 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ZPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     cell.imageView.image = [UIImage imageNamed:@"PlaceHolderSquare.png"];
+    cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
+}
+
+- (void)swipeHandler:(UISwipeGestureRecognizer *)swipe{
+    DebugLog(@"swipe");
 }
 
 
