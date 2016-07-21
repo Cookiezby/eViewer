@@ -7,12 +7,12 @@
 //
 
 #import "EVHTMLManager.h"
-#import <AFNetworking/AFHTTPSessionManager.h>
-#import <TFHpple.h>
+#import "AFHTTPSessionManager.h"
+#import "TFHpple.h"
 #import "ArticleSimple.h"
 #import "PhotoGallery.h"
 #import "ArticleDetail.h"
-#import <SDWebImage/SDWebImageManager.h>
+#import "SDWebImageManager.h"
 #import "UIImage+Compress.h"
 #import "NSString+DateTransfer.h"
 

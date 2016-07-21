@@ -25,6 +25,7 @@
             scrollView.delegate = self;
             scrollView.minimumZoomScale = 1.0;
             scrollView.maximumZoomScale = 2.0;
+            //scrollView.bounces = NO;
             //[scrollView setZoomScale:1.0 animated:NO];
             [self.contentView addSubview:scrollView];
             scrollView.showsVerticalScrollIndicator = NO;
@@ -43,7 +44,7 @@
         
         
         _imageView = ({
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, (SCREEN_HEIGHT-frame.size.width)/2 ,frame.size.width,frame.size.width)];
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0 ,frame.size.width,frame.size.height)];
             imageView.userInteractionEnabled = YES;
             imageView.contentMode = UIViewContentModeScaleAspectFit;
             [_scrollView addSubview:imageView];

@@ -12,6 +12,8 @@
 #import "ZPresentationAnimator.h"
 #import "ZPhotoCollectionViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "SwipeUpInteractiveTransition.h"
+#import "ProgressView.h"
 
 const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 
@@ -22,6 +24,7 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 @property (strong, nonatomic)UICollectionView *collectionView;
 @property (nonatomic)SOURCE_TYPE sourceType;
 @property (nonatomic)CGPoint startDragPositon;
+@property (strong, nonatomic)SwipeUpInteractiveTransition *interactiveTransition;
 
 @end
 
@@ -38,6 +41,8 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
     if(self){
         self.transitioningDelegate = self;
         self.modalPresentationStyle = UIModalPresentationCustom;
+        self.interactiveTransition = [[SwipeUpInteractiveTransition alloc]init];
+        [self.interactiveTransition wireToViewController:self];
     }
     return self;
 }
@@ -198,16 +203,32 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ZPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
-    cell.imageView.image = [UIImage imageNamed:@"PlaceHolderSquare.png"];
-    
     NSURL *url = [NSURL URLWithString:self.source[indexPath.item]];
-    
-    DebugLog(@"%@",self.source[indexPath.item]);
-    [[SDWebImageManager sharedManager] downloadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+    cell.imageView.image = nil;
+    if([[SDWebImageManager sharedManager]diskImageExistsForURL:url]){
+        cell.imageView.image = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:[[SDWebImageManager sharedManager] cacheKeyForURL:url]];
+    }else{
+        ProgressView *progressView = [[ProgressView alloc]initWithFrame:CGRectMake(0, 0, 200, 5)];
+        [cell.imageView addSubview:progressView];
+        [progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(cell.imageView);
+            make.width.equalTo(@200);
+            make.height.equalTo(@5);
+        }];
         
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-        cell.imageView.image = image;
-    }];
+        [[SDWebImageManager sharedManager] downloadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            CGFloat complete = (CGFloat)receivedSize/(CGFloat)expectedSize;
+            [progressView changeProgress:complete animated:NO complete:nil];
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            [progressView changeProgress:1.0 animated:NO complete:nil];
+            [progressView removeFromSuperview];
+            cell.imageView.image = image;
+        }];
+        
+    }
+    
+    
+    
     //cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
 }

@@ -9,6 +9,7 @@
 #import "TestViewController.h"
 #import "Masonry.h"
 #import "TestView.h"
+#import "ProgressView.h"
 
 @interface TestViewController ()
 
@@ -36,13 +37,19 @@
     });*/
     
     
-    UIImageView *tempView = [[UIImageView alloc]initWithImage:[self drawImage]];
-    [self.view addSubview:tempView];
-    [tempView mas_makeConstraints:^(MASConstraintMaker *make) {
+    ProgressView *view = [[ProgressView alloc]initWithFrame:CGRectMake(0, 0, 200, 5)];
+    [self.view addSubview:view];
+    
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
-        make.width.equalTo(@300);
-        make.height.equalTo(@100);
+        make.width.equalTo(@200);
+        make.height.equalTo(@5);
     }];
+    
+    
+    DebugLog(@"%f",view.frame.origin.x);
+    
+    //[view changeProgress:0.8 animated:YES];
     
     
 }
