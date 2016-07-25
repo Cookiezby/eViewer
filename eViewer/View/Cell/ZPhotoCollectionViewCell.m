@@ -19,7 +19,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
-        
+        self.contentView.backgroundColor = [UIColor clearColor];
         _scrollView = ({
             UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width,frame.size.height)];
             scrollView.delegate = self;
@@ -36,7 +36,7 @@
                 make.left.equalTo(@0);
                 make.right.equalTo(@0);
             }];
-            
+            scrollView.backgroundColor = [UIColor whiteColor];
             scrollView.userInteractionEnabled = YES;
             scrollView;
         });
@@ -49,8 +49,20 @@
             imageView.contentMode = UIViewContentModeScaleAspectFit;
             [_scrollView addSubview:imageView];
             
+            UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDouleTap:)];
+            [doubleTap setNumberOfTapsRequired:2];
+            [imageView addGestureRecognizer:doubleTap];
+            
+            UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleSingleTap:)];
+            [singleTap setNumberOfTapsRequired:1];
+            [imageView addGestureRecognizer:singleTap];
+            [singleTap requireGestureRecognizerToFail:doubleTap];
+            
             imageView;
         });
+        
+        
+        
         //self.scrollView.contentSize = self.contentView.frame.size;
     }
     return self;
@@ -77,7 +89,6 @@
     }
 }
 
-
 - (void)setCollectionViewScrollEnable:(BOOL)enable{
     UICollectionView *collectionView = nil;
     UIView *view = self.contentView;
@@ -92,7 +103,45 @@
     }
 }
 
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
+    DebugLog(@"single tap");
+    
+    UICollectionView *collectionView = (UICollectionView *)self.superview;
+    UIViewController *viewController = (UIViewController *)collectionView.delegate;
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+}
 
+- (void)handleDouleTap:(UITapGestureRecognizer *)recognizer{
+    DebugLog(@"double tap");
+    
+    if(self.scrollView.zoomScale == self.scrollView.minimumZoomScale){
+        //双击放大
+        CGRect zoomRect = [self zoomRectForScale:self.scrollView.maximumZoomScale withCenter:[recognizer locationInView:recognizer.view]];
+        [self.scrollView zoomToRect:zoomRect animated:YES];
+    }else{
+        //双击恢复到原始大小
+        [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
+    }
+    
+    
+}
+
+- (CGRect)zoomRectForScale:(CGFloat)scale withCenter:(CGPoint)center{
+    CGRect zoomRect;
+    
+    zoomRect.size.height = _imageView.frame.size.height/scale;
+    zoomRect.size.width = _imageView.frame.size.width/scale;
+    
+    zoomRect.origin.x = center.x - zoomRect.size.width/2;
+    zoomRect.origin.y = center.y - zoomRect.size.height/2;
+    
+    return zoomRect;
+}
+
+- (void)resetCell{
+    self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+    self.imageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+}
 
 
 @end

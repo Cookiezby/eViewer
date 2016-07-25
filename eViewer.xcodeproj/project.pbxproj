@@ -23,6 +23,8 @@
 		761637081D3A8235001A2CDF /* PhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */; };
 		762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */; };
 		763227061D3C8DA300676027 /* PlaceHolderSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 763227051D3C8DA300676027 /* PlaceHolderSquare.png */; };
+		767E3BBF1D45124D006CED70 /* CloseImageViewButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */; };
+		767E3BC01D45124D006CED70 /* SaveImageButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 767E3BBE1D45124D006CED70 /* SaveImageButton.png */; };
 		767FFE141D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 767FFE131D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m */; };
 		767FFE181D3FB0E00041AF52 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 767FFE171D3FB0E00041AF52 /* ProgressView.m */; };
 		768F27AF1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 768F27AE1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.m */; };
@@ -81,6 +83,8 @@
 		762B705A1D1EDA0F002F1BF6 /* EVSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVSideViewController.h; path = ViewController/SideMenu2/EVSideViewController.h; sourceTree = "<group>"; };
 		762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVSideViewController.m; path = ViewController/SideMenu2/EVSideViewController.m; sourceTree = "<group>"; };
 		763227051D3C8DA300676027 /* PlaceHolderSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHolderSquare.png; sourceTree = "<group>"; };
+		767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseImageViewButton.png; sourceTree = "<group>"; };
+		767E3BBE1D45124D006CED70 /* SaveImageButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SaveImageButton.png; sourceTree = "<group>"; };
 		767FFE121D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwipeUpInteractiveTransition.h; path = ViewController/PhotoReview/SwipeUpInteractiveTransition.h; sourceTree = "<group>"; };
 		767FFE131D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwipeUpInteractiveTransition.m; path = ViewController/PhotoReview/SwipeUpInteractiveTransition.m; sourceTree = "<group>"; };
 		767FFE161D3FB0E00041AF52 /* ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressView.h; path = ViewController/PhotoReview/ProgressView.h; sourceTree = "<group>"; };
@@ -341,6 +345,8 @@
 		76EA5B641D18F8F200FEFF38 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */,
+				767E3BBE1D45124D006CED70 /* SaveImageButton.png */,
 				763227051D3C8DA300676027 /* PlaceHolderSquare.png */,
 				761637011D3A30A4001A2CDF /* 2.jpg */,
 				761636FB1D3A3095001A2CDF /* 3.jpg */,
@@ -429,9 +435,11 @@
 				763227061D3C8DA300676027 /* PlaceHolderSquare.png in Resources */,
 				761637001D3A3095001A2CDF /* 5.jpg in Resources */,
 				76FA84971D1FB77200BD0F22 /* Balloon@2x.png in Resources */,
+				767E3BBF1D45124D006CED70 /* CloseImageViewButton.png in Resources */,
 				761636FA1D3A307A001A2CDF /* 1.jpg in Resources */,
 				76D80CC21D0FF141000D9E4E /* Assets.xcassets in Resources */,
 				761636FE1D3A3095001A2CDF /* 3.jpg in Resources */,
+				767E3BC01D45124D006CED70 /* SaveImageButton.png in Resources */,
 				76D80CBD1D0FF141000D9E4E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

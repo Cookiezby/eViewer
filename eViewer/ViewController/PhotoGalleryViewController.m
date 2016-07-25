@@ -14,6 +14,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "EVHTMLManager.h"
 #import "ZPhotoReviewViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface PhotoGalleryViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -63,11 +64,17 @@
     
     
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
+    
+    
+    [SVProgressHUD show];
+    self.collectionView.userInteractionEnabled = NO;
     [manager getAllGalleryImage:self.photoGallery.galleryLink withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
         //self.photoAmount = thumbArray.count;
         self.thumbLinkList = thumbArray;
         self.fullSizeImageLinkList = fullSizeArray;
         [self.collectionView reloadData];
+        self.collectionView.userInteractionEnabled = YES;
+        [SVProgressHUD dismiss];
     }];
     
     //self.view.backgroundColor = [UIColor whiteColor];
@@ -95,6 +102,7 @@
     DebugLog(@"try to presntation");
     ZPhotoReviewViewController *toView = [[ZPhotoReviewViewController alloc]init];
     toView.source = self.fullSizeImageLinkList;
+    toView.selectedIndex = indexPath.item;
     [self presentViewController:toView animated:YES completion:nil];
 }
 

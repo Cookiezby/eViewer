@@ -14,4 +14,5 @@ target 'eViewer' do
     pod 'TTTAttributedLabel'
     pod 'TYAttributedLabel', '~> 2.6.1'
     pod 'YYText'
+    pod 'MBProgressHUD'
 end

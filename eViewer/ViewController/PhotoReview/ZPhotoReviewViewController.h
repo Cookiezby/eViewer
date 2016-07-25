@@ -16,5 +16,6 @@ typedef NS_ENUM(NSUInteger,SOURCE_TYPE){
 @interface ZPhotoReviewViewController : UIViewController <UIViewControllerTransitioningDelegate>
 
 @property (strong, nonatomic)NSMutableArray *source;
+@property (nonatomic)NSInteger selectedIndex;
 
 @end

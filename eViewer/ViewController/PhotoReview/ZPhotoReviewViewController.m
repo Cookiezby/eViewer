@@ -14,17 +14,25 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SwipeUpInteractiveTransition.h"
 #import "ProgressView.h"
+#import <SVProgressHUD/SVProgressHUD.h>
+#import <Photos/Photos.h>
 
 const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 
-@interface ZPhotoReviewViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
+typedef void (^Complete)(void);
 
-@property (strong, nonatomic)UIView *test;
+@interface ZPhotoReviewViewController () <UICollectionViewDelegate,UICollectionViewDataSource>
+
+//@property (strong, nonatomic)UIView *test;
 //@property (strong, nonatomic)UIScrollView *imageScrollView;
-@property (strong, nonatomic)UICollectionView *collectionView;
+
 @property (nonatomic)SOURCE_TYPE sourceType;
-@property (nonatomic)CGPoint startDragPositon;
-@property (strong, nonatomic)SwipeUpInteractiveTransition *interactiveTransition;
+//@property (nonatomic)CGPoint startDragPositon;
+//@property (strong, nonatomic)SwipeUpInteractiveTransition *interactiveTransition;
+@property (strong, nonatomic)UICollectionView *collectionView;
+@property (strong, nonatomic)UIButton *saveImageButton;
+@property (strong, nonatomic)UIButton *closeViewButton;
+
 
 @end
 
@@ -41,34 +49,15 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
     if(self){
         self.transitioningDelegate = self;
         self.modalPresentationStyle = UIModalPresentationCustom;
-        self.interactiveTransition = [[SwipeUpInteractiveTransition alloc]init];
-        [self.interactiveTransition wireToViewController:self];
+        //self.interactiveTransition = [[SwipeUpInteractiveTransition alloc]init];
+        //[self.interactiveTransition wireToViewController:self];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.test = ({
-        UIView *view = [[UIView alloc]init];
-        [self.view addSubview:view];
-        [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@50);
-            make.left.equalTo(@50);
-            make.width.equalTo(@100);
-            make.height.equalTo(@100);
-        }];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]init];
-        [tap addTarget:self action:@selector(dismiss)];
-        [self.view addGestureRecognizer:tap];
-        
-        view.backgroundColor = [UIColor blackColor];
-        view;
-    });
-    
-    self.collectionView = ({
+       self.collectionView = ({
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.itemSize = CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
@@ -81,14 +70,64 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
         //collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
         collectionView.delegate = self;
         collectionView.dataSource = self;
-        collectionView.backgroundColor = [UIColor whiteColor];
+        //collectionView.backgroundColor = [UIColor whiteColor];
         collectionView.pagingEnabled = YES;
         collectionView.showsHorizontalScrollIndicator = NO;
+        collectionView.backgroundColor = [UIColor whiteColor];
         [collectionView registerClass:[ZPhotoCollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
+        
+        //NSIndexPath *indexPath = self.selectedIndexPath;
+        
+        
+        DebugLog(@"review %ld",self.selectedIndex);
         collectionView;
     });
+    
+    
+    self.closeViewButton = ({
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setBackgroundImage:[UIImage imageNamed:@"CloseImageViewButton.png"] forState:UIControlStateNormal];
+        [self.view addSubview:button];
+        
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@40);
+            make.height.equalTo(@40);
+            make.bottom.equalTo(@-40);
+            make.right.equalTo(@-40);
+        }];
+        [button addTarget:self action:@selector(closeView:) forControlEvents:UIControlEventTouchUpInside];
+        button;
+    });
+    
+    
+    self.saveImageButton = ({
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setBackgroundImage:[UIImage imageNamed:@"SaveImageButton.png"] forState:UIControlStateNormal];
+        [self.view addSubview:button];
+        
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@40);
+            make.height.equalTo(@40);
+            make.bottom.equalTo(@-40);
+            make.left.equalTo(@40);
+        }];
+        [button addTarget:self action:@selector(saveImage:) forControlEvents:UIControlEventTouchUpInside];
+        button;
+    
+    });
+    
 
-    // Do any additional setup after loading the view.
+
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    //[self.collectionView setContentOffset:CGPointMake(self.selectedIndex * SCREEN_WIDTH, 0) animated:NO];
+    //[self.view layoutIfNeeded];
+   
+}
+
+- (void)viewDidLayoutSubviews{
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -129,6 +168,8 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 
 #pragma mark - UICollectionViewDelegate
 
+
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     return 1;
 }
@@ -136,61 +177,6 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     return 0;
 }
-
-/*- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
-    ZPhotoCollectionViewCell *customCell = (ZPhotoCollectionViewCell *)cell;
-    [customCell recoverZoom];
-}*/
-
-#pragma mark - UIScrollViewDelegate
-
-/*- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    self.startDragPositon = scrollView.contentOffset;
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    [self adjustScrollView:scrollView];
-}
-
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    [self adjustScrollView:scrollView];
-    //self.isSwipe = false;
-}*/
-
-/*- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    if(velocity.x > 1.5){
-        DebugLog(@"right");
-        CGPoint temp = CGPointMake(self.startDragPositon.x + SCREEN_WIDTH, self.startDragPositon.y);
-        //CGPoint* point = &temp;
-        //[scrollView setContentOffset:temp animated:YES]
-        targetContentOffset->x = temp.x;
-    }else if(velocity.x < -SWIPE_VELOCITY_THRESHOULD){
-        
-    }
-}*/
-
-
-- (void)adjustScrollView:(UIScrollView *)scrollView{
-    CGFloat currentContentOffsetX = scrollView.contentOffset.x;
-    //DebugLog(@"%f",currentContentOffsetX);
-    
-    NSInteger remain = (int)currentContentOffsetX % (int)SCREEN_WIDTH;
-    NSInteger a = (int)currentContentOffsetX / (int)SCREEN_WIDTH;
-    if(remain > SCREEN_WIDTH/2){
-        CGFloat contentOffsetX = (a + 1) * SCREEN_WIDTH;
-        if(contentOffsetX > (scrollView.contentSize.width-SCREEN_WIDTH)){
-            contentOffsetX = scrollView.contentSize.width - SCREEN_WIDTH;
-        }
-        [scrollView setContentOffset:CGPointMake(contentOffsetX, scrollView.contentOffset.y) animated:YES];
-        //DebugLog(@"%f",contentOffsetX);
-    }else{
-        CGFloat contentOffsetX = a * SCREEN_WIDTH;
-        [scrollView setContentOffset:CGPointMake(contentOffsetX, scrollView.contentOffset.y) animated:YES];
-    }
-}
-
-
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -203,10 +189,16 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ZPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    [cell resetCell];
+    //NSIndexPath *path = indexPath;
+    //DebugLog(@"%@",indexPath);
     NSURL *url = [NSURL URLWithString:self.source[indexPath.item]];
     cell.imageView.image = nil;
     if([[SDWebImageManager sharedManager]diskImageExistsForURL:url]){
         cell.imageView.image = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:[[SDWebImageManager sharedManager] cacheKeyForURL:url]];
+        CGFloat height = cell.imageView.image.size.height / (cell.imageView.image.size.width / SCREEN_WIDTH);
+        cell.imageView.frame = CGRectMake(0, (SCREEN_HEIGHT - height)/2, SCREEN_WIDTH, height);
+        
     }else{
         ProgressView *progressView = [[ProgressView alloc]initWithFrame:CGRectMake(0, 0, 200, 5)];
         [cell.imageView addSubview:progressView];
@@ -222,16 +214,43 @@ const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             [progressView changeProgress:1.0 animated:NO complete:nil];
             [progressView removeFromSuperview];
+            CGFloat height = image.size.height / (image.size.width / SCREEN_WIDTH);
+            cell.imageView.frame = CGRectMake(0, (SCREEN_HEIGHT - height)/2, SCREEN_WIDTH, height);
             cell.imageView.image = image;
         }];
         
     }
-    
-    
-    
     //cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
 }
+
+
+#pragma mark - ButtonEvent
+
+- (void)closeView:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)saveImage:(id)sender{
+    //[SVProgressHUD show];
+    NSInteger index = self.collectionView.contentOffset.x / SCREEN_WIDTH;
+    DebugLog(@"%ld",index);
+    ZPhotoCollectionViewCell *cell = (ZPhotoCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        PHAssetChangeRequest *changeRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:cell.imageView.image];
+    } completionHandler:^(BOOL success, NSError *error) {
+        //[SVProgressHUD dismiss];
+        if (success) {
+            
+        }
+        else {
+            
+        }
+    }];
+}
+
+
 
 /*
 #pragma mark - Navigation

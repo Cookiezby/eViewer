@@ -39,25 +39,38 @@
         toVC.view.frame = startFrame;
         toVC.view.alpha = 0.0;
         
-        [[transitionContext containerView]addSubview:toVC.view];
+        CGRect finalFrame = [transitionContext finalFrameForViewController:toVC];
+        UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+        [[transitionContext containerView]addSubview:toView];
         
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
             toVC.view.alpha = 1.0;
+            toVC.view.frame = finalFrame;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
         }];
     }else{
         UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
         //CGRect finalFrame = [transitionContext finalFrameForViewController:fromVC];
-        
-        CGRect startFrame = fromVC.view.frame;
+        UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+        //CGRect startFrame = fromVC.view.frame;
         //CGRect endFrame = CGRectMake(0, startFrame.origin.y - SCREEN_HEIGHT, startFrame.size.width, startFrame.size.height);
         
-        [UIView animateWithDuration:0.3f animations:^{
+        //UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+        UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+        [[transitionContext containerView]addSubview:toView];
+        
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
             fromVC.view.alpha = 0.0;
             //fromVC.view.frame = endFrame;
         } completion:^(BOOL finished) {
-            [transitionContext completeTransition:YES];
+            //这里先要判读是否dismiss是finished，因为在交互过场的时候可以中途取消trarnsition，但这个回调还是会被执行
+            BOOL success = ![transitionContext transitionWasCancelled];
+            if(success){
+                [fromView removeFromSuperview];
+                
+            }
+            [transitionContext completeTransition:success];
         }];
         
 
