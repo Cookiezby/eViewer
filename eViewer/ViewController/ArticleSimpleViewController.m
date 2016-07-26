@@ -31,7 +31,12 @@ const static NSInteger REFRESH_HEIGHT = 50;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"Engadget";
+    //self.navigationItem.title = @"Engadget";
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"1EA2E0"]}];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithHexString:@"1EA2E0"];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]bk_initWithTitle:@"Menu"
                                                                                style:UIBarButtonItemStylePlain
                                                                              handler:^(id sender) {
@@ -40,13 +45,14 @@ const static NSInteger REFRESH_HEIGHT = 50;
                                                                                  [naviViewController showMenu];
                                                                              }];
     
+    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Logo.png"]];
     self.articleSimpleList = [[NSMutableArray alloc]init];
     
     self.collectionView = ({
         //CollectionViewLayout Setting
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        layout.itemSize = CGSizeMake(SCREEN_WIDTH-10,CELL_HEIGHT);
+        layout.itemSize = CGSizeMake(SCREEN_WIDTH,CELL_HEIGHT);
         //layout.minimumLineSpacing = 10;
         //CollectionView Setting
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:layout];
@@ -70,6 +76,11 @@ const static NSInteger REFRESH_HEIGHT = 50;
     }];
     
     // Do any additional setup after loading the view.
+}
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    //self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {

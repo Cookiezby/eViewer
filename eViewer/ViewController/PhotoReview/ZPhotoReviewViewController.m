@@ -16,6 +16,7 @@
 #import "ProgressView.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <Photos/Photos.h>
+#import "MBProgressHUD.h"
 
 const CGFloat SWIPE_VELOCITY_THRESHOULD = 1.2f;
 
@@ -236,6 +237,13 @@ typedef void (^Complete)(void);
     //[SVProgressHUD show];
     NSInteger index = self.collectionView.contentOffset.x / SCREEN_WIDTH;
     DebugLog(@"%ld",index);
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeCustomView;
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"CheckMark.png"]];
+    hud.minSize = CGSizeMake(100, 100);
+    hud.customView = imageView;
+    [hud hideAnimated:YES afterDelay:1.5f];
     ZPhotoCollectionViewCell *cell = (ZPhotoCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
     [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
         PHAssetChangeRequest *changeRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:cell.imageView.image];

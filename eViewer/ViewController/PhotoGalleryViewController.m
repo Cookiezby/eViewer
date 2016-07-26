@@ -15,6 +15,7 @@
 #import "EVHTMLManager.h"
 #import "ZPhotoReviewViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "MBProgressHUD.h"
 
 @interface PhotoGalleryViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -56,17 +57,23 @@
         [self.view addSubview:collectionView];
         collectionView.delegate = self;
         collectionView.dataSource = self;
+        collectionView.backgroundColor = [UIColor whiteColor];
         collectionView;
     });
     
     self.navigationItem.title = self.photoGallery.galleryTitle;
     
-    
-    
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     
     
-    [SVProgressHUD show];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = NSLocalizedString(@"载入中", @"HUD loading title");
+    hud.minSize = CGSizeMake(100, 100);
+    //hud.contentColor = [UIColor darkGrayColor];
+    //hud.backgroundColor = [UIColor darkGrayColor];
+    //hud.tintColor = [UIColor darkGrayColor];
+    //hud.color = [UIColor whiteColor];
+    
     self.collectionView.userInteractionEnabled = NO;
     [manager getAllGalleryImage:self.photoGallery.galleryLink withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
         //self.photoAmount = thumbArray.count;
@@ -74,7 +81,7 @@
         self.fullSizeImageLinkList = fullSizeArray;
         [self.collectionView reloadData];
         self.collectionView.userInteractionEnabled = YES;
-        [SVProgressHUD dismiss];
+        [hud hideAnimated:YES afterDelay:0.5f];
     }];
     
     //self.view.backgroundColor = [UIColor whiteColor];
@@ -118,12 +125,14 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
-    [cell.imageView sd_setImageWithURL:self.thumbLinkList[indexPath.item] placeholderImage:[UIImage imageNamed:@"PlaceHolderSquare.png"] options:0];
+    [cell.imageView sd_setImageWithURL:self.thumbLinkList[indexPath.item] placeholderImage:[UIImage imageNamed:@"PlaceHolderSquare3.png"] options:0];
     
     return cell;
 }
 
-
+- (void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 /*
 #pragma mark - Navigation

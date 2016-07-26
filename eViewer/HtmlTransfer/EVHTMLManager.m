@@ -25,6 +25,9 @@ const static CGFloat IMAGE_COMPRESS_RATIO = 0.8;
 @property (strong,nonatomic) NSMutableDictionary *tagAttributeDictionary;
 @property (strong,nonatomic) NSMutableArray *galleryList;
 
+@property (nonatomic) NSInteger detailImageCount;
+@property (strong, nonatomic) UIImage *detailFirstImage;
+
 @end
 
 
@@ -36,6 +39,9 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 - (instancetype)init{
     self = [super init];
     if(self){
+        
+        
+        _detailImageCount = 0;
         _sdManager = [SDWebImageManager sharedManager];
         _galleryList = [[NSMutableArray alloc]init];
         _tagAttributeDictionary  = ({
@@ -97,9 +103,9 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 }
 
 - (void)getDetail:(NSString *)url withHandler:(DetailPageCompleteHandler)handler{
-    NSString *URLString = @"http://cn.engadget.com/2016/07/08/oneplus-3-review/";
+    //NSString *URLString = @"http://cn.engadget.com/2016/07/08/oneplus-3-review/";
     //NSString *URLString = @"http://cn.engadget.com/2016/07/04/samsung-galaxy-c5-review/";
-    NSURL *URL = [NSURL URLWithString:URLString];
+    NSURL *URL = [NSURL URLWithString:url];
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -326,43 +332,50 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     
     
     if([element.tagName isEqualToString:@"img"]){
-        //DebugLog(@"23333");
-        UIImage *image = [UIImage imageNamed:@"placeholder.png"];
-        NSTextAttachment *imgAttachment = [[NSTextAttachment alloc]init];
-        imgAttachment.image = image;
-        CGSize imageSize = CGSizeMake(SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
-    
-        NSRange range = NSMakeRange(attributedString.length, 1);
-        
-        imgAttachment.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
-        NSMutableAttributedString *imgAttributedString = [[NSMutableAttributedString alloc]initWithAttributedString:[NSAttributedString attributedStringWithAttachment:imgAttachment]];
-        [imgAttributedString addAttributes:self.tagAttributeDictionary[@"img"] range:NSMakeRange(0, imgAttributedString.length)];
-        [attributedString appendAttributedString:imgAttributedString];
-        
-        NSURL *imgURL = [[NSURL alloc]initWithString:[element objectForKey:@"src"]];
-        
-        
-        if([_sdManager diskImageExistsForURL:imgURL]){
-            //imgAttachment.bounds = CGRectMake(0, 0, 300, 100);
-            //DebugLog(@"Exist");
-            UIImage *cachedImage = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:[_sdManager cacheKeyForURL:imgURL]];
-            imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, cachedImage.size.height/(cachedImage.size.width/(SCREEN_WIDTH-10)));
-            UIImage *compressedImage = [UIImage compressImage:cachedImage ByRatio:IMAGE_COMPRESS_RATIO toSize:cachedImage.size];
-            imgAttachment.image = compressedImage;
-            //[self.delegate refresImageAtRange:range toSize:imgAttachment.bounds.size];
+        if(self.detailImageCount == 0){
+            self.detailImageCount++;
         }else{
-            [_sdManager downloadImageWithURL:(NSURL *)imgURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                //show the download process here
-            } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-10, image.size.height/(image.size.width/(SCREEN_WIDTH-10)));
-                //DebugLog(@"%f %f",imgAttachment.bounds.size.width,imgAttachment.bounds.size.height);
-                UIImage *compressedImage = [UIImage compressImage:image ByRatio:IMAGE_COMPRESS_RATIO toSize:imgAttachment.bounds.size];
+            UIImage *image = [UIImage imageNamed:@"placeholder.png"];
+            NSTextAttachment *imgAttachment = [[NSTextAttachment alloc]init];
+            imgAttachment.image = image;
+            CGSize imageSize = CGSizeMake(SCREEN_WIDTH-20, image.size.height/(image.size.width/(SCREEN_WIDTH-20)));
+            
+            NSRange range = NSMakeRange(attributedString.length, 1);
+            
+            imgAttachment.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
+            NSMutableAttributedString *imgAttributedString = [[NSMutableAttributedString alloc]initWithAttributedString:[NSAttributedString attributedStringWithAttachment:imgAttachment]];
+            [imgAttributedString addAttributes:self.tagAttributeDictionary[@"img"] range:NSMakeRange(0, imgAttributedString.length)];
+            [attributedString appendAttributedString:imgAttributedString];
+            
+            NSURL *imgURL = [[NSURL alloc]initWithString:[element objectForKey:@"src"]];
+            
+            
+            if([_sdManager diskImageExistsForURL:imgURL]){
+                //imgAttachment.bounds = CGRectMake(0, 0, 300, 100);
+                //DebugLog(@"Exist");
+                UIImage *cachedImage = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:[_sdManager cacheKeyForURL:imgURL]];
+                imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-20, cachedImage.size.height/(cachedImage.size.width/(SCREEN_WIDTH-20)));
+                UIImage *compressedImage = [UIImage compressImage:cachedImage ByRatio:IMAGE_COMPRESS_RATIO toSize:cachedImage.size];
                 imgAttachment.image = compressedImage;
-                [[SDImageCache sharedImageCache]removeImageForKey:[_sdManager cacheKeyForURL:imgURL] fromDisk:YES];
-                [[SDImageCache sharedImageCache]storeImage:compressedImage forKey:[_sdManager cacheKeyForURL:imgURL] toDisk:YES];
-                [self.delegate refresImageAtRange:range toSize:imgAttachment.bounds.size];
-            }];
+                //[self.delegate refresImageAtRange:range toSize:imgAttachment.bounds.size];
+            }else{
+                [_sdManager downloadImageWithURL:(NSURL *)imgURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                    //show the download process here
+                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                    imgAttachment.bounds = CGRectMake(0, 0, SCREEN_WIDTH-20, image.size.height/(image.size.width/(SCREEN_WIDTH-20)));
+                    //DebugLog(@"%f %f",imgAttachment.bounds.size.width,imgAttachment.bounds.size.height);
+                    //UIImage *compressedImage = [UIImage compressImage:image ByRatio:IMAGE_COMPRESS_RATIO toSize:imgAttachment.bounds.size];
+                    imgAttachment.image = image;
+                    //[[SDImageCache sharedImageCache]removeImageForKey:[_sdManager cacheKeyForURL:imgURL] fromDisk:YES];
+                    //[[SDImageCache sharedImageCache]storeImage:compressedImage forKey:[_sdManager cacheKeyForURL:imgURL] toDisk:YES];
+                    [self.delegate refresImageAtRange:range toSize:imgAttachment.bounds.size];
+                }];
+            }
+            
+            self.detailImageCount++;
         }
+        //DebugLog(@"23333");
+        
     }
     
 }

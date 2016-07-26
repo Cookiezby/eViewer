@@ -58,7 +58,7 @@
         self.authorLabel = ({
             UILabel *label = [[UILabel alloc]init];
             [self.contentView addSubview:label];
-            label.textColor = [UIColor blueColor];
+            label.textColor = [UIColor colorWithHexString:@"1EA2E0"];
             label.font = [UIFont systemFontOfSize:12];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(@-10);

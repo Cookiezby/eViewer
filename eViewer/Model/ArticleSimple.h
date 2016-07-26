@@ -16,4 +16,5 @@
 @property (strong, nonatomic) NSString *postTime;
 @property (strong, nonatomic) NSString *detailURL;
 
+
 @end

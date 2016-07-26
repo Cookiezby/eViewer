@@ -13,13 +13,14 @@
 #import <YYText/YYText.h>
 #import "PhotoGalleryViewController.h"
 #import "PhotoGallery.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ArticleDetailViewController () <EVHTMLDelegate,UITextViewDelegate>
 
 @property (strong, nonatomic) UIImageView *coverImageView;
 @property (strong, nonatomic) UITextView *testTextView;
 @property (strong, nonatomic) NSMutableArray *galleryList;
-
+@property (strong, nonatomic) UIView *headView;
 
 @end
 
@@ -36,20 +37,63 @@
         textView.frame = CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT);
         //textView.layoutManager.allowsNonContiguousLayout = NO;
         [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@5);
-            make.right.equalTo(@-10);
+            make.left.equalTo(@0);
+            make.right.equalTo(@0);
             make.top.equalTo(@0);
             make.bottom.equalTo(@0);
         }];
         textView.textContainerInset = UIEdgeInsetsZero;
-        textView.text = @"init text";
         textView.editable = NO;
         textView.delegate = self;
         //textView.textAlignment = NSTextAlignmentJustified;
         textView.showsVerticalScrollIndicator = NO;
+        textView.textContainerInset = UIEdgeInsetsMake(SCREEN_WIDTH/1.7 + 30, 5, 0, 5);
         textView;
     });
     
+    
+    self.headView = ({
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH/1.7 + 60)];
+        [self.testTextView addSubview:view];
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH/1.7)];
+        [view addSubview:imageView];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(@0);
+            make.left.equalTo(@0);
+            make.right.equalTo(@0);
+            make.width.equalTo(@(SCREEN_WIDTH));
+            make.height.equalTo(@(SCREEN_WIDTH/1.7));
+        }];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+        NSURL *url = [NSURL URLWithString:self.simpleArticle.coverImageURL];
+        [imageView sd_setImageWithURL:url];
+    
+        UILabel *titleLabel = [[UILabel alloc]init];
+        [view addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(imageView.mas_bottom).with.offset(5);
+            make.width.equalTo(@(SCREEN_WIDTH-10));
+            make.height.equalTo(@80);
+            make.left.equalTo(@5);
+        }];
+        titleLabel.text = self.simpleArticle.title;
+        
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:self.simpleArticle.title];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+        paragraphStyle.lineSpacing = 10;
+    
+        [str addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, str.length)];
+        UIFont *font = [UIFont boldSystemFontOfSize:24];
+        titleLabel.font = font;
+        titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        titleLabel.numberOfLines = 0;
+        titleLabel.attributedText = str;
+        titleLabel.textColor = [UIColor darkGrayColor];
+        //view.backgroundColor = [UIColor darkGrayColor];
+        view;
+    });
     
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     manager.delegate = self;
@@ -60,6 +104,9 @@
         //DebugLog(@"%ld",galleryList.count);
     }];
     
+    //self.navigationItem.title = self.simpleArticle.title;
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Logo.png"]];
     // Do any additional setup after loading the view.
 }
 
@@ -68,24 +115,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSMutableAttributedString *)setParagraph:(NSMutableAttributedString *)attributeString{
-    //NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    //paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    //paragraphStyle.lineHeightMultiple = 1.4;
-    //[attributeString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributeString length])];
-    
-    
-    return attributeString;
+- (void)viewWillAppear:(BOOL)animated{
+    //[self.navigationController.navigationBar setHidden:YES];
 }
 
 
 #pragma mark - EVHTMLDelegate
-/*- (void)refreshTextViewAtRange:(NSRange)range{
-    DebugLog(@"refresh");
-    DebugLog(@"%ld,%ld",range.location,range.length);
-    //[self.testTextView.layoutManager invalidateLayoutForCharacterRange:range actualCharacterRange:NULL];
-   
-}*/
+
 
 - (void)refresImageAtRange:(NSRange)range toSize:(CGSize)size{
     //[self.testTextView.layoutManager setAttachmentSize:size forGlyphRange:range];
