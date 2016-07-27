@@ -37,13 +37,12 @@ const static NSInteger REFRESH_HEIGHT = 50;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"1EA2E0"]}];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHexString:@"1EA2E0"];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]bk_initWithTitle:@"Menu"
-                                                                               style:UIBarButtonItemStylePlain
-                                                                             handler:^(id sender) {
-                                                                                 DebugLog(@"showMenu");
-                                                                                 EVNaviViewController *naviViewController = (EVNaviViewController *)self.navigationController;
-                                                                                 [naviViewController showMenu];
-                                                                             }];
+        
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]bk_initWithImage:[UIImage imageNamed:@"MenuButton.png"] style:UIBarButtonItemStylePlain handler:^(id sender) {
+        DebugLog(@"showMenu");
+        EVNaviViewController *naviViewController = (EVNaviViewController *)self.navigationController;
+        [naviViewController showMenu];
+    }];
     
     self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Logo.png"]];
     self.articleSimpleList = [[NSMutableArray alloc]init];

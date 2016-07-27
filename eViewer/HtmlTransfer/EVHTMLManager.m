@@ -109,7 +109,29 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
-        handler([self analysisDetailPageHTMLData2:responseObject],self.galleryList);
+        
+        NSMutableAttributedString *result = [self analysisDetailPageHTMLData2:responseObject];
+        NSCharacterSet *set = [NSCharacterSet newlineCharacterSet];
+        NSRange range = [result.string rangeOfCharacterFromSet:set
+                                                  options:NSBackwardsSearch];
+        //delete the end new line
+        while(range.length != 0 && NSMaxRange(range)==result.length){
+            [result replaceCharactersInRange:range
+                                     withString:@""];
+            //DebugLog(@"location = %ld", range.location);
+            range = [result.string rangeOfCharacterFromSet:set
+                                                   options:NSBackwardsSearch];
+        }
+        //delete the pre new line
+        range = [result.string rangeOfCharacterFromSet:set options:NSLiteralSearch];
+        while(range.length !=0 && range.location == 0){
+            [result replaceCharactersInRange:range
+                                  withString:@""];
+            //DebugLog(@"location = %ld", range.location);
+            range = [result.string rangeOfCharacterFromSet:set options:NSLiteralSearch];
+        }
+        //[result.string stringByTrimmingCharactersInSet:set];
+        handler(result,self.galleryList);
      } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
     }];

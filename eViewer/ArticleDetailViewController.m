@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UITextView *testTextView;
 @property (strong, nonatomic) NSMutableArray *galleryList;
 @property (strong, nonatomic) UIView *headView;
+@property (nonatomic) NSInteger titleHeight;
 
 @end
 
@@ -47,7 +48,7 @@
         textView.delegate = self;
         //textView.textAlignment = NSTextAlignmentJustified;
         textView.showsVerticalScrollIndicator = NO;
-        textView.textContainerInset = UIEdgeInsetsMake(SCREEN_WIDTH/1.7 + 30, 5, 0, 5);
+        textView.textContainerInset = UIEdgeInsetsMake(SCREEN_WIDTH/1.7 +85, 5, 0, 5);
         textView;
     });
     
@@ -70,20 +71,12 @@
         NSURL *url = [NSURL URLWithString:self.simpleArticle.coverImageURL];
         [imageView sd_setImageWithURL:url];
     
-        UILabel *titleLabel = [[UILabel alloc]init];
-        [view addSubview:titleLabel];
-        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(imageView.mas_bottom).with.offset(5);
-            make.width.equalTo(@(SCREEN_WIDTH-10));
-            make.height.equalTo(@80);
-            make.left.equalTo(@5);
-        }];
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, SCREEN_WIDTH/1.7 + 15, SCREEN_WIDTH-20, 0)];
         titleLabel.text = self.simpleArticle.title;
-        
         NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:self.simpleArticle.title];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
         paragraphStyle.lineSpacing = 10;
-    
+        
         [str addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, str.length)];
         UIFont *font = [UIFont boldSystemFontOfSize:24];
         titleLabel.font = font;
@@ -91,6 +84,11 @@
         titleLabel.numberOfLines = 0;
         titleLabel.attributedText = str;
         titleLabel.textColor = [UIColor darkGrayColor];
+        [titleLabel sizeToFit];
+        DebugLog(@"%f",titleLabel.frame.size.height);
+        [view addSubview:titleLabel];
+        self.titleHeight = titleLabel.frame.size.height;
+       
         //view.backgroundColor = [UIColor darkGrayColor];
         view;
     });
@@ -103,6 +101,9 @@
         self.galleryList = galleryList;
         //DebugLog(@"%ld",galleryList.count);
     }];
+    
+    self.testTextView.textContainerInset = UIEdgeInsetsMake(SCREEN_WIDTH/1.7 + self.titleHeight + 30, 5, 0, 5);
+
     
     //self.navigationItem.title = self.simpleArticle.title;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
