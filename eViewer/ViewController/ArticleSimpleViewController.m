@@ -14,9 +14,17 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ArticleSimpleCollectionViewCell.h"
 #import "ArticleDetailViewController.h"
+#import "Masonry.h"
+#import "MBProgressHUD.h"
+#import "PlanetView.h"
+#import "DotGroupView.h"
 
-const static NSInteger CELL_HEIGHT = 220;
-const static NSInteger REFRESH_HEIGHT = 50;
+const static CGFloat CELL_HEIGHT = 220;
+const static CGFloat REFRESH_HEIGHT = 50;
+const static CGFloat PULL_DISTANCE = 100;
+const static CGFloat PLANET_SIZE = 20;
+const static CGFloat DOT_WIDTH = 40;
+const static CGFloat DOT_HEIGHT = 10;
 //const static NSInteger CELL_WIDTH = [UIScreen mainScreen].bounds.size.width-10;
 
 
@@ -24,6 +32,9 @@ const static NSInteger REFRESH_HEIGHT = 50;
 
 @property (strong, nonatomic)UICollectionView *collectionView;
 @property (strong, nonatomic)NSMutableArray *articleSimpleList;
+@property (strong, nonatomic)PlanetView *planetView;
+@property (strong, nonatomic)DotGroupView *dotGroupView;
+
 
 @end
 
@@ -44,7 +55,7 @@ const static NSInteger REFRESH_HEIGHT = 50;
         [naviViewController showMenu];
     }];
     
-    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Logo.png"]];
+    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"EggIcon.png"]];
     self.articleSimpleList = [[NSMutableArray alloc]init];
     
     self.collectionView = ({
@@ -52,26 +63,36 @@ const static NSInteger REFRESH_HEIGHT = 50;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         layout.itemSize = CGSizeMake(SCREEN_WIDTH,CELL_HEIGHT);
-        //layout.minimumLineSpacing = 10;
+        layout.minimumLineSpacing = 0;
         //CollectionView Setting
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:layout];
-        collectionView.backgroundColor = TABLE_VIEW_BACKGROUND_COLOR;
+        collectionView.backgroundColor = [UIColor whiteColor];
         [collectionView registerClass:[ArticleSimpleCollectionViewCell class] forCellWithReuseIdentifier:@"ArticleSimpleCell"];
         collectionView.showsVerticalScrollIndicator = NO;
         //collectionView.bounces = NO;
         [self.view addSubview:collectionView];
+        [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView;
     });
     
-
+    self.planetView = [[PlanetView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-PLANET_SIZE/2, -PLANET_SIZE-2, PLANET_SIZE, PLANET_SIZE)];
+    [self.planetView pauseLayerAniamtion];
+    [self.view addSubview:self.planetView];
+    
+    
+    self.dotGroupView = [[DotGroupView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, SCREEN_HEIGHT - 64, DOT_WIDTH, DOT_HEIGHT) withDuration:2.0 dotColor:[UIColor colorWithHexString:@"1EA2E0"]];
+    [self.dotGroupView pauseLayerAniamtion];
+    [self.view addSubview:self.dotGroupView];
+    
+    
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
-    [SVProgressHUD show];
     [manager getPage:1 withHandler:^(NSMutableArray *array) {
         [self.articleSimpleList addObjectsFromArray:array];
         [self.collectionView reloadData];
-        [SVProgressHUD dismiss];
     }];
     
     // Do any additional setup after loading the view.
@@ -114,8 +135,14 @@ const static NSInteger REFRESH_HEIGHT = 50;
     cell.authorLabel.text = articleSimple.author;
     cell.titleLabel.text = articleSimple.title;
     cell.postTimeLabel.text = articleSimple.postTime;
-    [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:articleSimple.coverImageURL]
-                           placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    
+    if(articleSimple.coverImageURL.length != 0){
+        [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:articleSimple.coverImageURL]
+                               placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    }else{
+        cell.coverImageView.image = [UIImage imageNamed:@"EngadgetLogo.png"];
+    }
+   
 
     return cell;
 }
@@ -123,67 +150,98 @@ const static NSInteger REFRESH_HEIGHT = 50;
 
 #pragma mark - UIScrollViewDelegate
 
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if(scrollView.contentOffset.y < 0){
+        CGFloat originY = 0;
+        if(scrollView.contentOffset.y > -PULL_DISTANCE/2){
+            originY = -PLANET_SIZE-2 + (-scrollView.contentOffset.y/PULL_DISTANCE) * (PULL_DISTANCE/2 + PLANET_SIZE);
+        }else{
+            originY = -PLANET_SIZE-2 + 0.5 * (PULL_DISTANCE/2 + PLANET_SIZE);
+        }
+        CGRect planetFrame = CGRectMake(SCREEN_WIDTH/2 - PLANET_SIZE/2, originY , PLANET_SIZE, PLANET_SIZE);
+        self.planetView.frame = planetFrame;
+    }
+    
+    if(scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height){
+        CGFloat originY = 0;
+        CGFloat relativeDistance = (scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height);
+        if(relativeDistance < PULL_DISTANCE/2){
+            originY = SCREEN_HEIGHT-64 - (relativeDistance/(PULL_DISTANCE)) * (PULL_DISTANCE/2 + DOT_HEIGHT);
+        }else{
+            originY = SCREEN_HEIGHT-64 - 0.5 * (PULL_DISTANCE/2 + DOT_HEIGHT);
+        }
+        self.dotGroupView.frame = CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, originY, DOT_WIDTH, DOT_HEIGHT);
+        
+    }
+    
+    
+}
+
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    if(scrollView.contentOffset.y < -150){
-        
-        //CGFloat refreshSpace = 50.0f;
-        
-        [UIView animateWithDuration:0.5f animations:^{
-            //self.collectionView.contentInset = UIEdgeInsetsMake(114.0f, 0.0f, 0.0f, 0.0f);
-            
-            [scrollView setContentOffset:CGPointMake(0,-(64+REFRESH_HEIGHT)) animated:NO];
+   // DebugLog(@"%f",scrollView.contentOffset.y);
+    if(scrollView.contentOffset.y < -(PULL_DISTANCE)){
+        [self.planetView resumeLayerAnimation];
+        self.collectionView.scrollEnabled = NO;
+        [UIView animateWithDuration:0.4f delay:0.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [scrollView setContentOffset:CGPointMake(0,-(REFRESH_HEIGHT)) animated:NO];
         } completion:^(BOOL finished) {
-            //DebugLog(@"Refresh Complete");
             EVHTMLManager *manager = [[EVHTMLManager alloc]init];
-            [SVProgressHUD show];
             [manager getPage:1 withHandler:^(NSMutableArray *array) {
                 [self.articleSimpleList removeAllObjects];
                 [self.articleSimpleList addObjectsFromArray:array];
                 [self.collectionView reloadData];
-                [SVProgressHUD dismiss];
-                 
-                [UIView animateWithDuration:0.5f animations:^{
-                    [scrollView setContentOffset:CGPointMake(0, -64) animated:NO];
+                //[self.planetView pauseLayerAniamtion];
+                
+                [UIView animateWithDuration:0.3f animations:^{
+                    self.planetView.frame = CGRectMake(SCREEN_WIDTH/2 - PLANET_SIZE/2, -PLANET_SIZE-2, PLANET_SIZE, PLANET_SIZE);
+                    [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
                 } completion:^(BOOL finished) {
+                    [self.planetView pauseLayerAniamtion];
+                    self.collectionView.scrollEnabled = YES;
                     //self.collectionView.contentInset = UIEdgeInsetsMake(64.0f, 0.0f, 0.0f, 0.0f);
                     //self.collectionView.bounces = YES;
                 }];
             }];
+
         }];
-    }else if(scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height){
+        
+    
+    }else if(scrollView.contentOffset.y + scrollView.frame.size.height >= (scrollView.contentSize.height + PULL_DISTANCE)){
         DebugLog(@"more");
-        NSLog(@"%f",scrollView.contentOffset.y);
-        NSLog(@"%f",scrollView.frame.size.height);
-        NSLog(@"%f",scrollView.contentSize.height);
+        NSInteger bottomContentOffset = scrollView.contentSize.height - scrollView.frame.size.height;
         //CGPoint contentOffset = scrollView.contentOffset;
         //UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
         
         CGPoint finalContentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.frame.size.height + REFRESH_HEIGHT);
-        
-        [UIView animateWithDuration:0.5f animations:^{
+        self.collectionView.scrollEnabled = NO;
+        [self.dotGroupView resumeLayerAnimation];
+        [UIView animateWithDuration:0.4f delay:0.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.collectionView.scrollEnabled = NO;
             [self.collectionView setContentOffset:finalContentOffset animated:NO];
         } completion:^(BOOL finished) {
             EVHTMLManager *manager = [[EVHTMLManager alloc]init];
-            [SVProgressHUD show];
+            
             [manager getPage:self.articleSimpleList.count/10+1 withHandler:^(NSMutableArray *array) {
                 //[self.articleSimpleList removeAllObjects];
                 [self.articleSimpleList addObjectsFromArray:array];
                 [self.collectionView reloadData];
-                [SVProgressHUD dismiss];
                 self.collectionView.scrollEnabled = YES;
+                [UIView animateWithDuration:0.3f animations:^{
+                    [scrollView setContentOffset:CGPointMake(0, bottomContentOffset) animated:NO];
+                    self.dotGroupView.frame = CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, SCREEN_HEIGHT-64, DOT_WIDTH, DOT_HEIGHT);
+                } completion:^(BOOL finished) {
+                    [self.dotGroupView pauseLayerAniamtion];
+                    self.collectionView.scrollEnabled = YES;
+                }];
             }];
+
         }];
+        
     }
 
 }
 //用collectionview 的insertItem 来代替reload
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-}
-
-
 
 - (void)setLoadingScrollViewInsets:(UIScrollView *)scrollView
 {

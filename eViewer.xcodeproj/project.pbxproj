@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		66904763BE1E8BD80CA274BA /* libPods-eViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B277C9AB12DA5061FC96973 /* libPods-eViewer.a */; };
 		7600C44C1D229EDC005C26C6 /* ArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */; };
+		760430F71D4F2C7B0059CD33 /* DotGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 760430F61D4F2C7B0059CD33 /* DotGroupView.m */; };
 		760EDAC51D2CB96F00D64D0F /* PhotoGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */; };
 		761636EF1D37776D001A2CDF /* UIImage+Compress.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636EE1D37776D001A2CDF /* UIImage+Compress.m */; };
 		761636F21D38A8F5001A2CDF /* NSString+DateTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636F11D38A8F5001A2CDF /* NSString+DateTransfer.m */; };
@@ -19,9 +20,10 @@
 		761636FF1D3A3095001A2CDF /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 761636FC1D3A3095001A2CDF /* 4.jpg */; };
 		761637001D3A3095001A2CDF /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 761636FD1D3A3095001A2CDF /* 5.jpg */; };
 		761637021D3A30A4001A2CDF /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 761637011D3A30A4001A2CDF /* 2.jpg */; };
-		761637051D3A39F8001A2CDF /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637041D3A39F8001A2CDF /* TestView.m */; };
+		761637051D3A39F8001A2CDF /* PlanetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637041D3A39F8001A2CDF /* PlanetView.m */; };
 		761637081D3A8235001A2CDF /* PhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */; };
 		762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */; };
+		76525EFD1D48FD3D001C7C1C /* EngadgetLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */; };
 		767E3BBF1D45124D006CED70 /* CloseImageViewButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */; };
 		767E3BC01D45124D006CED70 /* SaveImageButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 767E3BBE1D45124D006CED70 /* SaveImageButton.png */; };
 		767FFE141D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 767FFE131D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m */; };
@@ -50,6 +52,7 @@
 		76D89F0F1D47B7590033AC45 /* AppIcon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F0D1D47B7590033AC45 /* AppIcon2.png */; };
 		76D89F101D47B7590033AC45 /* AppIcon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F0E1D47B7590033AC45 /* AppIcon3.png */; };
 		76D89F141D47BBEE0033AC45 /* MenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F131D47BBEE0033AC45 /* MenuButton.png */; };
+		76DB820B1D4A661400440DFE /* EggIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 76DB820A1D4A661400440DFE /* EggIcon.png */; };
 		76EA5B231D17C2AB00FEFF38 /* EVHTMLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B221D17C2AB00FEFF38 /* EVHTMLManager.m */; };
 		76EA5B271D17D64400FEFF38 /* ArticleSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B261D17D64400FEFF38 /* ArticleSimple.m */; };
 		76EA5B2A1D17DC1E00FEFF38 /* ArticleDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B291D17DC1E00FEFF38 /* ArticleDetail.m */; };
@@ -69,6 +72,8 @@
 		73742F31F91E4902FB237753 /* Pods-eViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-eViewer/Pods-eViewer.release.xcconfig"; sourceTree = "<group>"; };
 		7600C44A1D229EDC005C26C6 /* ArticleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleDetailViewController.h; sourceTree = "<group>"; };
 		7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDetailViewController.m; sourceTree = "<group>"; };
+		760430F51D4F2C7B0059CD33 /* DotGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DotGroupView.h; path = View/DotGroupView.h; sourceTree = "<group>"; };
+		760430F61D4F2C7B0059CD33 /* DotGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DotGroupView.m; path = View/DotGroupView.m; sourceTree = "<group>"; };
 		760EDAC31D2CB96F00D64D0F /* PhotoGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoGallery.h; path = Model/PhotoGallery.h; sourceTree = "<group>"; };
 		760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGallery.m; path = Model/PhotoGallery.m; sourceTree = "<group>"; };
 		761636ED1D37776D001A2CDF /* UIImage+Compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compress.h"; path = "SupportingFile/UIImage+Compress.h"; sourceTree = "<group>"; };
@@ -84,12 +89,13 @@
 		761636FC1D3A3095001A2CDF /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
 		761636FD1D3A3095001A2CDF /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
 		761637011D3A30A4001A2CDF /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
-		761637031D3A39F8001A2CDF /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestView.h; path = View/TestView.h; sourceTree = "<group>"; };
-		761637041D3A39F8001A2CDF /* TestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestView.m; path = View/TestView.m; sourceTree = "<group>"; };
+		761637031D3A39F8001A2CDF /* PlanetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlanetView.h; path = View/PlanetView.h; sourceTree = "<group>"; };
+		761637041D3A39F8001A2CDF /* PlanetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlanetView.m; path = View/PlanetView.m; sourceTree = "<group>"; };
 		761637061D3A8235001A2CDF /* PhotoGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoGalleryViewController.h; path = ViewController/PhotoGalleryViewController.h; sourceTree = "<group>"; };
 		761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGalleryViewController.m; path = ViewController/PhotoGalleryViewController.m; sourceTree = "<group>"; };
 		762B705A1D1EDA0F002F1BF6 /* EVSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVSideViewController.h; path = ViewController/SideMenu2/EVSideViewController.h; sourceTree = "<group>"; };
 		762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVSideViewController.m; path = ViewController/SideMenu2/EVSideViewController.m; sourceTree = "<group>"; };
+		76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngadgetLogo.png; sourceTree = "<group>"; };
 		767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseImageViewButton.png; sourceTree = "<group>"; };
 		767E3BBE1D45124D006CED70 /* SaveImageButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SaveImageButton.png; sourceTree = "<group>"; };
 		767FFE121D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwipeUpInteractiveTransition.h; path = ViewController/PhotoReview/SwipeUpInteractiveTransition.h; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 		76D89F0D1D47B7590033AC45 /* AppIcon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon2.png; sourceTree = "<group>"; };
 		76D89F0E1D47B7590033AC45 /* AppIcon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon3.png; sourceTree = "<group>"; };
 		76D89F131D47BBEE0033AC45 /* MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuButton.png; sourceTree = "<group>"; };
+		76DB820A1D4A661400440DFE /* EggIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EggIcon.png; sourceTree = "<group>"; };
 		76EA5B211D17C2AB00FEFF38 /* EVHTMLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVHTMLManager.h; path = HtmlTransfer/EVHTMLManager.h; sourceTree = "<group>"; };
 		76EA5B221D17C2AB00FEFF38 /* EVHTMLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVHTMLManager.m; path = HtmlTransfer/EVHTMLManager.m; sourceTree = "<group>"; };
 		76EA5B251D17D64400FEFF38 /* ArticleSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleSimple.h; path = Model/ArticleSimple.h; sourceTree = "<group>"; };
@@ -320,6 +327,14 @@
 			name = HTMLParser;
 			sourceTree = "<group>";
 		};
+		76DB82091D4A65FE00440DFE /* image */ = {
+			isa = PBXGroup;
+			children = (
+				76DB820A1D4A661400440DFE /* EggIcon.png */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
 		76EA5B241D17D60D00FEFF38 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,8 +352,10 @@
 			isa = PBXGroup;
 			children = (
 				76EA5B601D18DCBE00FEFF38 /* Cell */,
-				761637031D3A39F8001A2CDF /* TestView.h */,
-				761637041D3A39F8001A2CDF /* TestView.m */,
+				761637031D3A39F8001A2CDF /* PlanetView.h */,
+				761637041D3A39F8001A2CDF /* PlanetView.m */,
+				760430F51D4F2C7B0059CD33 /* DotGroupView.h */,
+				760430F61D4F2C7B0059CD33 /* DotGroupView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -361,6 +378,8 @@
 		76EA5B641D18F8F200FEFF38 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				76DB82091D4A65FE00440DFE /* image */,
+				76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */,
 				76D89F131D47BBEE0033AC45 /* MenuButton.png */,
 				76D89F0D1D47B7590033AC45 /* AppIcon2.png */,
 				76D89F0E1D47B7590033AC45 /* AppIcon3.png */,
@@ -467,6 +486,8 @@
 				767E3BBF1D45124D006CED70 /* CloseImageViewButton.png in Resources */,
 				761636FA1D3A307A001A2CDF /* 1.jpg in Resources */,
 				76D80CC21D0FF141000D9E4E /* Assets.xcassets in Resources */,
+				76DB820B1D4A661400440DFE /* EggIcon.png in Resources */,
+				76525EFD1D48FD3D001C7C1C /* EngadgetLogo.png in Resources */,
 				761636FE1D3A3095001A2CDF /* 3.jpg in Resources */,
 				767E3BC01D45124D006CED70 /* SaveImageButton.png in Resources */,
 				76D89F101D47B7590033AC45 /* AppIcon3.png in Resources */,
@@ -532,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				768F27AF1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.m in Sources */,
+				760430F71D4F2C7B0059CD33 /* DotGroupView.m in Sources */,
 				762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */,
 				76FA84921D1FAE8B00BD0F22 /* DemoHomeViewController.m in Sources */,
 				76C9FB8D1D3BC9DA007B60A7 /* ZPresentationController.m in Sources */,
@@ -557,7 +579,7 @@
 				76FA848F1D1FADAB00BD0F22 /* EVMenuViewController.m in Sources */,
 				767FFE181D3FB0E00041AF52 /* ProgressView.m in Sources */,
 				76C9FB891D3B45F0007B60A7 /* PhotoCollectionViewCell.m in Sources */,
-				761637051D3A39F8001A2CDF /* TestView.m in Sources */,
+				761637051D3A39F8001A2CDF /* PlanetView.m in Sources */,
 				76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */,
 				76D80CC01D0FF141000D9E4E /* eViewer.xcdatamodeld in Sources */,
 				76C9FB931D3BCBBB007B60A7 /* ZPresentationAnimator.m in Sources */,

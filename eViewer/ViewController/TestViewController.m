@@ -8,12 +8,15 @@
 
 #import "TestViewController.h"
 #import "Masonry.h"
-#import "TestView.h"
+#import "PlanetView.h"
 #import "ProgressView.h"
+#import "DotGroupView.h"
+#define pi 3.1415926
+#define   DEGREES_TO_RADIANS(degrees)  ((pi * degrees)/ 180)
 
 @interface TestViewController ()
 
-@property (strong, nonatomic)TestView * galleryView;
+@property (strong, nonatomic)PlanetView * galleryView;
 
 @end
 
@@ -35,22 +38,56 @@
         
         view;
     });*/
+
+    //__block int time = 0;
+    
+    /*UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(30, 100)];
+    [path addArcWithCenter:CGPointMake(100,100) radius:70 startAngle:DEGREES_TO_RADIANS(-180) endAngle:DEGREES_TO_RADIANS(180) clockwise:YES];
     
     
-    ProgressView *view = [[ProgressView alloc]initWithFrame:CGRectMake(0, 0, 200, 5)];
-    [self.view addSubview:view];
+    CAKeyframeAnimation * animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    animation.path = [path CGPath];
+    animation.duration = 3.0;
+    animation.repeatCount = 10;
+    //animation.autoreverses = YES;
+    animation.calculationMode = kCAAnimationPaced;
+    [testView.layer addAnimation:animation forKey:@"position"];*/
     
-    [view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.view);
-        make.width.equalTo(@200);
-        make.height.equalTo(@5);
-    }];
-    
-    
-    DebugLog(@"%f",view.frame.origin.x);
     
     //[view changeProgress:0.8 animated:YES];
     
+    PlanetView *view = [[PlanetView alloc]initWithFrame:CGRectMake(100, 200, 25, 25)];
+    view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:view];
+    
+          
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.frame = CGRectMake(0, 400, 100, 50);
+    [self.view addSubview:button];
+    [button setBackgroundColor:[UIColor blueColor]];
+    
+    [button bk_whenTapped:^{
+        DebugLog(@"pressed");
+        [view pauseLayerAniamtion];
+    }];
+    
+    
+    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeSystem];
+    button2.frame = CGRectMake(0, 550, 100, 50);
+    [self.view addSubview:button2];
+    [button2 setBackgroundColor:[UIColor blueColor]];
+    
+    [button2 bk_whenTapped:^{
+        DebugLog(@"pressed");
+        [view resumeLayerAnimation];
+    }];
+    
+    
+    DotGroupView *view2 = [[DotGroupView alloc]initWithFrame:CGRectMake(50,100, 40, 10) withDuration:4 dotColor:[UIColor redColor]];
+    [self.view addSubview:view2];
+
     
 }
 

@@ -69,8 +69,12 @@
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
         NSURL *url = [NSURL URLWithString:self.simpleArticle.coverImageURL];
-        [imageView sd_setImageWithURL:url];
-    
+        if(self.simpleArticle.coverImageURL.length!=0){
+            [imageView sd_setImageWithURL:url];
+        }else{
+            imageView.image = [UIImage imageNamed:@"EngadgetLogo.png"];
+        }
+        
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, SCREEN_WIDTH/1.7 + 15, SCREEN_WIDTH-20, 0)];
         titleLabel.text = self.simpleArticle.title;
         NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:self.simpleArticle.title];
@@ -107,7 +111,7 @@
     
     //self.navigationItem.title = self.simpleArticle.title;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Logo.png"]];
+    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"EggIcon.png"]];
     // Do any additional setup after loading the view.
 }
 

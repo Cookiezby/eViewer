@@ -48,6 +48,9 @@
         //flow.minimumLineSpacing = 0;
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:layout];
         [self.view addSubview:collectionView];
+        [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
         //CollectionView Setting
         collectionView.contentInset = UIEdgeInsetsMake(0, 1, 0, 1);
         collectionView.backgroundColor = TABLE_VIEW_BACKGROUND_COLOR;

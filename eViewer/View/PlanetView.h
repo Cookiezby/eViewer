@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TestView : UIView
+@interface PlanetView : UIView
+
+- (void)pauseLayerAniamtion;
+
+- (void)resumeLayerAnimation;
 
 @end
