@@ -79,12 +79,12 @@ const static CGFloat DOT_HEIGHT = 10;
         collectionView;
     });
     
-    self.planetView = [[PlanetView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-PLANET_SIZE/2, -PLANET_SIZE-2, PLANET_SIZE, PLANET_SIZE)];
+    self.planetView = [[PlanetView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-PLANET_SIZE/2, -PLANET_SIZE-5, PLANET_SIZE, PLANET_SIZE)];
     [self.planetView pauseLayerAniamtion];
     [self.view addSubview:self.planetView];
     
     
-    self.dotGroupView = [[DotGroupView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, SCREEN_HEIGHT - 64, DOT_WIDTH, DOT_HEIGHT) withDuration:2.0 dotColor:[UIColor colorWithHexString:@"1EA2E0"]];
+    self.dotGroupView = [[DotGroupView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, SCREEN_HEIGHT - 64, DOT_WIDTH, DOT_HEIGHT) withDuration:2.0 dotColor:[UIColor colorWithRed:0.118 green:0.636 blue:0.878 alpha:1.0]];
     [self.dotGroupView pauseLayerAniamtion];
     [self.view addSubview:self.dotGroupView];
     
@@ -156,11 +156,16 @@ const static CGFloat DOT_HEIGHT = 10;
         CGFloat originY = 0;
         if(scrollView.contentOffset.y > -PULL_DISTANCE/2){
             originY = -PLANET_SIZE-2 + (-scrollView.contentOffset.y/PULL_DISTANCE) * (PULL_DISTANCE/2 + PLANET_SIZE);
+            CGRect planetFrame = CGRectMake(SCREEN_WIDTH/2 - PLANET_SIZE/2, originY , PLANET_SIZE, PLANET_SIZE);
+            self.planetView.layer.transform = CATransform3DIdentity;
+            self.planetView.frame = planetFrame;
         }else{
             originY = -PLANET_SIZE-2 + 0.5 * (PULL_DISTANCE/2 + PLANET_SIZE);
+            CGFloat angle = (-scrollView.contentOffset.y-PULL_DISTANCE/2)/50*180;
+            self.planetView.layer.transform = CATransform3DMakeRotation(angle/180 * M_PI, 0, 0, 1);
+            self.planetView.layer.position = CGPointMake(SCREEN_WIDTH/2, originY + PLANET_SIZE/2);
         }
-        CGRect planetFrame = CGRectMake(SCREEN_WIDTH/2 - PLANET_SIZE/2, originY , PLANET_SIZE, PLANET_SIZE);
-        self.planetView.frame = planetFrame;
+        
     }
     
     if(scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height){
@@ -168,10 +173,16 @@ const static CGFloat DOT_HEIGHT = 10;
         CGFloat relativeDistance = (scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height);
         if(relativeDistance < PULL_DISTANCE/2){
             originY = SCREEN_HEIGHT-64 - (relativeDistance/(PULL_DISTANCE)) * (PULL_DISTANCE/2 + DOT_HEIGHT);
+            self.dotGroupView.layer.transform = CATransform3DIdentity;
+            self.dotGroupView.frame = CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, originY, DOT_WIDTH, DOT_HEIGHT);
         }else{
             originY = SCREEN_HEIGHT-64 - 0.5 * (PULL_DISTANCE/2 + DOT_HEIGHT);
+            CGFloat scale = relativeDistance  /  (PULL_DISTANCE/2);
+            //DebugLog(@"%f",scale);
+            scale =  scale < 1.5 ? scale : 1.5;
+            self.dotGroupView.layer.transform = CATransform3DMakeScale(scale, scale, 1);
+            self.dotGroupView.layer.position = CGPointMake(SCREEN_WIDTH/2, originY + DOT_HEIGHT/2);
         }
-        self.dotGroupView.frame = CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, originY, DOT_WIDTH, DOT_HEIGHT);
         
     }
     
@@ -188,13 +199,42 @@ const static CGFloat DOT_HEIGHT = 10;
         } completion:^(BOOL finished) {
             EVHTMLManager *manager = [[EVHTMLManager alloc]init];
             [manager getPage:1 withHandler:^(NSMutableArray *array) {
-                [self.articleSimpleList removeAllObjects];
-                [self.articleSimpleList addObjectsFromArray:array];
-                [self.collectionView reloadData];
+                ArticleSimple *newFirst = (ArticleSimple *)array[0];
+                ArticleSimple *oldFirst = (ArticleSimple *)self.articleSimpleList[0];
+                
+                if ([newFirst.title isEqualToString:oldFirst.title]){
+                    //doing nothing
+                    // ProgressHUD 没有新内容哦
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.label.text = NSLocalizedString(@"没有新的内容哦:D", @"HUD message title");
+                    [hud hideAnimated:YES afterDelay:1.0f];
+                }else{
+                    NSMutableArray *newArticle = [[NSMutableArray alloc]init];
+                    [newArticle addObject:newFirst];
+                    for(int i = 1; i < array.count; i++){
+                        ArticleSimple *simple = (ArticleSimple *)array[i];
+                        if(![simple.title isEqualToString:oldFirst.title]){
+                            [newArticle addObject:simple];
+                        }else{
+                            break;
+                        }
+                    }
+                    
+                    [newArticle addObjectsFromArray:self.articleSimpleList];
+                    self.articleSimpleList = newArticle;
+                    [self.collectionView reloadData];
+                }
+                
+                
+                
+                //[self.articleSimpleList removeAllObjects];
+                //[self.articleSimpleList addObjectsFromArray:array];
+                //[self.collectionView reloadData];
                 //[self.planetView pauseLayerAniamtion];
                 
                 [UIView animateWithDuration:0.3f animations:^{
-                    self.planetView.frame = CGRectMake(SCREEN_WIDTH/2 - PLANET_SIZE/2, -PLANET_SIZE-2, PLANET_SIZE, PLANET_SIZE);
+                    self.planetView.frame = CGRectMake(SCREEN_WIDTH/2 - PLANET_SIZE/2, -PLANET_SIZE-5, PLANET_SIZE, PLANET_SIZE);
                     [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
                 } completion:^(BOOL finished) {
                     [self.planetView pauseLayerAniamtion];

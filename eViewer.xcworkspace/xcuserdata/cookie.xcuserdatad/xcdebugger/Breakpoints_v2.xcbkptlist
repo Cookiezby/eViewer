@@ -309,28 +309,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "eViewer/View/DotGroupView.m"
-            timestampString = "491800363.613501"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "-initWithFrame:withDuration:dotColor:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "eViewer/View/PlanetView.m"
-            timestampString = "491802012.961452"
+            timestampString = "491928673.252843"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "-drawRect:"
             landmarkType = "5">
          </BreakpointContent>

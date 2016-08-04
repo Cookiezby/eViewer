@@ -14,7 +14,6 @@
 
 @interface PlanetView()
 
-@property (strong,nonatomic)NSMutableArray *dotArray;
 @property (nonatomic) CGFloat radius;
 
 @end
@@ -25,49 +24,9 @@
     self = [super initWithFrame:frame];
     if(self){
         
-        _dotArray = [[NSMutableArray alloc]init];
-        
         _radius = frame.size.width/2;
-        /*for(int i = 0; i < 4; i++){
-            CAShapeLayer *circle = [CAShapeLayer layer];
-            UIBezierPath *circlePath = [UIBezierPath bezierPath];
-            [circlePath addArcWithCenter:CGPointMake(frame.size.width/4*(i+1),frame.size.height/2) radius:frame.size.height/4 startAngle:DEGREES_TO_RADIANS(0) endAngle:DEGREES_TO_RADIANS(360) clockwise:YES];
-            circle.path = circlePath.CGPath;
-            circle.fillColor = [UIColor darkGrayColor].CGColor;
-            //circle.strokeColor = [UIColor darkGrayColor].CGColor;
-            //circle.lineWidth = 2;
-            //circle.strokeStart = 0.0f;
-            //circle.strokeEnd = 1.0f;
-            
-            CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-            animationGroup.duration = 8;
-            animationGroup.repeatCount = INFINITY;
-            CAMediaTimingFunction *easeOut = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-            
-            CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
-            animation.keyPath = @"fillColor";
-            animation.values = [NSArray arrayWithObjects: (id)[UIColor darkGrayColor].CGColor,
-                                (id)[UIColor whiteColor].CGColor,nil];
-            animation.keyTimes = @[@0,@1];
-            animation.duration = 2.0;
-            //animation.calculationMode = kCAAnimationPaced;
-            //animation.repeatCount = INFINITY;
-            //animation.fillMode = kCAFillModeForwards;
-            animation.additive = YES;
-            animation.beginTime = CACurrentMediaTime() + i*2;
-            animation.timingFunction = easeOut;
-            
-            animationGroup.animations = @[animation];
-            
-            [circle addAnimation:animationGroup forKey:@"color"];
-            
-            [_dotArray addObject:circle];
-            [self.layer addSublayer:circle];
-
-        }*/
-        
+       
         self.backgroundColor = [UIColor clearColor];
-        
         UIBezierPath *borderPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         //[borderPath addArcWithCenter:CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2) radius:CGRectGetHeight(self.frame)/2-5 startAngle:0 endAngle:360 clockwise:YES];
         CAShapeLayer *borderLayer = [CAShapeLayer layer];
@@ -93,14 +52,6 @@
         earthLayer.path = earthPath.CGPath;
         earthLayer.fillColor = [UIColor colorWithHexString:@"FC7586"].CGColor;
         [self.layer addSublayer:earthLayer];
-        
-        CABasicAnimation *spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-        spinAnimation.byValue = [NSNumber numberWithFloat:2.0f*M_PI];
-        spinAnimation.duration = 1.5f;
-        spinAnimation.repeatCount = INFINITY;
-        
-        [self.layer addAnimation:spinAnimation forKey:@"indeterminateAnimation"];
-
         
     }
     return self;
@@ -132,27 +83,39 @@
     [finalImage drawInRect:CGRectMake(0, 100, 200, 50)];
     
     UIGraphicsEndImageContext();*/
-
-    
-    
-    
 }
 
 
 - (void)pauseLayerAniamtion{
-    CFTimeInterval pausedTime = [self.layer convertTime:CACurrentMediaTime() fromLayer:nil];
-    self.layer.speed = 0.0;
-    self.layer.timeOffset = pausedTime;
+    [self.layer removeAllAnimations];
 }
 
 - (void)resumeLayerAnimation{
-    CFTimeInterval pausedTime = [self.layer timeOffset];
-    self.layer.speed = 1.0;
-    self.layer.timeOffset = 0.0;
-    self.layer.beginTime = 0.0;
-    CFTimeInterval timeSincePause = [self.layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
-    self.layer.beginTime = timeSincePause;
+   
+    CABasicAnimation *spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    spinAnimation.byValue = [NSNumber numberWithFloat:2.0f*M_PI];
+    spinAnimation.duration = 1.5f;
+    spinAnimation.repeatCount = INFINITY;
+    
+    [self.layer addAnimation:spinAnimation forKey:@"indeterminateAnimation"];
 }
+
+/**
+ *  如果需要动画暂停恢复的话
+ 动画恢复
+ CFTimeInterval pausedTime = [self.layer timeOffset];
+ self.layer.speed = 1.0;
+ self.layer.timeOffset = 0.0;
+ self.layer.beginTime = 0.0;
+ CFTimeInterval timeSincePause = [self.layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+ self.layer.beginTime = timeSincePause;
+ 
+ 动画暂停
+ CFTimeInterval pausedTime = [self.layer convertTime:CACurrentMediaTime() fromLayer:nil];
+ self.layer.speed = 0.0;
+ self.layer.timeOffset = pausedTime;
+
+ */
 
 
 @end

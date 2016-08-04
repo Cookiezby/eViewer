@@ -77,7 +77,17 @@
             make.right.equalTo(self.authorLabel.mas_left).with.offset(-5);
             make.bottom.equalTo(@-5);
         }];
-
+        
+        /*UIView *bottomLineView = [[UIView alloc]init];
+        bottomLineView.backgroundColor = [UIColor colorWithHexString:@"9ED8F2"];
+        //bottomLineView.backgroundColor = [UIColor lightGrayColor];
+        [self.contentView addSubview:bottomLineView];
+        [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@0);
+            make.right.equalTo(@0);
+            make.bottom.equalTo(@0);
+            make.height.equalTo(@2);
+        }];*/
     }
     return self;
 }
