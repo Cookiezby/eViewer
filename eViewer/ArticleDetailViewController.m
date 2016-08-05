@@ -14,6 +14,9 @@
 #import "PhotoGalleryViewController.h"
 #import "PhotoGallery.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "ECGView.h"
+
+
 
 @interface ArticleDetailViewController () <EVHTMLDelegate,UITextViewDelegate>
 
@@ -22,6 +25,7 @@
 @property (strong, nonatomic) NSMutableArray *galleryList;
 @property (strong, nonatomic) UIView *headView;
 @property (nonatomic) NSInteger titleHeight;
+@property (strong, nonatomic) ECGView *ecgView;
 
 @end
 
@@ -100,7 +104,18 @@
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     manager.delegate = self;
     
+    
+    self.ecgView = [[ECGView alloc]initWithFrame:CGRectMake(0, 0, 135, 90)];
+    [self.view addSubview:_ecgView];
+    [_ecgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.headView.mas_bottom).with.offset(self.titleHeight + 20);
+        make.width.equalTo(@135);
+        make.height.equalTo(@90);
+    }];
+    
     [manager getDetail:self.simpleArticle.detailURL withHandler:^(NSMutableAttributedString *string, NSMutableArray *galleryList) {
+        [self.ecgView removeFromSuperview];
         self.testTextView.attributedText = string;
         self.galleryList = galleryList;
         //DebugLog(@"%ld",galleryList.count);

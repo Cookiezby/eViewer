@@ -12,7 +12,10 @@
 		760430F71D4F2C7B0059CD33 /* DotGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 760430F61D4F2C7B0059CD33 /* DotGroupView.m */; };
 		760430FA1D52E3400059CD33 /* ECGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 760430F91D52E3400059CD33 /* ECGView.m */; };
 		760430FC1D54203B0059CD33 /* ECGMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 760430FB1D54203B0059CD33 /* ECGMask.png */; };
-		760430FE1D542C410059CD33 /* ECGMask2.png in Resources */ = {isa = PBXBuildFile; fileRef = 760430FD1D542C410059CD33 /* ECGMask2.png */; };
+		760431011D5431C40059CD33 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 760431001D5431C40059CD33 /* SettingViewController.m */; };
+		760431031D5445060059CD33 /* ECGMask2.png in Resources */ = {isa = PBXBuildFile; fileRef = 760431021D5445060059CD33 /* ECGMask2.png */; };
+		760431071D54503D0059CD33 /* MenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 760431061D54503D0059CD33 /* MenuButton.png */; };
+		7604310A1D5451710059CD33 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 760431091D5451710059CD33 /* GalleryViewController.m */; };
 		760EDAC51D2CB96F00D64D0F /* PhotoGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */; };
 		761636EF1D37776D001A2CDF /* UIImage+Compress.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636EE1D37776D001A2CDF /* UIImage+Compress.m */; };
 		761636F21D38A8F5001A2CDF /* NSString+DateTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636F11D38A8F5001A2CDF /* NSString+DateTransfer.m */; };
@@ -54,7 +57,6 @@
 		76D89F0C1D47B5250033AC45 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F0B1D47B5250033AC45 /* Logo.png */; };
 		76D89F0F1D47B7590033AC45 /* AppIcon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F0D1D47B7590033AC45 /* AppIcon2.png */; };
 		76D89F101D47B7590033AC45 /* AppIcon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F0E1D47B7590033AC45 /* AppIcon3.png */; };
-		76D89F141D47BBEE0033AC45 /* MenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F131D47BBEE0033AC45 /* MenuButton.png */; };
 		76DB820B1D4A661400440DFE /* EggIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 76DB820A1D4A661400440DFE /* EggIcon.png */; };
 		76EA5B231D17C2AB00FEFF38 /* EVHTMLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B221D17C2AB00FEFF38 /* EVHTMLManager.m */; };
 		76EA5B271D17D64400FEFF38 /* ArticleSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EA5B261D17D64400FEFF38 /* ArticleSimple.m */; };
@@ -80,7 +82,12 @@
 		760430F81D52E3400059CD33 /* ECGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECGView.h; path = View/ECGView.h; sourceTree = "<group>"; };
 		760430F91D52E3400059CD33 /* ECGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECGView.m; path = View/ECGView.m; sourceTree = "<group>"; };
 		760430FB1D54203B0059CD33 /* ECGMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ECGMask.png; sourceTree = "<group>"; };
-		760430FD1D542C410059CD33 /* ECGMask2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ECGMask2.png; sourceTree = "<group>"; };
+		760430FF1D5431C40059CD33 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = ViewController/SettingViewController.h; sourceTree = "<group>"; };
+		760431001D5431C40059CD33 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = ViewController/SettingViewController.m; sourceTree = "<group>"; };
+		760431021D5445060059CD33 /* ECGMask2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ECGMask2.png; sourceTree = "<group>"; };
+		760431061D54503D0059CD33 /* MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuButton.png; sourceTree = "<group>"; };
+		760431081D5451710059CD33 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GalleryViewController.h; path = ViewController/GalleryViewController.h; sourceTree = "<group>"; };
+		760431091D5451710059CD33 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GalleryViewController.m; path = ViewController/GalleryViewController.m; sourceTree = "<group>"; };
 		760EDAC31D2CB96F00D64D0F /* PhotoGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoGallery.h; path = Model/PhotoGallery.h; sourceTree = "<group>"; };
 		760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGallery.m; path = Model/PhotoGallery.m; sourceTree = "<group>"; };
 		761636ED1D37776D001A2CDF /* UIImage+Compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compress.h"; path = "SupportingFile/UIImage+Compress.h"; sourceTree = "<group>"; };
@@ -145,7 +152,6 @@
 		76D89F0B1D47B5250033AC45 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		76D89F0D1D47B7590033AC45 /* AppIcon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon2.png; sourceTree = "<group>"; };
 		76D89F0E1D47B7590033AC45 /* AppIcon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon3.png; sourceTree = "<group>"; };
-		76D89F131D47BBEE0033AC45 /* MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuButton.png; sourceTree = "<group>"; };
 		76DB820A1D4A661400440DFE /* EggIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EggIcon.png; sourceTree = "<group>"; };
 		76EA5B211D17C2AB00FEFF38 /* EVHTMLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVHTMLManager.h; path = HtmlTransfer/EVHTMLManager.h; sourceTree = "<group>"; };
 		76EA5B221D17C2AB00FEFF38 /* EVHTMLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVHTMLManager.m; path = HtmlTransfer/EVHTMLManager.m; sourceTree = "<group>"; };
@@ -299,6 +305,10 @@
 				761636F71D38D071001A2CDF /* TestViewController.m */,
 				761637061D3A8235001A2CDF /* PhotoGalleryViewController.h */,
 				761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */,
+				760430FF1D5431C40059CD33 /* SettingViewController.h */,
+				760431001D5431C40059CD33 /* SettingViewController.m */,
+				760431081D5451710059CD33 /* GalleryViewController.h */,
+				760431091D5451710059CD33 /* GalleryViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -337,6 +347,7 @@
 		76DB82091D4A65FE00440DFE /* image */ = {
 			isa = PBXGroup;
 			children = (
+				760431061D54503D0059CD33 /* MenuButton.png */,
 				76DB820A1D4A661400440DFE /* EggIcon.png */,
 			);
 			path = image;
@@ -387,11 +398,10 @@
 		76EA5B641D18F8F200FEFF38 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				760430FD1D542C410059CD33 /* ECGMask2.png */,
+				760431021D5445060059CD33 /* ECGMask2.png */,
 				760430FB1D54203B0059CD33 /* ECGMask.png */,
 				76DB82091D4A65FE00440DFE /* image */,
 				76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */,
-				76D89F131D47BBEE0033AC45 /* MenuButton.png */,
 				76D89F0D1D47B7590033AC45 /* AppIcon2.png */,
 				76D89F0E1D47B7590033AC45 /* AppIcon3.png */,
 				76D89F0B1D47B5250033AC45 /* Logo.png */,
@@ -485,7 +495,7 @@
 				76D89F0C1D47B5250033AC45 /* Logo.png in Resources */,
 				760430FC1D54203B0059CD33 /* ECGMask.png in Resources */,
 				76D89F061D45FF760033AC45 /* PlaceHolderSquare3.png in Resources */,
-				760430FE1D542C410059CD33 /* ECGMask2.png in Resources */,
+				760431031D5445060059CD33 /* ECGMask2.png in Resources */,
 				76D89F081D4602C70033AC45 /* NaviBarBackButton.png in Resources */,
 				76D89F0F1D47B7590033AC45 /* AppIcon2.png in Resources */,
 				761636FF1D3A3095001A2CDF /* 4.jpg in Resources */,
@@ -494,7 +504,6 @@
 				76EA5B661D18F91400FEFF38 /* placeholder.png in Resources */,
 				76D89EFC1D45FA3B0033AC45 /* CheckMark.png in Resources */,
 				761637001D3A3095001A2CDF /* 5.jpg in Resources */,
-				76D89F141D47BBEE0033AC45 /* MenuButton.png in Resources */,
 				76FA84971D1FB77200BD0F22 /* Balloon@2x.png in Resources */,
 				767E3BBF1D45124D006CED70 /* CloseImageViewButton.png in Resources */,
 				761636FA1D3A307A001A2CDF /* 1.jpg in Resources */,
@@ -504,6 +513,7 @@
 				761636FE1D3A3095001A2CDF /* 3.jpg in Resources */,
 				767E3BC01D45124D006CED70 /* SaveImageButton.png in Resources */,
 				76D89F101D47B7590033AC45 /* AppIcon3.png in Resources */,
+				760431071D54503D0059CD33 /* MenuButton.png in Resources */,
 				76D89F001D45FD9C0033AC45 /* PlaceHolderSquare.png in Resources */,
 				76D89F021D45FF000033AC45 /* PlaceHolderSquare2.png in Resources */,
 				76D80CBD1D0FF141000D9E4E /* Main.storyboard in Resources */,
@@ -594,12 +604,14 @@
 				767FFE181D3FB0E00041AF52 /* ProgressView.m in Sources */,
 				76C9FB891D3B45F0007B60A7 /* PhotoCollectionViewCell.m in Sources */,
 				761637051D3A39F8001A2CDF /* PlanetView.m in Sources */,
+				7604310A1D5451710059CD33 /* GalleryViewController.m in Sources */,
 				76D80CD51D0FF7B6000D9E4E /* EPresentationController.m in Sources */,
 				76D80CC01D0FF141000D9E4E /* eViewer.xcdatamodeld in Sources */,
 				76C9FB931D3BCBBB007B60A7 /* ZPresentationAnimator.m in Sources */,
 				767FFE141D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m in Sources */,
 				761636EF1D37776D001A2CDF /* UIImage+Compress.m in Sources */,
 				76EA5B2A1D17DC1E00FEFF38 /* ArticleDetail.m in Sources */,
+				760431011D5431C40059CD33 /* SettingViewController.m in Sources */,
 				76FA84951D1FAF4F00BD0F22 /* EVNaviViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

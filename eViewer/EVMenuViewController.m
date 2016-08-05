@@ -106,7 +106,7 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
     [UIView animateWithDuration:MENU_ANIMATION_LENGTH animations:^{
         [self.view layoutIfNeeded];
         self.backGroundView.alpha = 0.5f;
-        parentViewController.contentViewController.view.transform = CGAffineTransformMakeScale(0.95, 0.95);
+        //parentViewController.contentViewController.view.transform = CGAffineTransformMakeScale(0.95, 0.95);
     } completion:^(BOOL finished) {
         DebugLog(@"menu appear");
     }];
@@ -128,7 +128,7 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
     [UIView animateWithDuration:MENU_ANIMATION_LENGTH animations:^{
         self.backGroundView.alpha = 0.0;
         [self.view layoutIfNeeded];
-        parentViewController.contentViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        //parentViewController.contentViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
     } completion:^(BOOL finished) {
         [parentViewController hideMenu];
     }];

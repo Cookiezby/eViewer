@@ -11,7 +11,6 @@
 @interface PlanetView : UIView
 
 - (void)pauseLayerAniamtion;
-
 - (void)resumeLayerAnimation;
 
 @end

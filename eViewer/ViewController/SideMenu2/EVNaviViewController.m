@@ -15,9 +15,23 @@
 
 @implementation EVNaviViewController
 
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController{
+    self = [super initWithRootViewController:rootViewController];
+    if(self){
+        self.navigationBar.barTintColor = [UIColor whiteColor];
+        self.navigationBar.translucent = NO;
+        [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"1EA2E0"]}];
+        self.navigationBar.tintColor = [UIColor colorWithHexString:@"1EA2E0"];
+        /*self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+        UIBarButtonItem *leftBarbuttonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"MenuButton.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
+        self.navigationItem.leftBarButtonItem = leftBarbuttonItem;
+        self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"EggIcon.png"]];*/
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Do any additional setup after loading the view.
 }
 

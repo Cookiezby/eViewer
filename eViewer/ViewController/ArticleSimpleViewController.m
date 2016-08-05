@@ -34,7 +34,7 @@ const static CGFloat DOT_HEIGHT = 10;
 @property (strong, nonatomic)NSMutableArray *articleSimpleList;
 @property (strong, nonatomic)PlanetView *planetView;
 @property (strong, nonatomic)DotGroupView *dotGroupView;
-
+@property (strong, nonatomic)UIButton *scrollTopButton;
 
 @end
 
@@ -42,10 +42,10 @@ const static CGFloat DOT_HEIGHT = 10;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.navigationItem.title = @"Engadget";
+    /*self.navigationItem.title = @"Engadget";
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"1EA2E0"]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"1EA2E0"]}];*/
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHexString:@"1EA2E0"];
         
@@ -56,6 +56,7 @@ const static CGFloat DOT_HEIGHT = 10;
     }];
     
     self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"EggIcon.png"]];
+    
     self.articleSimpleList = [[NSMutableArray alloc]init];
     
     self.collectionView = ({
@@ -94,6 +95,8 @@ const static CGFloat DOT_HEIGHT = 10;
         [self.articleSimpleList addObjectsFromArray:array];
         [self.collectionView reloadData];
     }];
+    
+    
     
     // Do any additional setup after loading the view.
 }

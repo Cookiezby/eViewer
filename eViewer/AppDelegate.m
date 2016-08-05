@@ -12,6 +12,7 @@
 #import "DemoSecondViewController.h"
 #import "HomeViewController.h"
 #import "ArticleSimpleViewController.h"
+#import "SettingViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,11 +23,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    /*UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     EVSideViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainViewController"];
     
     //DemoHomeViewController *homeViewController = [[DemoHomeViewController alloc]init];
-    DemoSecondViewController *secondViewController = [[DemoSecondViewController alloc]init];
+    SettingViewController *secondViewController = [[SettingViewController alloc]init];
     //HomeViewController *homeViewController = [[HomeViewController alloc]init];
     ArticleSimpleViewController *firstViewController = [[ArticleSimpleViewController alloc]init];
     
@@ -35,7 +36,7 @@
     mainViewController.contentViewControllerList = contentViewControllerList;
     
     //DebugLog(@"%ld",mainViewController.contentViewControllerList.count);
-    self.window.rootViewController = mainViewController;*/
+    self.window.rootViewController = mainViewController;
     return YES;
 }
 
