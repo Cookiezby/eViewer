@@ -11,6 +11,7 @@
 #import "PlanetView.h"
 #import "ProgressView.h"
 #import "DotGroupView.h"
+#import "ECGView.h"
 #define pi 3.1415926
 #define   DEGREES_TO_RADIANS(degrees)  ((pi * degrees)/ 180)
 
@@ -57,7 +58,7 @@
     
     //[view changeProgress:0.8 animated:YES];
     
-    PlanetView *view = [[PlanetView alloc]initWithFrame:CGRectMake(100, 200, 25, 25)];
+    /*PlanetView *view = [[PlanetView alloc]initWithFrame:CGRectMake(100, 200, 25, 25)];
     view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:view];
     
@@ -86,7 +87,11 @@
     
     
     DotGroupView *view2 = [[DotGroupView alloc]initWithFrame:CGRectMake(50,100, 40, 10) withDuration:4 dotColor:[UIColor redColor]];
-    [self.view addSubview:view2];
+    [self.view addSubview:view2];*/
+    
+    
+    ECGView *view = [[ECGView alloc]initWithFrame:CGRectMake(0, 100, 133, 64)];
+    [self.view addSubview: view];
 
     
 }

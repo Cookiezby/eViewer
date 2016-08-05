@@ -10,6 +10,9 @@
 		66904763BE1E8BD80CA274BA /* libPods-eViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B277C9AB12DA5061FC96973 /* libPods-eViewer.a */; };
 		7600C44C1D229EDC005C26C6 /* ArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */; };
 		760430F71D4F2C7B0059CD33 /* DotGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 760430F61D4F2C7B0059CD33 /* DotGroupView.m */; };
+		760430FA1D52E3400059CD33 /* ECGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 760430F91D52E3400059CD33 /* ECGView.m */; };
+		760430FC1D54203B0059CD33 /* ECGMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 760430FB1D54203B0059CD33 /* ECGMask.png */; };
+		760430FE1D542C410059CD33 /* ECGMask2.png in Resources */ = {isa = PBXBuildFile; fileRef = 760430FD1D542C410059CD33 /* ECGMask2.png */; };
 		760EDAC51D2CB96F00D64D0F /* PhotoGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */; };
 		761636EF1D37776D001A2CDF /* UIImage+Compress.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636EE1D37776D001A2CDF /* UIImage+Compress.m */; };
 		761636F21D38A8F5001A2CDF /* NSString+DateTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636F11D38A8F5001A2CDF /* NSString+DateTransfer.m */; };
@@ -74,6 +77,10 @@
 		7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDetailViewController.m; sourceTree = "<group>"; };
 		760430F51D4F2C7B0059CD33 /* DotGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DotGroupView.h; path = View/DotGroupView.h; sourceTree = "<group>"; };
 		760430F61D4F2C7B0059CD33 /* DotGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DotGroupView.m; path = View/DotGroupView.m; sourceTree = "<group>"; };
+		760430F81D52E3400059CD33 /* ECGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECGView.h; path = View/ECGView.h; sourceTree = "<group>"; };
+		760430F91D52E3400059CD33 /* ECGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECGView.m; path = View/ECGView.m; sourceTree = "<group>"; };
+		760430FB1D54203B0059CD33 /* ECGMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ECGMask.png; sourceTree = "<group>"; };
+		760430FD1D542C410059CD33 /* ECGMask2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ECGMask2.png; sourceTree = "<group>"; };
 		760EDAC31D2CB96F00D64D0F /* PhotoGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoGallery.h; path = Model/PhotoGallery.h; sourceTree = "<group>"; };
 		760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGallery.m; path = Model/PhotoGallery.m; sourceTree = "<group>"; };
 		761636ED1D37776D001A2CDF /* UIImage+Compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compress.h"; path = "SupportingFile/UIImage+Compress.h"; sourceTree = "<group>"; };
@@ -356,6 +363,8 @@
 				761637041D3A39F8001A2CDF /* PlanetView.m */,
 				760430F51D4F2C7B0059CD33 /* DotGroupView.h */,
 				760430F61D4F2C7B0059CD33 /* DotGroupView.m */,
+				760430F81D52E3400059CD33 /* ECGView.h */,
+				760430F91D52E3400059CD33 /* ECGView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -378,6 +387,8 @@
 		76EA5B641D18F8F200FEFF38 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				760430FD1D542C410059CD33 /* ECGMask2.png */,
+				760430FB1D54203B0059CD33 /* ECGMask.png */,
 				76DB82091D4A65FE00440DFE /* image */,
 				76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */,
 				76D89F131D47BBEE0033AC45 /* MenuButton.png */,
@@ -472,7 +483,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				76D89F0C1D47B5250033AC45 /* Logo.png in Resources */,
+				760430FC1D54203B0059CD33 /* ECGMask.png in Resources */,
 				76D89F061D45FF760033AC45 /* PlaceHolderSquare3.png in Resources */,
+				760430FE1D542C410059CD33 /* ECGMask2.png in Resources */,
 				76D89F081D4602C70033AC45 /* NaviBarBackButton.png in Resources */,
 				76D89F0F1D47B7590033AC45 /* AppIcon2.png in Resources */,
 				761636FF1D3A3095001A2CDF /* 4.jpg in Resources */,
@@ -562,6 +575,7 @@
 				76D80CD81D0FF7D8000D9E4E /* ESideViewController.m in Sources */,
 				761636F21D38A8F5001A2CDF /* NSString+DateTransfer.m in Sources */,
 				76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */,
+				760430FA1D52E3400059CD33 /* ECGView.m in Sources */,
 				761636F51D38AA15001A2CDF /* GalleryDrawer.m in Sources */,
 				76EA5B691D190B8900FEFF38 /* UIColor+expanded.m in Sources */,
 				76C9FB901D3BCB8D007B60A7 /* ZPhotoReviewViewController.m in Sources */,

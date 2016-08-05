@@ -220,20 +220,11 @@ const static CGFloat DOT_HEIGHT = 10;
                             break;
                         }
                     }
-                    
                     [newArticle addObjectsFromArray:self.articleSimpleList];
                     self.articleSimpleList = newArticle;
                     [self.collectionView reloadData];
                 }
-                
-                
-                
-                //[self.articleSimpleList removeAllObjects];
-                //[self.articleSimpleList addObjectsFromArray:array];
-                //[self.collectionView reloadData];
-                //[self.planetView pauseLayerAniamtion];
-                
-                [UIView animateWithDuration:0.3f animations:^{
+                    [UIView animateWithDuration:0.3f animations:^{
                     self.planetView.frame = CGRectMake(SCREEN_WIDTH/2 - PLANET_SIZE/2, -PLANET_SIZE-5, PLANET_SIZE, PLANET_SIZE);
                     [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
                 } completion:^(BOOL finished) {

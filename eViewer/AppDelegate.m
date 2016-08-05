@@ -22,7 +22,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    /*UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     EVSideViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainViewController"];
     
     //DemoHomeViewController *homeViewController = [[DemoHomeViewController alloc]init];
@@ -35,7 +35,7 @@
     mainViewController.contentViewControllerList = contentViewControllerList;
     
     //DebugLog(@"%ld",mainViewController.contentViewControllerList.count);
-    self.window.rootViewController = mainViewController;
+    self.window.rootViewController = mainViewController;*/
     return YES;
 }
 
