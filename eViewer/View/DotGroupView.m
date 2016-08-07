@@ -43,7 +43,7 @@
 - (void)pauseLayerAniamtion{
     for(int i = 0; i < _dotList.count; i++){
         CAShapeLayer *circle = (CAShapeLayer *)_dotList[i];
-        [circle removeAllAnimations];
+        [circle removeAnimationForKey:@"color"];
     }
 }
 

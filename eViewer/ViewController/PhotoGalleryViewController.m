@@ -64,7 +64,7 @@
         collectionView;
     });
     
-    self.navigationItem.title = self.photoGallery.galleryTitle;
+    self.navigationItem.title = self.galleryDetail.galleryTitle;
     
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     
@@ -78,7 +78,7 @@
     //hud.color = [UIColor whiteColor];
     
     self.collectionView.userInteractionEnabled = NO;
-    [manager getAllGalleryImage:self.photoGallery.galleryLink withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
+    [manager getAllGalleryImage:self.galleryDetail.galleryLink withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
         //self.photoAmount = thumbArray.count;
         self.thumbLinkList = thumbArray;
         self.fullSizeImageLinkList = fullSizeArray;
@@ -123,7 +123,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.photoGallery.photoAmount;
+    return self.galleryDetail.photoAmount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

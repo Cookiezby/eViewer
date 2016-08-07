@@ -63,8 +63,8 @@ const static CGFloat DOT_HEIGHT = 10;
         //CollectionViewLayout Setting
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        layout.itemSize = CGSizeMake(SCREEN_WIDTH,CELL_HEIGHT);
-        layout.minimumLineSpacing = 0;
+        layout.itemSize = CGSizeMake(SCREEN_WIDTH-10,CELL_HEIGHT);
+        layout.minimumLineSpacing = 10;
         //CollectionView Setting
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:layout];
         collectionView.backgroundColor = [UIColor whiteColor];
@@ -85,7 +85,7 @@ const static CGFloat DOT_HEIGHT = 10;
     [self.view addSubview:self.planetView];
     
     
-    self.dotGroupView = [[DotGroupView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, SCREEN_HEIGHT - 64, DOT_WIDTH, DOT_HEIGHT) withDuration:2.0 dotColor:[UIColor colorWithRed:0.118 green:0.636 blue:0.878 alpha:1.0]];
+    self.dotGroupView = [[DotGroupView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, SCREEN_HEIGHT - 64, DOT_WIDTH, DOT_HEIGHT) withDuration:2.0 dotColor:[UIColor lightGrayColor]];
     [self.dotGroupView pauseLayerAniamtion];
     [self.view addSubview:self.dotGroupView];
     
@@ -169,6 +169,10 @@ const static CGFloat DOT_HEIGHT = 10;
             self.planetView.layer.position = CGPointMake(SCREEN_WIDTH/2, originY + PLANET_SIZE/2);
         }
         
+    }
+    
+    if(scrollView.contentOffset.y > 0){
+        self.planetView.frame = CGRectMake(SCREEN_WIDTH/2 - PLANET_SIZE/2, -PLANET_SIZE - 2, PLANET_SIZE, PLANET_SIZE);
     }
     
     if(scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height){
@@ -277,18 +281,7 @@ const static CGFloat DOT_HEIGHT = 10;
 }
 //用collectionview 的insertItem 来代替reload
 
-- (void)setLoadingScrollViewInsets:(UIScrollView *)scrollView
-{
-    UIEdgeInsets loadingInset = scrollView.contentInset;
-    loadingInset.top += self.view.frame.size.height;
-    
-    CGPoint contentOffset = scrollView.contentOffset;
-    
-    [UIView animateWithDuration:0.2 animations:^{
-         scrollView.contentInset = loadingInset;
-         scrollView.contentOffset = contentOffset;
-     }];
-}
+
 
 /*(- (UIImageView *)cellBackGroundView{
     CGRect rect = CGRectMake(0, 0, SCREEN_WIDTH-10, CELL_HEIGHT);

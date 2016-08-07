@@ -62,7 +62,7 @@
 
         [self.layer addSublayer:shape];*/
         
-        self.layer.backgroundColor = [UIColor colorWithHexString:@"9ED8F2"].CGColor;
+        self.layer.backgroundColor = [UIColor colorWithHexString:@"EFEFF4"].CGColor;
         CALayer *maskLayer = [CALayer layer];
         maskLayer.frame = self.layer.bounds;
         UIImage *image = [UIImage imageNamed:@"ECGMask2.png"];

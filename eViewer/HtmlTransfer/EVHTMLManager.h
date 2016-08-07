@@ -18,6 +18,7 @@
 typedef void (^HomePageCompleteHandler)(NSMutableArray *array);
 typedef void (^DetailPageCompleteHandler)(NSMutableAttributedString *string, NSMutableArray* galleryList);
 typedef void (^GalleryPageCompleteHandler)(NSMutableArray *thumbArray,NSMutableArray *fullSizeArray);
+typedef void (^GalleryListCompleteHandler)(NSMutableArray *array);
 
 @interface EVHTMLManager : NSObject
 
@@ -28,5 +29,5 @@ typedef void (^GalleryPageCompleteHandler)(NSMutableArray *thumbArray,NSMutableA
 - (void)getPage:(NSInteger)page withHandler:(HomePageCompleteHandler)handler;
 - (void)getDetail:(NSString *)url withHandler:(DetailPageCompleteHandler)handler;
 - (void)getAllGalleryImage:(NSString *)url withCompleteHandler:(GalleryPageCompleteHandler)handler;
-
+- (void)getGalleryListPage:(NSInteger)page withCompleteHandler:(GalleryListCompleteHandler)handler;
 @end

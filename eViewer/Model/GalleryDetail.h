@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PhotoGallery : NSObject
+@interface GalleryDetail : NSObject
 
 @property (strong, nonatomic) NSString *galleryTitle;
 @property (strong, nonatomic) NSMutableArray *thumbImageLinkList;

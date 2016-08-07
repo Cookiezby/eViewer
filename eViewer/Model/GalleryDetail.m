@@ -6,9 +6,9 @@
 //  Copyright © 2016 cookie. All rights reserved.
 //
 
-#import "PhotoGallery.h"
+#import "GalleryDetail.h"
 
-@implementation PhotoGallery
+@implementation GalleryDetail
 
 
 

@@ -29,7 +29,8 @@
         EVNaviViewController *naviViewController = (EVNaviViewController *)self.navigationController;
         [naviViewController showMenu];
     }];
-    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"EggIcon.png"]];
+    //self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"EggIcon.png"]];
+    self.navigationItem.title = @"设定";
     
     self.tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];

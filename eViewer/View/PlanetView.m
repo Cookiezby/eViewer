@@ -87,7 +87,7 @@
 
 
 - (void)pauseLayerAniamtion{
-    [self.layer removeAllAnimations];
+    [self.layer removeAnimationForKey:@"rotation"];
 }
 
 - (void)resumeLayerAnimation{
@@ -97,7 +97,7 @@
     spinAnimation.duration = 1.5f;
     spinAnimation.repeatCount = INFINITY;
     
-    [self.layer addAnimation:spinAnimation forKey:@"indeterminateAnimation"];
+    [self.layer addAnimation:spinAnimation forKey:@"rotation"];
 }
 
 /**

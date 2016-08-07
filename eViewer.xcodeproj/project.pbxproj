@@ -16,7 +16,6 @@
 		760431031D5445060059CD33 /* ECGMask2.png in Resources */ = {isa = PBXBuildFile; fileRef = 760431021D5445060059CD33 /* ECGMask2.png */; };
 		760431071D54503D0059CD33 /* MenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 760431061D54503D0059CD33 /* MenuButton.png */; };
 		7604310A1D5451710059CD33 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 760431091D5451710059CD33 /* GalleryViewController.m */; };
-		760EDAC51D2CB96F00D64D0F /* PhotoGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */; };
 		761636EF1D37776D001A2CDF /* UIImage+Compress.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636EE1D37776D001A2CDF /* UIImage+Compress.m */; };
 		761636F21D38A8F5001A2CDF /* NSString+DateTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636F11D38A8F5001A2CDF /* NSString+DateTransfer.m */; };
 		761636F51D38AA15001A2CDF /* GalleryDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636F41D38AA15001A2CDF /* GalleryDrawer.m */; };
@@ -29,7 +28,11 @@
 		761637051D3A39F8001A2CDF /* PlanetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637041D3A39F8001A2CDF /* PlanetView.m */; };
 		761637081D3A8235001A2CDF /* PhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */; };
 		762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */; };
+		763337E31D55A41D0099EA20 /* GalleryDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 763337E21D55A41D0099EA20 /* GalleryDetail.m */; };
+		763A8A041D563A24004185B3 /* GallerySimpleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 763A8A031D563A24004185B3 /* GallerySimpleCollectionViewCell.m */; };
+		763A8A061D56FC40004185B3 /* ImageCountIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 763A8A051D56FC40004185B3 /* ImageCountIcon.png */; };
 		76525EFD1D48FD3D001C7C1C /* EngadgetLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */; };
+		765695F81D55A3D30076BD4C /* GallerySimple.m in Sources */ = {isa = PBXBuildFile; fileRef = 765695F71D55A3D30076BD4C /* GallerySimple.m */; };
 		767E3BBF1D45124D006CED70 /* CloseImageViewButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */; };
 		767E3BC01D45124D006CED70 /* SaveImageButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 767E3BBE1D45124D006CED70 /* SaveImageButton.png */; };
 		767FFE141D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 767FFE131D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m */; };
@@ -88,8 +91,6 @@
 		760431061D54503D0059CD33 /* MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuButton.png; sourceTree = "<group>"; };
 		760431081D5451710059CD33 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GalleryViewController.h; path = ViewController/GalleryViewController.h; sourceTree = "<group>"; };
 		760431091D5451710059CD33 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GalleryViewController.m; path = ViewController/GalleryViewController.m; sourceTree = "<group>"; };
-		760EDAC31D2CB96F00D64D0F /* PhotoGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoGallery.h; path = Model/PhotoGallery.h; sourceTree = "<group>"; };
-		760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGallery.m; path = Model/PhotoGallery.m; sourceTree = "<group>"; };
 		761636ED1D37776D001A2CDF /* UIImage+Compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compress.h"; path = "SupportingFile/UIImage+Compress.h"; sourceTree = "<group>"; };
 		761636EE1D37776D001A2CDF /* UIImage+Compress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Compress.m"; path = "SupportingFile/UIImage+Compress.m"; sourceTree = "<group>"; };
 		761636F01D38A8F5001A2CDF /* NSString+DateTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DateTransfer.h"; sourceTree = "<group>"; };
@@ -109,7 +110,14 @@
 		761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGalleryViewController.m; path = ViewController/PhotoGalleryViewController.m; sourceTree = "<group>"; };
 		762B705A1D1EDA0F002F1BF6 /* EVSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVSideViewController.h; path = ViewController/SideMenu2/EVSideViewController.h; sourceTree = "<group>"; };
 		762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVSideViewController.m; path = ViewController/SideMenu2/EVSideViewController.m; sourceTree = "<group>"; };
+		763337E11D55A41D0099EA20 /* GalleryDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GalleryDetail.h; path = Model/GalleryDetail.h; sourceTree = "<group>"; };
+		763337E21D55A41D0099EA20 /* GalleryDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GalleryDetail.m; path = Model/GalleryDetail.m; sourceTree = "<group>"; };
+		763A8A021D563A24004185B3 /* GallerySimpleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GallerySimpleCollectionViewCell.h; path = View/Cell/GallerySimpleCollectionViewCell.h; sourceTree = "<group>"; };
+		763A8A031D563A24004185B3 /* GallerySimpleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GallerySimpleCollectionViewCell.m; path = View/Cell/GallerySimpleCollectionViewCell.m; sourceTree = "<group>"; };
+		763A8A051D56FC40004185B3 /* ImageCountIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ImageCountIcon.png; sourceTree = "<group>"; };
 		76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngadgetLogo.png; sourceTree = "<group>"; };
+		765695F61D55A3D30076BD4C /* GallerySimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GallerySimple.h; path = Model/GallerySimple.h; sourceTree = "<group>"; };
+		765695F71D55A3D30076BD4C /* GallerySimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GallerySimple.m; path = Model/GallerySimple.m; sourceTree = "<group>"; };
 		767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseImageViewButton.png; sourceTree = "<group>"; };
 		767E3BBE1D45124D006CED70 /* SaveImageButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SaveImageButton.png; sourceTree = "<group>"; };
 		767FFE121D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwipeUpInteractiveTransition.h; path = ViewController/PhotoReview/SwipeUpInteractiveTransition.h; sourceTree = "<group>"; };
@@ -347,6 +355,7 @@
 		76DB82091D4A65FE00440DFE /* image */ = {
 			isa = PBXGroup;
 			children = (
+				763A8A051D56FC40004185B3 /* ImageCountIcon.png */,
 				760431061D54503D0059CD33 /* MenuButton.png */,
 				76DB820A1D4A661400440DFE /* EggIcon.png */,
 			);
@@ -356,12 +365,14 @@
 		76EA5B241D17D60D00FEFF38 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				763337E11D55A41D0099EA20 /* GalleryDetail.h */,
+				763337E21D55A41D0099EA20 /* GalleryDetail.m */,
 				76EA5B251D17D64400FEFF38 /* ArticleSimple.h */,
 				76EA5B261D17D64400FEFF38 /* ArticleSimple.m */,
 				76EA5B281D17DC1E00FEFF38 /* ArticleDetail.h */,
 				76EA5B291D17DC1E00FEFF38 /* ArticleDetail.m */,
-				760EDAC31D2CB96F00D64D0F /* PhotoGallery.h */,
-				760EDAC41D2CB96F00D64D0F /* PhotoGallery.m */,
+				765695F61D55A3D30076BD4C /* GallerySimple.h */,
+				765695F71D55A3D30076BD4C /* GallerySimple.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -391,6 +402,8 @@
 				76C9FB881D3B45F0007B60A7 /* PhotoCollectionViewCell.m */,
 				768F27AD1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.h */,
 				768F27AE1D3CD46E0070BA7E /* ZPhotoCollectionViewCell.m */,
+				763A8A021D563A24004185B3 /* GallerySimpleCollectionViewCell.h */,
+				763A8A031D563A24004185B3 /* GallerySimpleCollectionViewCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -502,6 +515,7 @@
 				76D80CC51D0FF141000D9E4E /* LaunchScreen.storyboard in Resources */,
 				761637021D3A30A4001A2CDF /* 2.jpg in Resources */,
 				76EA5B661D18F91400FEFF38 /* placeholder.png in Resources */,
+				763A8A061D56FC40004185B3 /* ImageCountIcon.png in Resources */,
 				76D89EFC1D45FA3B0033AC45 /* CheckMark.png in Resources */,
 				761637001D3A3095001A2CDF /* 5.jpg in Resources */,
 				76FA84971D1FB77200BD0F22 /* Balloon@2x.png in Resources */,
@@ -589,13 +603,15 @@
 				761636F51D38AA15001A2CDF /* GalleryDrawer.m in Sources */,
 				76EA5B691D190B8900FEFF38 /* UIColor+expanded.m in Sources */,
 				76C9FB901D3BCB8D007B60A7 /* ZPhotoReviewViewController.m in Sources */,
+				765695F81D55A3D30076BD4C /* GallerySimple.m in Sources */,
+				763A8A041D563A24004185B3 /* GallerySimpleCollectionViewCell.m in Sources */,
 				76D80CB71D0FF141000D9E4E /* AppDelegate.m in Sources */,
 				76EA5B631D18DCFA00FEFF38 /* HomePageTableViewCell.m in Sources */,
 				76F2EA901D24E32A0013D4E9 /* ArticleSimpleViewController.m in Sources */,
 				76D80CB41D0FF141000D9E4E /* main.m in Sources */,
 				76D80CCF1D0FF5A5000D9E4E /* HomeViewController.m in Sources */,
+				763337E31D55A41D0099EA20 /* GalleryDetail.m in Sources */,
 				761636F81D38D071001A2CDF /* TestViewController.m in Sources */,
-				760EDAC51D2CB96F00D64D0F /* PhotoGallery.m in Sources */,
 				76FA849A1D1FCAF400BD0F22 /* DemoSecondViewController.m in Sources */,
 				761637081D3A8235001A2CDF /* PhotoGalleryViewController.m in Sources */,
 				76EA5B231D17C2AB00FEFF38 /* EVHTMLManager.m in Sources */,

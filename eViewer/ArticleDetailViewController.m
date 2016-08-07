@@ -12,7 +12,7 @@
 #import "Masonry.h"
 #import <YYText/YYText.h>
 #import "PhotoGalleryViewController.h"
-#import "PhotoGallery.h"
+#import "GalleryDetail.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ECGView.h"
 
@@ -157,8 +157,8 @@
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
     for(int i = 0; i < self.galleryList.count; i++){
-        PhotoGallery *photoGallery = self.galleryList[i];
-        NSString *link = photoGallery.galleryLink;
+        GalleryDetail *galleryDetail = self.galleryList[i];
+        NSString *link = galleryDetail.galleryLink;
         //DebugLog(@"%@",link);
         if([[URL absoluteString]isEqualToString:link]){
             
@@ -166,7 +166,7 @@
             [manager getAllGalleryImage:@"" withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
             }];*/
             PhotoGalleryViewController * photoGalleyViewController = [[PhotoGalleryViewController alloc]init];
-            photoGalleyViewController.photoGallery = photoGallery;
+            photoGalleyViewController.galleryDetail = galleryDetail;
             //[self presentViewController:test animated:YES completion:nil];
             [self.navigationController pushViewController:photoGalleyViewController animated:YES];
             //DebugLog(@"%@",[URL absoluteString]);

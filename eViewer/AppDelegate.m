@@ -13,6 +13,7 @@
 #import "HomeViewController.h"
 #import "ArticleSimpleViewController.h"
 #import "SettingViewController.h"
+#import "GalleryViewController.h"
 
 @interface AppDelegate ()
 
@@ -27,12 +28,13 @@
     EVSideViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainViewController"];
     
     //DemoHomeViewController *homeViewController = [[DemoHomeViewController alloc]init];
-    SettingViewController *secondViewController = [[SettingViewController alloc]init];
+   
     //HomeViewController *homeViewController = [[HomeViewController alloc]init];
     ArticleSimpleViewController *firstViewController = [[ArticleSimpleViewController alloc]init];
+    GalleryViewController *secondViewController = [[GalleryViewController alloc]init];
+    SettingViewController *thirdViewController = [[SettingViewController alloc]init];
     
-    
-    NSMutableArray *contentViewControllerList = [[NSMutableArray alloc]initWithObjects:firstViewController,secondViewController, nil];
+    NSMutableArray *contentViewControllerList = [[NSMutableArray alloc]initWithObjects:firstViewController,secondViewController,thirdViewController,nil];
     mainViewController.contentViewControllerList = contentViewControllerList;
     
     //DebugLog(@"%ld",mainViewController.contentViewControllerList.count);

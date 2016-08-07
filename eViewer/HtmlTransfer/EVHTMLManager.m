@@ -10,11 +10,12 @@
 #import "AFHTTPSessionManager.h"
 #import "TFHpple.h"
 #import "ArticleSimple.h"
-#import "PhotoGallery.h"
+#import "GalleryDetail.h"
 #import "ArticleDetail.h"
 #import "SDWebImageManager.h"
 #import "UIImage+Compress.h"
 #import "NSString+DateTransfer.h"
+#import "GallerySimple.h"
 
 const static CGFloat IMAGE_COMPRESS_RATIO = 0.8;
 
@@ -31,8 +32,9 @@ const static CGFloat IMAGE_COMPRESS_RATIO = 0.8;
 @end
 
 
-const NSString *baseURL = @"http://cn.engadget.com/page";
+const NSString *HomePageBaseURL = @"http://cn.engadget.com/page";
 const NSString *engadgetHOST = @"http://cn.engadget.com";
+const static NSString *galleryListURL = @"http://cn.engadget.com/galleries/page/";
 
 @implementation EVHTMLManager
 
@@ -88,7 +90,7 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
 #pragma mark - Interface
 
 - (void)getPage:(NSInteger)page withHandler:(HomePageCompleteHandler)handler{
-    NSString *URLString = [NSString stringWithFormat:@"%@/%ld/",baseURL,page];
+    NSString *URLString = [NSString stringWithFormat:@"%@/%ld/",HomePageBaseURL,page];
     //DebugLog(@"%@",URLString);
     NSURL *URL = [NSURL URLWithString:URLString];
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
@@ -134,6 +136,25 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         handler(result,self.galleryList);
      } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
+    }];
+
+}
+
+- (void)getGalleryListPage:(NSInteger)page withCompleteHandler:(GalleryListCompleteHandler)handler{
+    NSString *url = [NSString stringWithFormat:@"%@%ld",galleryListURL,page];
+    NSURL *URL = [NSURL URLWithString:url];
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
+        //[self analysisGalleryPageHTMLData:responseObject];
+        //NSDictionary *dict = [self analysisGalleryListPageHTMLData:responseObject];
+        NSMutableArray *list = [self analysisGalleryListPageHTMLData:responseObject];
+        //NSString *result = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        //DebugLog(@"%@",result);
+        handler(list);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error%@",error);
+        NSLog(@"失败");
     }];
 
 }
@@ -249,7 +270,36 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     return dictionary;
 }
 
-
+- (NSMutableArray *)analysisGalleryListPageHTMLData:(NSData *)data{
+    //NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+    NSMutableArray *gallerySimpleList = [[NSMutableArray alloc]init];
+    
+    
+    TFHpple *parser = [[TFHpple alloc]initWithHTMLData:data];
+    NSString *query = @"//a[@class='gallery gallery-link']";
+    NSArray *galleryElementList = [parser searchWithXPathQuery:query];
+    DebugLog(@"%ld",galleryElementList.count);
+    [galleryElementList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        TFHppleElement *element = (TFHppleElement *)obj;
+        //TFHppleElement *image = [element firstChild];
+        TFHppleElement *gallHeader =[element firstChildWithClassName:@"gall-header"];
+        TFHppleElement *title = [gallHeader firstChildWithTagName:@"h3"];
+        //DebugLog(@"%@",title.text);
+        TFHppleElement *count = [[element firstChildWithTagName:@"span"]firstChildWithTagName:@"strong"];
+        DebugLog(@"%@",count.text);
+        GallerySimple *gallerySimple = [[GallerySimple alloc]init];
+        gallerySimple.coverImageLink = [element objectForKey:@"data-image"];
+        gallerySimple.galleryLink = [NSString stringWithFormat:@"%@%@",engadgetHOST,[element objectForKey:@"href"]];
+        gallerySimple.galleryTitle = title.text;
+        gallerySimple.imageCount = count.text;
+        [gallerySimpleList addObject:gallerySimple];
+        //[imageList addObject:[element objectForKey:@"href"]];
+        //[linkList addObject:[NSString stringWithFormat:@"%@%@",engadgetHOST,[element objectForKey:@"href"]]];
+    }];
+    
+    
+    return gallerySimpleList;
+}
 
 
 
@@ -260,7 +310,7 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
         if([[element objectForKey:@"class"]isEqualToString:@"post-gallery"]){
             [self addPostGalleryElement:element toAttributedString:attributedString];
         }else if([element.tagName isEqualToString:@"table"]){
-            [self addTable:element toAttributedString:attributedString];
+            //[self addTable:element toAttributedString:attributedString];
         }else if([[element objectForKey:@"class"]isEqualToString:@"read-more"]){
             //忽略这个标签
         }else{
@@ -271,15 +321,11 @@ const NSString *engadgetHOST = @"http://cn.engadget.com";
     }
 }
 
-- (void)addTable:(TFHppleElement *)element toAttributedString:(NSAttributedString *)attributedString{
-    
-}
-
 - (void)addPostGalleryElement:(TFHppleElement *)element toAttributedString:(NSMutableAttributedString *)attributedString{
     __weak __typeof__(self) weakSelf = self;
     
     //NSMutableArray *galleryList = [[NSMutableArray alloc]init];
-    PhotoGallery *photoGallery = [[PhotoGallery alloc]init];
+    GalleryDetail *photoGallery = [[GalleryDetail alloc]init];
     [element.children enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         __strong __typeof__(self) strongSelf = weakSelf;
         TFHppleElement *child = (TFHppleElement *)obj;

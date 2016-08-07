@@ -35,6 +35,7 @@
             label.font = [UIFont systemFontOfSize:15];
             label.lineBreakMode = NSLineBreakByCharWrapping;
             label.numberOfLines = 0;
+            label.textColor = [UIColor darkGrayColor];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(@5);
                 make.right.equalTo(@-5);
@@ -78,6 +79,12 @@
             make.bottom.equalTo(@-5);
         }];
         
+        self.layer.shadowColor = [UIColor darkGrayColor].CGColor;
+        self.layer.shadowOffset = CGSizeMake(0, 1.0f);
+        self.layer.shadowRadius = 2.0f;
+        self.layer.shadowOpacity = 0.3f;
+        self.layer.masksToBounds = NO;
+        self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.contentView.layer.cornerRadius].CGPath;
         /*UIView *bottomLineView = [[UIView alloc]init];
         bottomLineView.backgroundColor = [UIColor colorWithHexString:@"9ED8F2"];
         //bottomLineView.backgroundColor = [UIColor lightGrayColor];

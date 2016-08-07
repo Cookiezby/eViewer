@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "ArticleSimple.h"
-#import "PhotoGallery.h"
+#import "GalleryDetail.h"
 
 @interface ArticleDetail : NSObject
 
 @property (strong, nonatomic) ArticleSimple *articleSimple;
-@property (strong, nonatomic) NSArray<PhotoGallery *> *photoGalleryList;
+@property (strong, nonatomic) NSArray<GalleryDetail *> *photoGalleryList;
 
 @end
