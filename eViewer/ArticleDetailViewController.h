@@ -12,7 +12,7 @@
 @interface ArticleDetailViewController : UIViewController
 
 @property (strong, nonatomic)ArticleDetail *detail;
-@property (strong, nonatomic)ArticleSimple *simpleArticle;
+@property (strong, nonatomic)ArticleSimple *articleSimple;
 @property (strong, nonatomic)NSMutableAttributedString *attributedString;
 
 @end

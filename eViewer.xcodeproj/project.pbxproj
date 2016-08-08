@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		66904763BE1E8BD80CA274BA /* libPods-eViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B277C9AB12DA5061FC96973 /* libPods-eViewer.a */; };
 		7600C44C1D229EDC005C26C6 /* ArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */; };
+		7600E3481D58BCC0009858D6 /* EWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7600E3471D58BCC0009858D6 /* EWebViewController.m */; };
+		7600E34A1D58C8D7009858D6 /* DismissButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7600E3491D58C8D7009858D6 /* DismissButton.png */; };
+		7600E34E1D58DE5B009858D6 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7600E34D1D58DE5B009858D6 /* Logo.png */; };
 		760430F71D4F2C7B0059CD33 /* DotGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 760430F61D4F2C7B0059CD33 /* DotGroupView.m */; };
 		760430FA1D52E3400059CD33 /* ECGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 760430F91D52E3400059CD33 /* ECGView.m */; };
 		760430FC1D54203B0059CD33 /* ECGMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 760430FB1D54203B0059CD33 /* ECGMask.png */; };
@@ -31,6 +34,7 @@
 		763337E31D55A41D0099EA20 /* GalleryDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 763337E21D55A41D0099EA20 /* GalleryDetail.m */; };
 		763A8A041D563A24004185B3 /* GallerySimpleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 763A8A031D563A24004185B3 /* GallerySimpleCollectionViewCell.m */; };
 		763A8A061D56FC40004185B3 /* ImageCountIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 763A8A051D56FC40004185B3 /* ImageCountIcon.png */; };
+		76507B971D5829080042EB8B /* BarBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 76507B961D5829080042EB8B /* BarBackButton.png */; };
 		76525EFD1D48FD3D001C7C1C /* EngadgetLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */; };
 		765695F81D55A3D30076BD4C /* GallerySimple.m in Sources */ = {isa = PBXBuildFile; fileRef = 765695F71D55A3D30076BD4C /* GallerySimple.m */; };
 		767E3BBF1D45124D006CED70 /* CloseImageViewButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */; };
@@ -57,7 +61,6 @@
 		76D89F021D45FF000033AC45 /* PlaceHolderSquare2.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F011D45FF000033AC45 /* PlaceHolderSquare2.png */; };
 		76D89F061D45FF760033AC45 /* PlaceHolderSquare3.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F051D45FF760033AC45 /* PlaceHolderSquare3.png */; };
 		76D89F081D4602C70033AC45 /* NaviBarBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F071D4602C70033AC45 /* NaviBarBackButton.png */; };
-		76D89F0C1D47B5250033AC45 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F0B1D47B5250033AC45 /* Logo.png */; };
 		76D89F0F1D47B7590033AC45 /* AppIcon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F0D1D47B7590033AC45 /* AppIcon2.png */; };
 		76D89F101D47B7590033AC45 /* AppIcon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D89F0E1D47B7590033AC45 /* AppIcon3.png */; };
 		76DB820B1D4A661400440DFE /* EggIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 76DB820A1D4A661400440DFE /* EggIcon.png */; };
@@ -80,6 +83,10 @@
 		73742F31F91E4902FB237753 /* Pods-eViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-eViewer/Pods-eViewer.release.xcconfig"; sourceTree = "<group>"; };
 		7600C44A1D229EDC005C26C6 /* ArticleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleDetailViewController.h; sourceTree = "<group>"; };
 		7600C44B1D229EDC005C26C6 /* ArticleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDetailViewController.m; sourceTree = "<group>"; };
+		7600E3461D58BCC0009858D6 /* EWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EWebViewController.h; path = ViewController/EWebViewController.h; sourceTree = "<group>"; };
+		7600E3471D58BCC0009858D6 /* EWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EWebViewController.m; path = ViewController/EWebViewController.m; sourceTree = "<group>"; };
+		7600E3491D58C8D7009858D6 /* DismissButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DismissButton.png; sourceTree = "<group>"; };
+		7600E34D1D58DE5B009858D6 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		760430F51D4F2C7B0059CD33 /* DotGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DotGroupView.h; path = View/DotGroupView.h; sourceTree = "<group>"; };
 		760430F61D4F2C7B0059CD33 /* DotGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DotGroupView.m; path = View/DotGroupView.m; sourceTree = "<group>"; };
 		760430F81D52E3400059CD33 /* ECGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECGView.h; path = View/ECGView.h; sourceTree = "<group>"; };
@@ -115,6 +122,7 @@
 		763A8A021D563A24004185B3 /* GallerySimpleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GallerySimpleCollectionViewCell.h; path = View/Cell/GallerySimpleCollectionViewCell.h; sourceTree = "<group>"; };
 		763A8A031D563A24004185B3 /* GallerySimpleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GallerySimpleCollectionViewCell.m; path = View/Cell/GallerySimpleCollectionViewCell.m; sourceTree = "<group>"; };
 		763A8A051D56FC40004185B3 /* ImageCountIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ImageCountIcon.png; sourceTree = "<group>"; };
+		76507B961D5829080042EB8B /* BarBackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarBackButton.png; sourceTree = "<group>"; };
 		76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngadgetLogo.png; sourceTree = "<group>"; };
 		765695F61D55A3D30076BD4C /* GallerySimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GallerySimple.h; path = Model/GallerySimple.h; sourceTree = "<group>"; };
 		765695F71D55A3D30076BD4C /* GallerySimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GallerySimple.m; path = Model/GallerySimple.m; sourceTree = "<group>"; };
@@ -157,7 +165,6 @@
 		76D89F011D45FF000033AC45 /* PlaceHolderSquare2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHolderSquare2.png; sourceTree = "<group>"; };
 		76D89F051D45FF760033AC45 /* PlaceHolderSquare3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHolderSquare3.png; sourceTree = "<group>"; };
 		76D89F071D4602C70033AC45 /* NaviBarBackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NaviBarBackButton.png; sourceTree = "<group>"; };
-		76D89F0B1D47B5250033AC45 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		76D89F0D1D47B7590033AC45 /* AppIcon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon2.png; sourceTree = "<group>"; };
 		76D89F0E1D47B7590033AC45 /* AppIcon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon3.png; sourceTree = "<group>"; };
 		76DB820A1D4A661400440DFE /* EggIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EggIcon.png; sourceTree = "<group>"; };
@@ -317,6 +324,8 @@
 				760431001D5431C40059CD33 /* SettingViewController.m */,
 				760431081D5451710059CD33 /* GalleryViewController.h */,
 				760431091D5451710059CD33 /* GalleryViewController.m */,
+				7600E3461D58BCC0009858D6 /* EWebViewController.h */,
+				7600E3471D58BCC0009858D6 /* EWebViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -355,6 +364,9 @@
 		76DB82091D4A65FE00440DFE /* image */ = {
 			isa = PBXGroup;
 			children = (
+				7600E34D1D58DE5B009858D6 /* Logo.png */,
+				7600E3491D58C8D7009858D6 /* DismissButton.png */,
+				76507B961D5829080042EB8B /* BarBackButton.png */,
 				763A8A051D56FC40004185B3 /* ImageCountIcon.png */,
 				760431061D54503D0059CD33 /* MenuButton.png */,
 				76DB820A1D4A661400440DFE /* EggIcon.png */,
@@ -417,7 +429,6 @@
 				76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */,
 				76D89F0D1D47B7590033AC45 /* AppIcon2.png */,
 				76D89F0E1D47B7590033AC45 /* AppIcon3.png */,
-				76D89F0B1D47B5250033AC45 /* Logo.png */,
 				76D89F071D4602C70033AC45 /* NaviBarBackButton.png */,
 				76D89F051D45FF760033AC45 /* PlaceHolderSquare3.png */,
 				76D89F011D45FF000033AC45 /* PlaceHolderSquare2.png */,
@@ -505,7 +516,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76D89F0C1D47B5250033AC45 /* Logo.png in Resources */,
 				760430FC1D54203B0059CD33 /* ECGMask.png in Resources */,
 				76D89F061D45FF760033AC45 /* PlaceHolderSquare3.png in Resources */,
 				760431031D5445060059CD33 /* ECGMask2.png in Resources */,
@@ -514,13 +524,16 @@
 				761636FF1D3A3095001A2CDF /* 4.jpg in Resources */,
 				76D80CC51D0FF141000D9E4E /* LaunchScreen.storyboard in Resources */,
 				761637021D3A30A4001A2CDF /* 2.jpg in Resources */,
+				7600E34E1D58DE5B009858D6 /* Logo.png in Resources */,
 				76EA5B661D18F91400FEFF38 /* placeholder.png in Resources */,
 				763A8A061D56FC40004185B3 /* ImageCountIcon.png in Resources */,
 				76D89EFC1D45FA3B0033AC45 /* CheckMark.png in Resources */,
+				7600E34A1D58C8D7009858D6 /* DismissButton.png in Resources */,
 				761637001D3A3095001A2CDF /* 5.jpg in Resources */,
 				76FA84971D1FB77200BD0F22 /* Balloon@2x.png in Resources */,
 				767E3BBF1D45124D006CED70 /* CloseImageViewButton.png in Resources */,
 				761636FA1D3A307A001A2CDF /* 1.jpg in Resources */,
+				76507B971D5829080042EB8B /* BarBackButton.png in Resources */,
 				76D80CC21D0FF141000D9E4E /* Assets.xcassets in Resources */,
 				76DB820B1D4A661400440DFE /* EggIcon.png in Resources */,
 				76525EFD1D48FD3D001C7C1C /* EngadgetLogo.png in Resources */,
@@ -599,6 +612,7 @@
 				76D80CD81D0FF7D8000D9E4E /* ESideViewController.m in Sources */,
 				761636F21D38A8F5001A2CDF /* NSString+DateTransfer.m in Sources */,
 				76D80CDB1D0FF839000D9E4E /* EPresentationAnimator.m in Sources */,
+				7600E3481D58BCC0009858D6 /* EWebViewController.m in Sources */,
 				760430FA1D52E3400059CD33 /* ECGView.m in Sources */,
 				761636F51D38AA15001A2CDF /* GalleryDrawer.m in Sources */,
 				76EA5B691D190B8900FEFF38 /* UIColor+expanded.m in Sources */,

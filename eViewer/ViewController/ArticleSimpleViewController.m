@@ -55,8 +55,7 @@ const static CGFloat DOT_HEIGHT = 10;
         [naviViewController showMenu];
     }];
     
-    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"EggIcon.png"]];
-    
+    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Logo.png"]];
     self.articleSimpleList = [[NSMutableArray alloc]init];
     
     self.collectionView = ({
@@ -97,6 +96,17 @@ const static CGFloat DOT_HEIGHT = 10;
     }];
     
     
+    /*UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 10, 17)];
+    [backButton setImage:[UIImage imageNamed:@"BarBackButton.png"] forState:UIControlStateNormal];
+    [backButton bk_whenTapped:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc]initWithCustomView:backButton];
+    self.navigationItem.backBarButtonItem = leftBarButton;
+    self.navigationItem.backBarButtonItem.title = @"";*/
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     
     // Do any additional setup after loading the view.
 }
@@ -115,7 +125,7 @@ const static CGFloat DOT_HEIGHT = 10;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ArticleDetailViewController *detailViewController = [[ArticleDetailViewController alloc]init];
-    detailViewController.simpleArticle = self.articleSimpleList[indexPath.row];
+    detailViewController.articleSimple = self.articleSimpleList[indexPath.row];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

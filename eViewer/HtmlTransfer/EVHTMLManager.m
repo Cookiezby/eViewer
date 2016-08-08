@@ -286,7 +286,7 @@ const static NSString *galleryListURL = @"http://cn.engadget.com/galleries/page/
         TFHppleElement *title = [gallHeader firstChildWithTagName:@"h3"];
         //DebugLog(@"%@",title.text);
         TFHppleElement *count = [[element firstChildWithTagName:@"span"]firstChildWithTagName:@"strong"];
-        DebugLog(@"%@",count.text);
+        //DebugLog(@"%@",count.text);
         GallerySimple *gallerySimple = [[GallerySimple alloc]init];
         gallerySimple.coverImageLink = [element objectForKey:@"data-image"];
         gallerySimple.galleryLink = [NSString stringWithFormat:@"%@%@",engadgetHOST,[element objectForKey:@"href"]];

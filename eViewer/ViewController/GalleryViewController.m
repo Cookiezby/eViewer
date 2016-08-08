@@ -16,7 +16,8 @@
 #import "PlanetView.h"
 #import "DotGroupView.h"
 #import "MBProgressHUD.h"
-
+#import "GalleryDetail.h"
+#import "PhotoGalleryViewController.h"
 
 const static CGFloat CELL_HEIGHT = 200;
 const static CGFloat PLANET_SIZE = 20;
@@ -101,6 +102,19 @@ const static CGFloat PULL_DISTANCE = 100;
 
 #pragma mark - UICollectionViewDelegate
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    GalleryDetail *galleryDetail = [[GalleryDetail alloc]init];
+    GallerySimple *gallerySimple = (GallerySimple *)self.gallerySimpleList[indexPath.item];
+    galleryDetail.galleryLink = gallerySimple.galleryLink;
+    galleryDetail.galleryTitle = gallerySimple.galleryTitle;
+    galleryDetail.photoAmount = gallerySimple.imageCount.intValue;
+    DebugLog(@"%@",galleryDetail.galleryLink);
+    PhotoGalleryViewController * photoGalleyViewController = [[PhotoGalleryViewController alloc]init];
+    photoGalleyViewController.galleryDetail = galleryDetail;
+    //[self presentViewController:test animated:YES completion:nil];
+    [self.navigationController pushViewController:photoGalleyViewController animated:YES];
+
+}
 
 #pragma mark - UICollectionViewDataSource
 
@@ -118,12 +132,12 @@ const static CGFloat PULL_DISTANCE = 100;
     GallerySimpleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     GallerySimple *gallerySimple = (GallerySimple *)self.gallerySimpleList[indexPath.item];
     cell.titleLabel.text = gallerySimple.galleryTitle;
+   
     cell.imageCountLabel.text = gallerySimple.imageCount;
     [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:gallerySimple.coverImageLink]];
     return cell;
 }
 
-#pragma mark - UIScrollViewDelegate
 
 #pragma mark - UIScrollViewDelegate
 

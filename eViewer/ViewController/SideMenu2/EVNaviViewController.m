@@ -22,6 +22,8 @@
         self.navigationBar.translucent = NO;
         [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"1EA2E0"]}];
         self.navigationBar.tintColor = [UIColor colorWithHexString:@"1EA2E0"];
+        self.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"BarBackButton.png"];
+        self.navigationBar.backIndicatorImage = [UIImage imageNamed:@"BarBackButton.png"];
         /*self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
         UIBarButtonItem *leftBarbuttonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"MenuButton.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showMenu)];
         self.navigationItem.leftBarButtonItem = leftBarbuttonItem;

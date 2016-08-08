@@ -15,6 +15,7 @@
 #import "GalleryDetail.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ECGView.h"
+#import "EWebViewController.h"
 
 
 
@@ -26,6 +27,7 @@
 @property (strong, nonatomic) UIView *headView;
 @property (nonatomic) NSInteger titleHeight;
 @property (strong, nonatomic) ECGView *ecgView;
+@property (strong, nonatomic) UILabel *postTimeLabel;
 
 @end
 
@@ -72,21 +74,21 @@
         }];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
-        NSURL *url = [NSURL URLWithString:self.simpleArticle.coverImageURL];
-        if(self.simpleArticle.coverImageURL.length!=0){
+        NSURL *url = [NSURL URLWithString:self.articleSimple.coverImageURL];
+        if(self.articleSimple.coverImageURL.length!=0){
             [imageView sd_setImageWithURL:url];
         }else{
             imageView.image = [UIImage imageNamed:@"EngadgetLogo.png"];
         }
         
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, SCREEN_WIDTH/1.7 + 15, SCREEN_WIDTH-20, 0)];
-        titleLabel.text = self.simpleArticle.title;
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:self.simpleArticle.title];
+        titleLabel.text = self.articleSimple.title;
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:self.articleSimple.title];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
         paragraphStyle.lineSpacing = 10;
         
         [str addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, str.length)];
-        UIFont *font = [UIFont boldSystemFontOfSize:24];
+        UIFont *font = [UIFont boldSystemFontOfSize:20];
         titleLabel.font = font;
         titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
         titleLabel.numberOfLines = 0;
@@ -114,21 +116,37 @@
         make.height.equalTo(@90);
     }];
     
-    [manager getDetail:self.simpleArticle.detailURL withHandler:^(NSMutableAttributedString *string, NSMutableArray *galleryList) {
+    [manager getDetail:self.articleSimple.detailURL withHandler:^(NSMutableAttributedString *string, NSMutableArray *galleryList) {
         [self.ecgView removeFromSuperview];
         self.testTextView.attributedText = string;
         self.galleryList = galleryList;
         //DebugLog(@"%ld",galleryList.count);
     }];
     
-    self.testTextView.textContainerInset = UIEdgeInsetsMake(SCREEN_WIDTH/1.7 + self.titleHeight + 30, 5, 0, 5);
-
     
-    //self.navigationItem.title = self.simpleArticle.title;
+    self.testTextView.textContainerInset = UIEdgeInsetsMake(SCREEN_WIDTH/1.7 + self.titleHeight + 30, 5, 0, 5);
+    //self.navigationItem.title = self.articleSimple.title;
+    
+    
+    self.postTimeLabel = ({
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectZero];
+        label.textColor = [UIColor lightGrayColor];
+        label.font = [UIFont systemFontOfSize:13];
+        label.text = self.articleSimple.postTime;
+        [label sizeToFit];
+        label.frame = CGRectMake(SCREEN_WIDTH - label.frame.size.width - 10, self.navigationController.navigationBar.frame.size.height/2 - label.frame.size.height/2, label.frame.size.width, label.frame.size.height);
+        [self.navigationController.navigationBar addSubview:label];
+        /*[label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(@-10);
+            make.right.equalTo(@-20);
+        }];*/
+        label;
+    });
+    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"EggIcon.png"]];
-    // Do any additional setup after loading the view.
+          
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -137,6 +155,23 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     //[self.navigationController.navigationBar setHidden:YES];
+    /*[self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];*/
+    self.navigationController.hidesBarsOnSwipe = YES;
+    [self.navigationController.navigationBar addSubview:self.postTimeLabel];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    /*[self.navigationController.navigationBar setBackgroundImage:nil
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];*/
+    [self.navigationController setNavigationBarHidden:NO];
+    self.navigationController.hidesBarsOnSwipe = NO;
+    [self.postTimeLabel removeFromSuperview];
 }
 
 
@@ -173,8 +208,13 @@
             return NO;
         }
     }
+    EWebViewController *webViewController = [[EWebViewController alloc]init];
+    webViewController.url = URL;
+    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:webViewController];
+    [self presentViewController:navigationController animated:YES completion:nil];
     
-    return YES;
+
+    return NO;
 }
 
 

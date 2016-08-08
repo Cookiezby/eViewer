@@ -80,6 +80,7 @@
     self.collectionView.userInteractionEnabled = NO;
     [manager getAllGalleryImage:self.galleryDetail.galleryLink withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
         //self.photoAmount = thumbArray.count;
+        DebugLog(@"%ld",thumbArray.count);
         self.thumbLinkList = thumbArray;
         self.fullSizeImageLinkList = fullSizeArray;
         [self.collectionView reloadData];
