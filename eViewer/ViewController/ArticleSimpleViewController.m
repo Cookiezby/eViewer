@@ -55,7 +55,8 @@ const static CGFloat DOT_HEIGHT = 10;
         [naviViewController showMenu];
     }];
     
-    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Logo.png"]];
+    //self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Logo.png"]];
+    self.navigationItem.title = @"Engadget";
     self.articleSimpleList = [[NSMutableArray alloc]init];
     
     self.collectionView = ({

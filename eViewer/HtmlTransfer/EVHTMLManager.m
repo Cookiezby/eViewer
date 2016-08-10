@@ -113,26 +113,8 @@ const static NSString *galleryListURL = @"http://cn.engadget.com/galleries/page/
     [session GET:URL.absoluteString parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
         
         NSMutableAttributedString *result = [self analysisDetailPageHTMLData2:responseObject];
-        NSCharacterSet *set = [NSCharacterSet newlineCharacterSet];
-        NSRange range = [result.string rangeOfCharacterFromSet:set
-                                                  options:NSBackwardsSearch];
-        //delete the end new line
-        while(range.length != 0 && NSMaxRange(range)==result.length){
-            [result replaceCharactersInRange:range
-                                     withString:@""];
-            //DebugLog(@"location = %ld", range.location);
-            range = [result.string rangeOfCharacterFromSet:set
-                                                   options:NSBackwardsSearch];
-        }
-        //delete the pre new line
-        range = [result.string rangeOfCharacterFromSet:set options:NSLiteralSearch];
-        while(range.length !=0 && range.location == 0){
-            [result replaceCharactersInRange:range
-                                  withString:@""];
-            //DebugLog(@"location = %ld", range.location);
-            range = [result.string rangeOfCharacterFromSet:set options:NSLiteralSearch];
-        }
         //[result.string stringByTrimmingCharactersInSet:set];
+        
         handler(result,self.galleryList);
      } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error%@",error);
@@ -234,6 +216,28 @@ const static NSString *galleryListURL = @"http://cn.engadget.com/galleries/page/
         TFHppleElement *child = (TFHppleElement *)obj;
         [strongSelf depthSearch:child addTo:detailText];
     }];
+    
+    
+    NSCharacterSet *set = [NSCharacterSet newlineCharacterSet];
+    NSRange range = [detailText.string rangeOfCharacterFromSet:set
+                                                   options:NSBackwardsSearch];
+    //delete the end new line
+    while(range.length != 0 && NSMaxRange(range)==detailText.length){
+        [detailText replaceCharactersInRange:range
+                              withString:@""];
+        //DebugLog(@"location = %ld", range.location);
+        range = [detailText.string rangeOfCharacterFromSet:set
+                                               options:NSBackwardsSearch];
+    }
+    //delete the pre new line
+    range = [detailText.string rangeOfCharacterFromSet:set options:NSLiteralSearch];
+    while(range.length !=0 && range.location == 0){
+        [detailText replaceCharactersInRange:range
+                              withString:@""];
+        //DebugLog(@"location = %ld", range.location);
+        range = [detailText.string rangeOfCharacterFromSet:set options:NSLiteralSearch];
+    }
+
     
     return detailText;
 
@@ -402,6 +406,7 @@ const static NSString *galleryListURL = @"http://cn.engadget.com/galleries/page/
     if([element.tagName isEqualToString:@"img"]){
         if(self.detailImageCount == 0){
             self.detailImageCount++;
+            
         }else{
             UIImage *image = [UIImage imageNamed:@"placeholder.png"];
             NSTextAttachment *imgAttachment = [[NSTextAttachment alloc]init];

@@ -143,7 +143,7 @@
         label;
     });
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
           
 }
 
@@ -210,10 +210,14 @@
     }
     EWebViewController *webViewController = [[EWebViewController alloc]init];
     webViewController.url = URL;
-    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:webViewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
+    NSAttributedString *linkAttributdString = [self.testTextView.attributedText attributedSubstringFromRange:characterRange];
+    webViewController.title = linkAttributdString.string;
+    //UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:webViewController];
+    //[self presentViewController:navigationController animated:YES completion:nil];
+    //self.navigationController.navigationItem.backBarButtonItem.title = @"返回";
+   
+    [self.navigationController pushViewController:webViewController animated:YES];
     
-
     return NO;
 }
 

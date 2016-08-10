@@ -37,6 +37,7 @@
 		76507B971D5829080042EB8B /* BarBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 76507B961D5829080042EB8B /* BarBackButton.png */; };
 		76525EFD1D48FD3D001C7C1C /* EngadgetLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */; };
 		765695F81D55A3D30076BD4C /* GallerySimple.m in Sources */ = {isa = PBXBuildFile; fileRef = 765695F71D55A3D30076BD4C /* GallerySimple.m */; };
+		765859191D59FF240066B0C5 /* WebViewBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 765859181D59FF240066B0C5 /* WebViewBackButton.png */; };
 		767E3BBF1D45124D006CED70 /* CloseImageViewButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */; };
 		767E3BC01D45124D006CED70 /* SaveImageButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 767E3BBE1D45124D006CED70 /* SaveImageButton.png */; };
 		767FFE141D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 767FFE131D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.m */; };
@@ -126,6 +127,7 @@
 		76525EFC1D48FD3D001C7C1C /* EngadgetLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngadgetLogo.png; sourceTree = "<group>"; };
 		765695F61D55A3D30076BD4C /* GallerySimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GallerySimple.h; path = Model/GallerySimple.h; sourceTree = "<group>"; };
 		765695F71D55A3D30076BD4C /* GallerySimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GallerySimple.m; path = Model/GallerySimple.m; sourceTree = "<group>"; };
+		765859181D59FF240066B0C5 /* WebViewBackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WebViewBackButton.png; sourceTree = "<group>"; };
 		767E3BBD1D45124D006CED70 /* CloseImageViewButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseImageViewButton.png; sourceTree = "<group>"; };
 		767E3BBE1D45124D006CED70 /* SaveImageButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SaveImageButton.png; sourceTree = "<group>"; };
 		767FFE121D3F6B0D0041AF52 /* SwipeUpInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwipeUpInteractiveTransition.h; path = ViewController/PhotoReview/SwipeUpInteractiveTransition.h; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 		76DB82091D4A65FE00440DFE /* image */ = {
 			isa = PBXGroup;
 			children = (
+				765859181D59FF240066B0C5 /* WebViewBackButton.png */,
 				7600E34D1D58DE5B009858D6 /* Logo.png */,
 				7600E3491D58C8D7009858D6 /* DismissButton.png */,
 				76507B961D5829080042EB8B /* BarBackButton.png */,
@@ -525,6 +528,7 @@
 				76D80CC51D0FF141000D9E4E /* LaunchScreen.storyboard in Resources */,
 				761637021D3A30A4001A2CDF /* 2.jpg in Resources */,
 				7600E34E1D58DE5B009858D6 /* Logo.png in Resources */,
+				765859191D59FF240066B0C5 /* WebViewBackButton.png in Resources */,
 				76EA5B661D18F91400FEFF38 /* placeholder.png in Resources */,
 				763A8A061D56FC40004185B3 /* ImageCountIcon.png in Resources */,
 				76D89EFC1D45FA3B0033AC45 /* CheckMark.png in Resources */,

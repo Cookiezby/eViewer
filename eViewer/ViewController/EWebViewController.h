@@ -11,5 +11,6 @@
 @interface EWebViewController : UIViewController
 
 @property (strong, nonatomic)NSURL *url;
+@property (strong, nonatomic)NSString *title;
 
 @end
