@@ -7,16 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ArticleDetail.h"
 
 @protocol EVHTMLDelegate <NSObject>
 
 @required
-- (void)refresImageAtRange:(NSRange)range toSize:(CGSize)size;
+- (void)refresImage:(NSTextAttachment*)textAttachment toSize:(CGSize)size;
 
 @end
 
 typedef void (^HomePageCompleteHandler)(NSMutableArray *array);
-typedef void (^DetailPageCompleteHandler)(NSMutableAttributedString *string, NSMutableArray* galleryList);
+typedef void (^DetailPageCompleteHandler)(ArticleDetail *articleDetail);
 typedef void (^GalleryPageCompleteHandler)(NSMutableArray *thumbArray,NSMutableArray *fullSizeArray);
 typedef void (^GalleryListCompleteHandler)(NSMutableArray *array);
 

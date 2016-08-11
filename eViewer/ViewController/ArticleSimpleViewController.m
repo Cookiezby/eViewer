@@ -41,6 +41,9 @@ const static CGFloat DOT_HEIGHT = 10;
 @implementation ArticleSimpleViewController
 
 - (void)viewDidLoad {
+    
+   
+    
     [super viewDidLoad];
     /*self.navigationItem.title = @"Engadget";
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -90,9 +93,15 @@ const static CGFloat DOT_HEIGHT = 10;
     [self.view addSubview:self.dotGroupView];
     
     
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = NSLocalizedString(@"获取新闻中o(≧v≦)o", @"HUD message title");
+
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     [manager getPage:1 withHandler:^(NSMutableArray *array) {
         [self.articleSimpleList addObjectsFromArray:array];
+        [hud hideAnimated:YES];
         [self.collectionView reloadData];
     }];
     
@@ -126,7 +135,8 @@ const static CGFloat DOT_HEIGHT = 10;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ArticleDetailViewController *detailViewController = [[ArticleDetailViewController alloc]init];
-    detailViewController.articleSimple = self.articleSimpleList[indexPath.row];
+    ArticleSimple *articleSimple = self.articleSimpleList[indexPath.row];
+    detailViewController.link = articleSimple.detailURL;
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
@@ -152,7 +162,7 @@ const static CGFloat DOT_HEIGHT = 10;
     
     if(articleSimple.coverImageURL.length != 0){
         [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:articleSimple.coverImageURL]
-                               placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+                               placeholderImage:[UIImage imageNamed:@"PlaceHolder.png"]];
     }else{
         cell.coverImageView.image = [UIImage imageNamed:@"EngadgetLogo.png"];
     }

@@ -75,9 +75,13 @@ const static CGFloat PULL_DISTANCE = 100;
     
     
     self.gallerySimpleList = [[NSMutableArray alloc]init];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = NSLocalizedString(@"获取图集中o(≧v≦)o", @"HUD message title");
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     [manager getGalleryListPage:1 withCompleteHandler:^(NSMutableArray *list) {
         DebugLog(@"%ld",list.count);
+        [hud hideAnimated:YES];
         [self.gallerySimpleList addObjectsFromArray:list];
         [self.collectionView reloadData];
     }];

@@ -102,9 +102,8 @@
 */
 
 
-- (void)drawECGLine{
-    
-}
+
+
 
 
 @end

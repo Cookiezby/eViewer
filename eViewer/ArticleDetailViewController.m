@@ -16,6 +16,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ECGView.h"
 #import "EWebViewController.h"
+#import "ArticleDetail.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 
 
@@ -25,7 +27,6 @@
 @property (strong, nonatomic) UITextView *testTextView;
 @property (strong, nonatomic) NSMutableArray *galleryList;
 @property (strong, nonatomic) UIView *headView;
-@property (nonatomic) NSInteger titleHeight;
 @property (strong, nonatomic) ECGView *ecgView;
 @property (strong, nonatomic) UILabel *postTimeLabel;
 
@@ -55,96 +56,88 @@
         //textView.textAlignment = NSTextAlignmentJustified;
         textView.showsVerticalScrollIndicator = NO;
         textView.textContainerInset = UIEdgeInsetsMake(SCREEN_WIDTH/1.7 +85, 5, 0, 5);
+        textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"1EA2E0"]};
         textView;
     });
     
-    
-    self.headView = ({
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH/1.7 + 60)];
-        [self.testTextView addSubview:view];
-        
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH/1.7)];
-        [view addSubview:imageView];
-        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@0);
-            make.left.equalTo(@0);
-            make.right.equalTo(@0);
-            make.width.equalTo(@(SCREEN_WIDTH));
-            make.height.equalTo(@(SCREEN_WIDTH/1.7));
-        }];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
-        NSURL *url = [NSURL URLWithString:self.articleSimple.coverImageURL];
-        if(self.articleSimple.coverImageURL.length!=0){
-            [imageView sd_setImageWithURL:url];
-        }else{
-            imageView.image = [UIImage imageNamed:@"EngadgetLogo.png"];
-        }
-        
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, SCREEN_WIDTH/1.7 + 15, SCREEN_WIDTH-20, 0)];
-        titleLabel.text = self.articleSimple.title;
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:self.articleSimple.title];
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-        paragraphStyle.lineSpacing = 10;
-        
-        [str addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, str.length)];
-        UIFont *font = [UIFont boldSystemFontOfSize:20];
-        titleLabel.font = font;
-        titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        titleLabel.numberOfLines = 0;
-        titleLabel.attributedText = str;
-        titleLabel.textColor = [UIColor darkGrayColor];
-        [titleLabel sizeToFit];
-        DebugLog(@"%f",titleLabel.frame.size.height);
-        [view addSubview:titleLabel];
-        self.titleHeight = titleLabel.frame.size.height;
-       
-        //view.backgroundColor = [UIColor darkGrayColor];
-        view;
-    });
-    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = NSLocalizedString(@"加载中=3=", @"HUD message title");
+
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     manager.delegate = self;
-    
-    
-    self.ecgView = [[ECGView alloc]initWithFrame:CGRectMake(0, 0, 135, 90)];
-    [self.view addSubview:_ecgView];
-    [_ecgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(self.headView.mas_bottom).with.offset(self.titleHeight + 20);
-        make.width.equalTo(@135);
-        make.height.equalTo(@90);
-    }];
-    
-    [manager getDetail:self.articleSimple.detailURL withHandler:^(NSMutableAttributedString *string, NSMutableArray *galleryList) {
-        [self.ecgView removeFromSuperview];
-        self.testTextView.attributedText = string;
-        self.galleryList = galleryList;
+    weakify(self);
+    [manager getDetail:self.link withHandler:^(ArticleDetail *detail) {
+        strongify(self);
+        [hud hideAnimated:YES];
+        //[self.ecgView removeFromSuperview];
+        
+        self.testTextView.attributedText = detail.context;
+        self.galleryList = detail.photoGalleryList;
+        self.headView = ({
+            UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH/1.7 + 60)];
+            [self.testTextView addSubview:view];
+            
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH/1.7)];
+            [view addSubview:imageView];
+            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(@0);
+                make.left.equalTo(@0);
+                make.right.equalTo(@0);
+                make.width.equalTo(@(SCREEN_WIDTH));
+                make.height.equalTo(@(SCREEN_WIDTH/1.7));
+            }];
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
+            NSURL *url = [NSURL URLWithString:detail.coverImageURL];
+            if(detail.coverImageURL.length!=0){
+                [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"PlaceHolder.png"]];
+            }else{
+                imageView.image = [UIImage imageNamed:@"EngadgetLogo.png"];
+            }
+            
+            UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, SCREEN_WIDTH/1.7 + 15, SCREEN_WIDTH-20, 0)];
+            titleLabel.text = detail.title;
+            NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:detail.title];
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+            paragraphStyle.lineSpacing = 10;
+            
+            [str addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, str.length)];
+            UIFont *font = [UIFont boldSystemFontOfSize:20];
+            titleLabel.font = font;
+            titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+            titleLabel.numberOfLines = 0;
+            titleLabel.attributedText = str;
+            titleLabel.textColor = [UIColor darkGrayColor];
+            [titleLabel sizeToFit];
+            DebugLog(@"%f",titleLabel.frame.size.height);
+            [view addSubview:titleLabel];
+            self.testTextView.textContainerInset = UIEdgeInsetsMake(SCREEN_WIDTH/1.7 + titleLabel.frame.size.height + 30, 5, 0, 5);
+            view;
+        });
+        
+        self.postTimeLabel = ({
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectZero];
+            label.textColor = [UIColor lightGrayColor];
+            label.font = [UIFont systemFontOfSize:13];
+            label.text = detail.postTime;
+            [label sizeToFit];
+            label.frame = CGRectMake(SCREEN_WIDTH - label.frame.size.width - 10, self.navigationController.navigationBar.frame.size.height/2 - label.frame.size.height/2, label.frame.size.width, label.frame.size.height);
+            [self.navigationController.navigationBar addSubview:label];
+            /*[label mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(@-10);
+                make.right.equalTo(@-20);
+            }];*/
+            label;
+        });
         //DebugLog(@"%ld",galleryList.count);
     }];
-    
-    
-    self.testTextView.textContainerInset = UIEdgeInsetsMake(SCREEN_WIDTH/1.7 + self.titleHeight + 30, 5, 0, 5);
-    //self.navigationItem.title = self.articleSimple.title;
-    
-    
-    self.postTimeLabel = ({
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectZero];
-        label.textColor = [UIColor lightGrayColor];
-        label.font = [UIFont systemFontOfSize:13];
-        label.text = self.articleSimple.postTime;
-        [label sizeToFit];
-        label.frame = CGRectMake(SCREEN_WIDTH - label.frame.size.width - 10, self.navigationController.navigationBar.frame.size.height/2 - label.frame.size.height/2, label.frame.size.width, label.frame.size.height);
-        [self.navigationController.navigationBar addSubview:label];
-        /*[label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(@-10);
-            make.right.equalTo(@-20);
-        }];*/
-        label;
-    });
-    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
           
+}
+
+- (void)setDetailView{
+    
 }
 
 
@@ -161,7 +154,7 @@
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];*/
-    self.navigationController.hidesBarsOnSwipe = YES;
+    //self.navigationController.hidesBarsOnSwipe = YES;
     [self.navigationController.navigationBar addSubview:self.postTimeLabel];
 }
 
@@ -170,7 +163,7 @@
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];*/
     [self.navigationController setNavigationBarHidden:NO];
-    self.navigationController.hidesBarsOnSwipe = NO;
+    //self.navigationController.hidesBarsOnSwipe = NO;
     [self.postTimeLabel removeFromSuperview];
 }
 
@@ -178,13 +171,21 @@
 #pragma mark - EVHTMLDelegate
 
 
-- (void)refresImageAtRange:(NSRange)range toSize:(CGSize)size{
+- (void)refresImage:(NSTextAttachment*)textAttachment toSize:(CGSize)size{
     //[self.testTextView.layoutManager setAttachmentSize:size forGlyphRange:range];
     //[self.testTextView.layoutManager ensureLayoutForCharacterRange:range];
     //[self.testTextView setNeedsDisplay];
+    [self.testTextView.attributedText enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, self.testTextView.attributedText.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+         NSTextAttachment *attachment = (NSTextAttachment *)value;
+        if(textAttachment == attachment){
+            //DebugLog(@"find");
+            [self.testTextView.layoutManager invalidateLayoutForCharacterRange:range actualCharacterRange:NULL];
+            [self.testTextView.layoutManager setAttachmentSize:size forGlyphRange:range];
+        }
+    }];
     
-    [self.testTextView.layoutManager invalidateLayoutForCharacterRange:range actualCharacterRange:NULL];
-    [self.testTextView.layoutManager setAttachmentSize:size forGlyphRange:range];
+    
+    
 }
 
 
@@ -208,15 +209,24 @@
             return NO;
         }
     }
-    EWebViewController *webViewController = [[EWebViewController alloc]init];
-    webViewController.url = URL;
-    NSAttributedString *linkAttributdString = [self.testTextView.attributedText attributedSubstringFromRange:characterRange];
-    webViewController.title = linkAttributdString.string;
-    //UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:webViewController];
-    //[self presentViewController:navigationController animated:YES completion:nil];
-    //self.navigationController.navigationItem.backBarButtonItem.title = @"返回";
-   
-    [self.navigationController pushViewController:webViewController animated:YES];
+    
+    
+    if([URL.absoluteString containsString:@"http://cn.engadget.com/20"]){
+        ArticleDetailViewController *detailViewController = [[ArticleDetailViewController alloc]init];
+        detailViewController.link = URL.absoluteString;
+        [self.navigationController pushViewController:detailViewController animated:YES];
+
+    }else{
+        EWebViewController *webViewController = [[EWebViewController alloc]init];
+        webViewController.url = URL;
+        NSAttributedString *linkAttributdString = [self.testTextView.attributedText attributedSubstringFromRange:characterRange];
+        webViewController.title = linkAttributdString.string;
+        //UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:webViewController];
+        //[self presentViewController:navigationController animated:YES completion:nil];
+        //self.navigationController.navigationItem.backBarButtonItem.title = @"返回";
+        
+        [self.navigationController pushViewController:webViewController animated:YES];
+    }
     
     return NO;
 }

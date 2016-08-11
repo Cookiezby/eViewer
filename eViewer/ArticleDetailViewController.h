@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ArticleDetail.h"
 
 @interface ArticleDetailViewController : UIViewController
 
-@property (strong, nonatomic)ArticleDetail *detail;
-@property (strong, nonatomic)ArticleSimple *articleSimple;
-@property (strong, nonatomic)NSMutableAttributedString *attributedString;
+@property (strong, nonatomic)NSString *link;
 
 @end

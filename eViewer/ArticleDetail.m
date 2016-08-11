@@ -10,6 +10,13 @@
 
 @implementation ArticleDetail
 
-
+- (instancetype)init{
+    self = [super init];
+    if(self){
+        self.photoGalleryList = [[NSMutableArray alloc]init];
+        self.photoLinkList = [[NSMutableArray alloc]init];
+    }
+    return self;
+}
 
 @end
