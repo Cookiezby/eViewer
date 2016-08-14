@@ -19,6 +19,8 @@
 		760431031D5445060059CD33 /* ECGMask2.png in Resources */ = {isa = PBXBuildFile; fileRef = 760431021D5445060059CD33 /* ECGMask2.png */; };
 		760431071D54503D0059CD33 /* MenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 760431061D54503D0059CD33 /* MenuButton.png */; };
 		7604310A1D5451710059CD33 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 760431091D5451710059CD33 /* GalleryViewController.m */; };
+		760EAE681D609147008256AE /* NaviLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 760EAE671D609147008256AE /* NaviLogo.png */; };
+		760EAE6A1D6092DB008256AE /* MenuLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 760EAE691D6092DB008256AE /* MenuLogo.png */; };
 		761636EF1D37776D001A2CDF /* UIImage+Compress.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636EE1D37776D001A2CDF /* UIImage+Compress.m */; };
 		761636F21D38A8F5001A2CDF /* NSString+DateTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636F11D38A8F5001A2CDF /* NSString+DateTransfer.m */; };
 		761636F51D38AA15001A2CDF /* GalleryDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 761636F41D38AA15001A2CDF /* GalleryDrawer.m */; };
@@ -99,6 +101,8 @@
 		760431061D54503D0059CD33 /* MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuButton.png; sourceTree = "<group>"; };
 		760431081D5451710059CD33 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GalleryViewController.h; path = ViewController/GalleryViewController.h; sourceTree = "<group>"; };
 		760431091D5451710059CD33 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GalleryViewController.m; path = ViewController/GalleryViewController.m; sourceTree = "<group>"; };
+		760EAE671D609147008256AE /* NaviLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NaviLogo.png; sourceTree = "<group>"; };
+		760EAE691D6092DB008256AE /* MenuLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuLogo.png; sourceTree = "<group>"; };
 		761636ED1D37776D001A2CDF /* UIImage+Compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compress.h"; path = "SupportingFile/UIImage+Compress.h"; sourceTree = "<group>"; };
 		761636EE1D37776D001A2CDF /* UIImage+Compress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Compress.m"; path = "SupportingFile/UIImage+Compress.m"; sourceTree = "<group>"; };
 		761636F01D38A8F5001A2CDF /* NSString+DateTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DateTransfer.h"; sourceTree = "<group>"; };
@@ -366,6 +370,8 @@
 		76DB82091D4A65FE00440DFE /* image */ = {
 			isa = PBXGroup;
 			children = (
+				760EAE691D6092DB008256AE /* MenuLogo.png */,
+				760EAE671D609147008256AE /* NaviLogo.png */,
 				7658591D1D5CB92D0066B0C5 /* PlaceHolder.png */,
 				765859181D59FF240066B0C5 /* WebViewBackButton.png */,
 				7600E34D1D58DE5B009858D6 /* Logo.png */,
@@ -539,8 +545,10 @@
 				76507B971D5829080042EB8B /* BarBackButton.png in Resources */,
 				76D80CC21D0FF141000D9E4E /* Assets.xcassets in Resources */,
 				7658591E1D5CB92D0066B0C5 /* PlaceHolder.png in Resources */,
+				760EAE681D609147008256AE /* NaviLogo.png in Resources */,
 				76DB820B1D4A661400440DFE /* EggIcon.png in Resources */,
 				76525EFD1D48FD3D001C7C1C /* EngadgetLogo.png in Resources */,
+				760EAE6A1D6092DB008256AE /* MenuLogo.png in Resources */,
 				761636FE1D3A3095001A2CDF /* 3.jpg in Resources */,
 				767E3BC01D45124D006CED70 /* SaveImageButton.png in Resources */,
 				76D89F101D47B7590033AC45 /* AppIcon3.png in Resources */,

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ArticleDetail.h"
+#import "GalleryDetail.h"
 
 @protocol EVHTMLDelegate <NSObject>
 
@@ -18,7 +19,7 @@
 
 typedef void (^HomePageCompleteHandler)(NSMutableArray *array);
 typedef void (^DetailPageCompleteHandler)(ArticleDetail *articleDetail);
-typedef void (^GalleryPageCompleteHandler)(NSMutableArray *thumbArray,NSMutableArray *fullSizeArray);
+typedef void (^GalleryPageCompleteHandler)(GalleryDetail *galleryDetail);
 typedef void (^GalleryListCompleteHandler)(NSMutableArray *array);
 
 @interface EVHTMLManager : NSObject

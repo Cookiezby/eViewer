@@ -72,30 +72,20 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = NSLocalizedString(@"载入中", @"HUD loading title");
     hud.minSize = CGSizeMake(100, 100);
-    //hud.contentColor = [UIColor darkGrayColor];
-    //hud.backgroundColor = [UIColor darkGrayColor];
-    //hud.tintColor = [UIColor darkGrayColor];
-    //hud.color = [UIColor whiteColor];
     
     self.collectionView.userInteractionEnabled = NO;
-    [manager getAllGalleryImage:self.galleryDetail.galleryLink withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
-        //self.photoAmount = thumbArray.count;
-        DebugLog(@"%ld",thumbArray.count);
-        self.thumbLinkList = thumbArray;
-        self.fullSizeImageLinkList = fullSizeArray;
+    [manager getAllGalleryImage:self.galleryDetail.galleryLink withCompleteHandler:^(GalleryDetail *galleryDetail) {
+        self.thumbLinkList = galleryDetail.thumbImageLinkList;
+        self.fullSizeImageLinkList = galleryDetail.fullSizeLinkList;
         [self.collectionView reloadData];
         self.collectionView.userInteractionEnabled = YES;
         [hud hideAnimated:YES afterDelay:0.5f];
     }];
-    
-    //self.view.backgroundColor = [UIColor whiteColor];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+ }
 
 
 

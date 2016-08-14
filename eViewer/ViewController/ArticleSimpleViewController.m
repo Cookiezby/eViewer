@@ -45,10 +45,6 @@ const static CGFloat DOT_HEIGHT = 10;
    
     
     [super viewDidLoad];
-    /*self.navigationItem.title = @"Engadget";
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"1EA2E0"]}];*/
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHexString:@"1EA2E0"];
         
@@ -57,9 +53,8 @@ const static CGFloat DOT_HEIGHT = 10;
         EVNaviViewController *naviViewController = (EVNaviViewController *)self.navigationController;
         [naviViewController showMenu];
     }];
-    
-    //self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Logo.png"]];
-    self.navigationItem.title = @"Engadget";
+    //self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"NaviLogo.png"]];
+    self.navigationItem.title = @"首页";
     self.articleSimpleList = [[NSMutableArray alloc]init];
     
     self.collectionView = ({
@@ -104,16 +99,6 @@ const static CGFloat DOT_HEIGHT = 10;
         [hud hideAnimated:YES];
         [self.collectionView reloadData];
     }];
-    
-    
-    /*UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 10, 17)];
-    [backButton setImage:[UIImage imageNamed:@"BarBackButton.png"] forState:UIControlStateNormal];
-    [backButton bk_whenTapped:^{
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc]initWithCustomView:backButton];
-    self.navigationItem.backBarButtonItem = leftBarButton;
-    self.navigationItem.backBarButtonItem.title = @"";*/
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     

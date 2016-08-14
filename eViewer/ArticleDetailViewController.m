@@ -123,11 +123,6 @@
             label.text = detail.postTime;
             [label sizeToFit];
             label.frame = CGRectMake(SCREEN_WIDTH - label.frame.size.width - 10, self.navigationController.navigationBar.frame.size.height/2 - label.frame.size.height/2, label.frame.size.width, label.frame.size.height);
-            [self.navigationController.navigationBar addSubview:label];
-            /*[label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.bottom.equalTo(@-10);
-                make.right.equalTo(@-20);
-            }];*/
             label;
         });
         //DebugLog(@"%ld",galleryList.count);
@@ -147,23 +142,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    //[self.navigationController.navigationBar setHidden:YES];
-    /*[self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-                                                  forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.view.backgroundColor = [UIColor clearColor];
-    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];*/
-    //self.navigationController.hidesBarsOnSwipe = YES;
     [self.navigationController.navigationBar addSubview:self.postTimeLabel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    /*[self.navigationController.navigationBar setBackgroundImage:nil
-                                                  forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];*/
     [self.navigationController setNavigationBarHidden:NO];
-    //self.navigationController.hidesBarsOnSwipe = NO;
     [self.postTimeLabel removeFromSuperview];
 }
 
@@ -172,9 +155,6 @@
 
 
 - (void)refresImage:(NSTextAttachment*)textAttachment toSize:(CGSize)size{
-    //[self.testTextView.layoutManager setAttachmentSize:size forGlyphRange:range];
-    //[self.testTextView.layoutManager ensureLayoutForCharacterRange:range];
-    //[self.testTextView setNeedsDisplay];
     [self.testTextView.attributedText enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, self.testTextView.attributedText.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
          NSTextAttachment *attachment = (NSTextAttachment *)value;
         if(textAttachment == attachment){
@@ -195,17 +175,10 @@
     for(int i = 0; i < self.galleryList.count; i++){
         GalleryDetail *galleryDetail = self.galleryList[i];
         NSString *link = galleryDetail.galleryLink;
-        //DebugLog(@"%@",link);
         if([[URL absoluteString]isEqualToString:link]){
-            
-            /*EVHTMLManager *manager = [[EVHTMLManager alloc]init];
-            [manager getAllGalleryImage:@"" withCompleteHandler:^(NSMutableArray *thumbArray, NSMutableArray *fullSizeArray) {
-            }];*/
             PhotoGalleryViewController * photoGalleyViewController = [[PhotoGalleryViewController alloc]init];
             photoGalleyViewController.galleryDetail = galleryDetail;
-            //[self presentViewController:test animated:YES completion:nil];
             [self.navigationController pushViewController:photoGalleyViewController animated:YES];
-            //DebugLog(@"%@",[URL absoluteString]);
             return NO;
         }
     }
@@ -221,10 +194,6 @@
         webViewController.url = URL;
         NSAttributedString *linkAttributdString = [self.testTextView.attributedText attributedSubstringFromRange:characterRange];
         webViewController.title = linkAttributdString.string;
-        //UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:webViewController];
-        //[self presentViewController:navigationController animated:YES completion:nil];
-        //self.navigationController.navigationItem.backBarButtonItem.title = @"返回";
-        
         [self.navigationController pushViewController:webViewController animated:YES];
     }
     

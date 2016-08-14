@@ -42,6 +42,14 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
         bluredView;
     });*/
     
+    UIImageView *imageView = ({
+        UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"MenuLogo.png"]];
+        
+        imageView;
+    });
+    
+    
+    
     self.backGroundView = ({
         UIView *view = [[UIView alloc]initWithFrame:self.view.frame];
         view.backgroundColor = [UIColor blackColor];
@@ -94,7 +102,7 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
 #pragma mark - HideShowMenuAniamtion
 
 - (void)showMenu{
-    EVSideViewController *parentViewController = (EVSideViewController *)self.parentViewController;
+    //EVSideViewController *parentViewController = (EVSideViewController *)self.parentViewController;
     
     [self.menuView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
