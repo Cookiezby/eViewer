@@ -14,7 +14,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "EVHTMLManager.h"
 #import "ZPhotoReviewViewController.h"
-#import <SVProgressHUD/SVProgressHUD.h>
 #import "MBProgressHUD.h"
 
 @interface PhotoGalleryViewController () <UICollectionViewDelegate, UICollectionViewDataSource>

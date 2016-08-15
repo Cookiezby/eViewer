@@ -7,10 +7,8 @@
 //
 
 #import "ArticleDetailViewController.h"
-#import <TTTAttributedLabel.h>
 #import "EVHTMLManager.h"
 #import "Masonry.h"
-#import <YYText/YYText.h>
 #import "PhotoGalleryViewController.h"
 #import "GalleryDetail.h"
 #import <SDWebImage/UIImageView+WebCache.h>

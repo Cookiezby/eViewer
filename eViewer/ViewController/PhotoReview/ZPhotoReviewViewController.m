@@ -14,7 +14,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SwipeUpInteractiveTransition.h"
 #import "ProgressView.h"
-#import <SVProgressHUD/SVProgressHUD.h>
 #import <Photos/Photos.h>
 #import "MBProgressHUD.h"
 

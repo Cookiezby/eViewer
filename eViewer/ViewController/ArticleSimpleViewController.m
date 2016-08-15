@@ -9,7 +9,6 @@
 #import "ArticleSimpleViewController.h"
 #import "EVSideViewController.h"
 #import "EVHTMLManager.h"
-#import <SVProgressHUD/SVProgressHUD.h>
 #import "ArticleSimple.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ArticleSimpleCollectionViewCell.h"

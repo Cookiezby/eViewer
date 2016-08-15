@@ -9,7 +9,6 @@
 #import "HomeViewController.h"
 #import "EVSideViewController.h"
 #import "EVHTMLManager.h"
-#import <SVProgressHUD/SVProgressHUD.h>
 #import "ArticleSimple.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "HomePageTableViewCell.h"
@@ -56,14 +55,7 @@
     
     EVHTMLManager *manager = [[EVHTMLManager alloc]init];
     
-    [SVProgressHUD show];
-    
-    [manager getPage:1 withHandler:^(NSMutableArray *array) {
-        [self.articleLists addObjectsFromArray:array];
-        [self.tableView reloadData];
-        [SVProgressHUD dismiss];
-    }];
-    
+   
 }
 
 - (void)didReceiveMemoryWarning {

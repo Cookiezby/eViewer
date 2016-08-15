@@ -6,14 +6,6 @@ target 'eViewer' do
     pod 'AFNetworking', '~> 2.0’
     pod 'Reveal-iOS-SDK', :configurations => ['Debug']
     pod 'hpple'
-    pod 'SVProgressHUD'
     pod 'BlocksKit'
-    pod 'REFrostedViewController', '~> 2.4'
-    pod 'MJRefresh'
-    pod 'pop'
-    pod 'TTTAttributedLabel'
-    pod 'TYAttributedLabel', '~> 2.6.1'
-    pod 'YYText'
     pod 'MBProgressHUD'
-    pod 'MJRefresh'
 end
