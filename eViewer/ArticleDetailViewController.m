@@ -123,11 +123,15 @@
             label.text = detail.postTime;
             [label sizeToFit];
             label.frame = CGRectMake(SCREEN_WIDTH - label.frame.size.width - 10, self.navigationController.navigationBar.frame.size.height/2 - label.frame.size.height/2, label.frame.size.width, label.frame.size.height);
+            [self.navigationController.navigationBar addSubview:label];
             label;
         });
         //DebugLog(@"%ld",galleryList.count);
     }];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    
+    
           
 }
 
@@ -142,6 +146,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    
     [self.navigationController.navigationBar addSubview:self.postTimeLabel];
 }
 
@@ -199,6 +204,8 @@
     
     return NO;
 }
+
+
 
 
 /*

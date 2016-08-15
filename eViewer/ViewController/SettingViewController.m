@@ -9,6 +9,9 @@
 #import "SettingViewController.h"
 #import "EVNaviViewController.h"
 #import "Masonry.h"
+#import <SDImageCache.h>
+#import "SettingMenuTableViewCell.h"
+#import <MBProgressHUD.h>
 
 @interface SettingViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -34,10 +37,13 @@
     
     self.tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        tableView.backgroundColor = [UIColor colorWithHexString:@"EFF6F9"];
         [self.view addSubview:tableView];
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
+        [tableView registerClass:[SettingMenuTableViewCell class] forCellReuseIdentifier:@"SettingCell"];
+        tableView.scrollEnabled = NO;
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView;
@@ -61,7 +67,28 @@
 
 #pragma mark - UITbleViewDelegate
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.section == 0){
+        switch (indexPath.row) {
+            case 0:{
+                [[SDImageCache sharedImageCache]clearDisk];
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = NSLocalizedString(@"清除成功", @"HUD message title");
+                [hud hideAnimated:YES afterDelay:2.0f];
+                [tableView reloadData];
+            }
+                
+                break;
+            case 1:
+                break;
+            default:
+                break;
+        }
+    }else if(indexPath.section == 1){
+        
+    }
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -82,7 +109,40 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [[UITableViewCell alloc]init];
+    SettingMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingCell"];
+    cell.titleLabel.textColor = [UIColor darkGrayColor];
+    cell.titleLabel.font = [UIFont systemFontOfSize:14];
+    if(indexPath.section == 0){
+        switch (indexPath.row) {
+            case 0:{
+                cell.titleLabel.text = @"清空缓存";
+                NSInteger cachedSize =[[SDImageCache sharedImageCache] getSize];
+                cell.endLabel.text = [NSString stringWithFormat:@"%ld MB",cachedSize/1024/1024];
+                //cell.iconView.image = [UIImage imageNamed:@"cache-icon.png"];
+            }
+                break;
+            case 1:{
+                cell.titleLabel.text = @"开源库许可";
+                //cell.iconView.image = [UIImage imageNamed:@"licence-icon.png"];
+            }
+                
+                break;
+        }
+    }else if(indexPath.section == 1){
+        switch (indexPath.row) {
+            case 0:{
+                cell.titleLabel.text = @"关于";
+                //cell.iconView.image = [UIImage imageNamed:@"question-icon.png"];
+            }
+                
+                break;
+            case 1:
+                
+                break;
+            }
+    }
+    
+    
     return cell;
 }
 

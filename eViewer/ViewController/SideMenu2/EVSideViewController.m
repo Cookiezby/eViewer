@@ -33,7 +33,8 @@
     /*DemoSecondViewController *secondViewController = [[DemoSecondViewController alloc]init];
     self.contentViewControllerList = [[NSMutableArray alloc]initWithObjects:homeViewController,secondViewController, nil];*/
     self.menuViewController = [[EVMenuViewController alloc]init];
-    
+   
+
     // Do any additional setup after loading the view.
 }
 
@@ -57,6 +58,8 @@
 - (void)changeToViewControllerAtIndex:(NSInteger)index{
     EVNaviViewController *navigationController = [[EVNaviViewController alloc]initWithRootViewController:_contentViewControllerList[index]];
     self.contentViewController = navigationController;
+    CGRect preFrame = self.contentViewController.view.frame;
+    self.contentViewController.view.frame = CGRectMake(0, 20, preFrame.size.width, preFrame.size.height);
     //self.contentViewController.view.transform = CGAffineTransformMakeScale(0.95, 0.95);
 }
 

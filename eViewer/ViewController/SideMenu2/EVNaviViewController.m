@@ -43,7 +43,6 @@
 }
 
 - (void)showMenu{
-    DebugLog(@"???");
     EVSideViewController *sideViewController = (EVSideViewController *)self.parentViewController;
     [sideViewController showMenu];
 }
