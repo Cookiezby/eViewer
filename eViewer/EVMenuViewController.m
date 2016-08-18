@@ -100,7 +100,7 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
         
         
         
-        UILabel *versionLabel = [[UILabel alloc]init];
+        /*UILabel *versionLabel = [[UILabel alloc]init];
         versionLabel.textColor = [UIColor whiteColor];
         versionLabel.text = @"V1.0";
         versionLabel.font = [UIFont boldSystemFontOfSize:13];
@@ -109,7 +109,7 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
         [versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(@-5);
             make.bottom.equalTo(@-5);
-        }];
+        }];*/
         
         view;
     });
@@ -204,6 +204,7 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell"];
+    cell.titleLabel.textColor = [UIColor darkGrayColor];
     switch (indexPath.row) {
         case 0:
             cell.iconView.image = [UIImage imageNamed:@"HomeIcon.png"];

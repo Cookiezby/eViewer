@@ -17,7 +17,7 @@
         
         self.titleLabel = ({
             UILabel *label = [[UILabel alloc]init];
-            label.textColor = [UIColor colorWithHexString:@"76C7ED"];
+            //label.textColor = [UIColor colorWithHexString:@"76C7ED"];
             label.font = [UIFont boldSystemFontOfSize:15];
             [self.contentView addSubview:label];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {

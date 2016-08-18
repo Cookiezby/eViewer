@@ -18,6 +18,8 @@
 #import "PlanetView.h"
 #import "DotGroupView.h"
 
+#define HEIGHT self.view.frame.size.height + self.view.frame.origin.y
+
 const static CGFloat CELL_HEIGHT = 220;
 const static CGFloat REFRESH_HEIGHT = 50;
 const static CGFloat PULL_DISTANCE = 100;
@@ -82,7 +84,7 @@ const static CGFloat DOT_HEIGHT = 10;
     [self.view addSubview:self.planetView];
     
     
-    self.dotGroupView = [[DotGroupView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, SCREEN_HEIGHT - 64, DOT_WIDTH, DOT_HEIGHT) withDuration:2.0 dotColor:[UIColor lightGrayColor]];
+    self.dotGroupView = [[DotGroupView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, SCREEN_HEIGHT - 44, DOT_WIDTH, DOT_HEIGHT) withDuration:2.0 dotColor:[UIColor lightGrayColor]];
     [self.dotGroupView pauseLayerAniamtion];
     [self.view addSubview:self.dotGroupView];
     
@@ -184,11 +186,13 @@ const static CGFloat DOT_HEIGHT = 10;
         CGFloat originY = 0;
         CGFloat relativeDistance = (scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height);
         if(relativeDistance < PULL_DISTANCE/2){
-            originY = SCREEN_HEIGHT-64 - (relativeDistance/(PULL_DISTANCE)) * (PULL_DISTANCE/2 + DOT_HEIGHT);
+            DebugLog(@"%f  %f",self.view.frame.origin.y,self.view.frame.size.height);
+            
+            originY = HEIGHT-64 - (relativeDistance/(PULL_DISTANCE)) * (PULL_DISTANCE/2 + DOT_HEIGHT);
             self.dotGroupView.layer.transform = CATransform3DIdentity;
             self.dotGroupView.frame = CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, originY, DOT_WIDTH, DOT_HEIGHT);
         }else{
-            originY = SCREEN_HEIGHT-64 - 0.5 * (PULL_DISTANCE/2 + DOT_HEIGHT);
+            originY = HEIGHT-64 - 0.5 * (PULL_DISTANCE/2 + DOT_HEIGHT);
             CGFloat scale = relativeDistance  /  (PULL_DISTANCE/2);
             //DebugLog(@"%f",scale);
             scale =  scale < 1.5 ? scale : 1.5;
@@ -272,7 +276,7 @@ const static CGFloat DOT_HEIGHT = 10;
                 self.collectionView.scrollEnabled = YES;
                 [UIView animateWithDuration:0.3f animations:^{
                     [scrollView setContentOffset:CGPointMake(0, bottomContentOffset) animated:NO];
-                    self.dotGroupView.frame = CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, SCREEN_HEIGHT-64, DOT_WIDTH, DOT_HEIGHT);
+                    self.dotGroupView.frame = CGRectMake(SCREEN_WIDTH/2 - DOT_WIDTH/2, HEIGHT-64, DOT_WIDTH, DOT_HEIGHT);
                 } completion:^(BOOL finished) {
                     [self.dotGroupView pauseLayerAniamtion];
                     self.collectionView.scrollEnabled = YES;

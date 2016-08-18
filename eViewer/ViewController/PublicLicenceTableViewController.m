@@ -8,7 +8,19 @@
 
 #import "PublicLicenceTableViewController.h"
 
+@interface PublicLicenceTableViewController()<UITableViewDelegate,UITableViewDataSource>
+
+@property (strong, nonatomic)UITableView *tableView;
+
+@end
+
+
 @implementation PublicLicenceTableViewController
+
+
+- (void)viewDidLoad{
+    
+}
 
 
 
