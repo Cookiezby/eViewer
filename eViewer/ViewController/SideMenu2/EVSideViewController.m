@@ -58,9 +58,6 @@
 - (void)changeToViewControllerAtIndex:(NSInteger)index{
     EVNaviViewController *navigationController = [[EVNaviViewController alloc]initWithRootViewController:_contentViewControllerList[index]];
     self.contentViewController = navigationController;
-    CGRect preFrame = self.contentViewController.view.frame;
-    self.contentViewController.view.frame = CGRectMake(0, 20, preFrame.size.width, preFrame.size.height);
-    //self.contentViewController.view.transform = CGAffineTransformMakeScale(0.95, 0.95);
 }
 
 - (void)setContentViewController:(EVNaviViewController *)contentViewController{

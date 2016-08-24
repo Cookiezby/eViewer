@@ -39,9 +39,9 @@
     self.window.rootViewController = mainViewController;
 
     
-    UIView *statusBarBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
-    [statusBarBackView setBackgroundColor:[UIColor whiteColor]];
-    [self.window.rootViewController.view addSubview:statusBarBackView];
+    //UIView *statusBarBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
+    //[statusBarBackView setBackgroundColor:[UIColor whiteColor]];
+    //[self.window.rootViewController.view addSubview:statusBarBackView];
 
     
     //DebugLog(@"%ld",mainViewController.contentViewControllerList.count);

@@ -115,12 +115,11 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
     });
     [self.view layoutIfNeeded];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    //self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-   
     [self showMenu];
 }
 
@@ -135,9 +134,6 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
 #pragma mark - HideShowMenuAniamtion
 
 - (void)showMenu{
-    EVSideViewController *parentViewController = (EVSideViewController *)self.parentViewController;
-    //parentViewController.contentViewController.navigationBar.frame = CGRectMake(0, 20, SCREEN_WIDTH, 44);
-    CGRect preFrame = parentViewController.contentViewController.view.frame;
     [self.menuView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
         make.left.equalTo(@0);
@@ -148,9 +144,6 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
     [UIView animateWithDuration:MENU_ANIMATION_LENGTH delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [self.view layoutIfNeeded];
         self.backGroundView.alpha = 0.5f;
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-        parentViewController.contentViewController.view.frame = CGRectMake(0, 20, preFrame.size.width, preFrame.size.height);
-    
     } completion:^(BOOL finished) {
         
     }];
@@ -160,6 +153,7 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
 
 - (void)hideMenu{
     EVSideViewController *parentViewController = (EVSideViewController *)self.parentViewController;
+    //CGRect preFrame = parentViewController.contentViewController.view.frame;
     [self.menuView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
         make.left.equalTo(@(-SCREEN_WIDTH/3.0*2.0));
@@ -171,8 +165,6 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
     [UIView animateWithDuration:MENU_ANIMATION_LENGTH animations:^{
         self.backGroundView.alpha = 0.0;
         [self.view layoutIfNeeded];
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-        //parentViewController.contentViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
     } completion:^(BOOL finished) {
         [parentViewController hideMenu];
     }];
