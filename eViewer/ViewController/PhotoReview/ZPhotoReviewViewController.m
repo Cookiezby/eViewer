@@ -62,7 +62,8 @@ typedef void (^Complete)(void);
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.itemSize = CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
-        
+        layout.minimumLineSpacing = 0.0;
+        layout.minimumInteritemSpacing = 0.0;
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         [self.view addSubview:collectionView];
         [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -176,13 +177,13 @@ typedef void (^Complete)(void);
 
 
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+/*- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     return 1;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     return 0;
-}
+}*/
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -195,9 +196,9 @@ typedef void (^Complete)(void);
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ZPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
-    [cell resetCell];
-    CGFloat progress = [(NSNumber *)self.progressArray[indexPath.item] floatValue];
-    [cell updateProgress:progress];
+    //CGFloat progress = [(NSNumber *)self.progressArray[indexPath.item] floatValue];
+    
+    
     NSURL *url = [NSURL URLWithString:self.source[indexPath.item]];
     cell.imageView.image = nil;
     if([[SDWebImageManager sharedManager]diskImageExistsForURL:url]){
@@ -205,39 +206,31 @@ typedef void (^Complete)(void);
         CGFloat height = cell.imageView.image.size.height / (cell.imageView.image.size.width / SCREEN_WIDTH);
         cell.imageView.frame = CGRectMake(0, (SCREEN_HEIGHT - height)/2, SCREEN_WIDTH, height);
         self.progressArray[indexPath.item] = @(1.0);
-        //[cell updateProgress:1.0];
+    
     }else{
-        /*ProgressView *progressView = [[ProgressView alloc]initWithFrame:CGRectMake(0, 0, 200, 5)];
-        [cell.imageView addSubview:progressView];
-        [progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(cell.imageView);
-            make.width.equalTo(@200);
-            make.height.equalTo(@5);
-        }];*/
-        
+      
         [[SDWebImageManager sharedManager] downloadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             CGFloat complete = (CGFloat)receivedSize/(CGFloat)expectedSize;
             self.progressArray[indexPath.item] = @(complete);
-            if([self isCellVisibleatIndexPath:indexPath]){
+            /*if([self isCellVisibleatIndexPath:indexPath]){
                 [cell updateProgress:complete];
             }else{
                 [cell updateProgress:0];
-            }
+            }*/
             
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             self.progressArray[indexPath.item] = @(1.0);
-            if([self isCellVisibleatIndexPath:indexPath]){
+            /*if([self isCellVisibleatIndexPath:indexPath]){
                 [cell updateProgress:1.0];
             }else{
                 [cell updateProgress:0];
-            }
+            }*/
             CGFloat height = image.size.height / (image.size.width / SCREEN_WIDTH);
             cell.imageView.frame = CGRectMake(0, (SCREEN_HEIGHT - height)/2, SCREEN_WIDTH, height);
             cell.imageView.image = image;
         }];
         
     }
-    //cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
 }
 

@@ -13,7 +13,6 @@
 @property (strong, nonatomic)UIImageView *imageView;
 
 - (void)resetCell;
-- (void)updateProgress:(CGFloat)progress;
 
 
 @end

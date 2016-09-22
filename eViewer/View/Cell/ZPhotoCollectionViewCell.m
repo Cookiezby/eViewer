@@ -13,8 +13,6 @@
 
 @property (strong, nonatomic)UIScrollView *scrollView;
 
-@property (strong, nonatomic)ProgressView *progressView;
-
 @end
 
 @implementation ZPhotoCollectionViewCell
@@ -64,22 +62,8 @@
             imageView;
         });
         
-        
-        
-        _progressView = ({
-            ProgressView *progressView = [[ProgressView alloc]initWithFrame:CGRectMake(0, 0, 200, 5)];
-            [self.contentView addSubview:progressView];
-            [progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.center.equalTo(self.contentView);
-                make.width.equalTo(@200);
-                make.height.equalTo(@5);
-            }];
-            [progressView setHidden:YES];
-            progressView;
-        });
-        
-        
-        
+        self.scrollView.scrollEnabled = NO;
+        [self setCollectionViewScrollEnable:YES];
         //self.scrollView.contentSize = self.contentView.frame.size;
     }
     return self;
@@ -92,7 +76,6 @@
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView{
     CGFloat originY = MAX(0,self.contentView.frame.size.height/2 - self.imageView.frame.size.height/2);
     self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, originY, self.imageView.frame.size.width, self.imageView.frame.size.height);
-    //DebugLog(@"x = %f y = %f width = %f height = %f",self.imageView.frame.origin.x,self.imageView.frame.origin.y,self.imageView.frame.size.width,self.imageView.frame.size.height);
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale{
@@ -122,7 +105,6 @@
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
     DebugLog(@"single tap");
-    
     UICollectionView *collectionView = (UICollectionView *)self.superview;
     UIViewController *viewController = (UIViewController *)collectionView.delegate;
     [viewController dismissViewControllerAnimated:YES completion:nil];
@@ -139,33 +121,22 @@
         //双击恢复到原始大小
         [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
     }
-    
-    
 }
 
 - (CGRect)zoomRectForScale:(CGFloat)scale withCenter:(CGPoint)center{
     CGRect zoomRect;
-    
     zoomRect.size.height = _imageView.frame.size.height/scale;
     zoomRect.size.width = _imageView.frame.size.width/scale;
-    
     zoomRect.origin.x = center.x - zoomRect.size.width/2;
     zoomRect.origin.y = center.y - zoomRect.size.height/2;
-    
     return zoomRect;
 }
 
-- (void)resetCell{
+- (void)prepareForReuse{
     self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
-    self.imageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    
+    //self.imageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
-
-- (void)updateProgress:(CGFloat)progress{
-    [self.progressView changeProgress:progress];
-    self.progressView.hidden = progress > 0 && progress < 0.99 ? NO:YES;
-}
 
 
 @end
