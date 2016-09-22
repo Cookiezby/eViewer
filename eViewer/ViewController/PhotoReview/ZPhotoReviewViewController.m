@@ -32,6 +32,7 @@ typedef void (^Complete)(void);
 @property (strong, nonatomic)UICollectionView *collectionView;
 @property (strong, nonatomic)UIButton *saveImageButton;
 @property (strong, nonatomic)UIButton *closeViewButton;
+@property (strong, nonatomic)NSMutableArray *progressArray;
 
 
 @end
@@ -116,7 +117,12 @@ typedef void (^Complete)(void);
     
     });
     
-
+    self.progressArray = [[NSMutableArray alloc]init];
+    for(int i = 0; i < self.source.count; i++){
+        [self.progressArray addObject:@(0)];
+    }
+    //DebugLog(@"hhhh %ld",self.source.count);
+    DebugLog(@"hahah %ld",self.progressArray.count);
 
 }
 
@@ -190,30 +196,41 @@ typedef void (^Complete)(void);
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ZPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     [cell resetCell];
-    //NSIndexPath *path = indexPath;
-    //DebugLog(@"%@",indexPath);
+    CGFloat progress = [(NSNumber *)self.progressArray[indexPath.item] floatValue];
+    [cell updateProgress:progress];
     NSURL *url = [NSURL URLWithString:self.source[indexPath.item]];
     cell.imageView.image = nil;
     if([[SDWebImageManager sharedManager]diskImageExistsForURL:url]){
         cell.imageView.image = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:[[SDWebImageManager sharedManager] cacheKeyForURL:url]];
         CGFloat height = cell.imageView.image.size.height / (cell.imageView.image.size.width / SCREEN_WIDTH);
         cell.imageView.frame = CGRectMake(0, (SCREEN_HEIGHT - height)/2, SCREEN_WIDTH, height);
-        
+        self.progressArray[indexPath.item] = @(1.0);
+        //[cell updateProgress:1.0];
     }else{
-        ProgressView *progressView = [[ProgressView alloc]initWithFrame:CGRectMake(0, 0, 200, 5)];
+        /*ProgressView *progressView = [[ProgressView alloc]initWithFrame:CGRectMake(0, 0, 200, 5)];
         [cell.imageView addSubview:progressView];
         [progressView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(cell.imageView);
             make.width.equalTo(@200);
             make.height.equalTo(@5);
-        }];
+        }];*/
         
         [[SDWebImageManager sharedManager] downloadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             CGFloat complete = (CGFloat)receivedSize/(CGFloat)expectedSize;
-            [progressView changeProgress:complete animated:NO complete:nil];
+            self.progressArray[indexPath.item] = @(complete);
+            if([self isCellVisibleatIndexPath:indexPath]){
+                [cell updateProgress:complete];
+            }else{
+                [cell updateProgress:0];
+            }
+            
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-            [progressView changeProgress:1.0 animated:NO complete:nil];
-            [progressView removeFromSuperview];
+            self.progressArray[indexPath.item] = @(1.0);
+            if([self isCellVisibleatIndexPath:indexPath]){
+                [cell updateProgress:1.0];
+            }else{
+                [cell updateProgress:0];
+            }
             CGFloat height = image.size.height / (image.size.width / SCREEN_WIDTH);
             cell.imageView.frame = CGRectMake(0, (SCREEN_HEIGHT - height)/2, SCREEN_WIDTH, height);
             cell.imageView.image = image;
@@ -258,6 +275,17 @@ typedef void (^Complete)(void);
     }];
 }
 
+
+- (BOOL)isCellVisibleatIndexPath:(NSIndexPath*) indexPath{
+    if(self.collectionView.contentOffset.x == indexPath.item * SCREEN_WIDTH){
+        DebugLog(@"contentoffset %f",self.collectionView.contentOffset.x);
+        DebugLog(@"%ld is visible", indexPath.item);
+        return YES;
+      
+    }else{
+        return NO;
+    }
+}
 
 
 /*

@@ -13,6 +13,8 @@ typedef void (^Completed)();
 @interface ProgressView : UIView
 
 //- (void)setProgress:(CGFloat)progress;
-- (void)changeProgress:(CGFloat)progress animated:(BOOL)animated complete:(Completed)completed;
+//- (void)changeProgress:(CGFloat)progress animated:(BOOL)animated complete:(Completed)completed;
+//- (void)changeProgress:(CGFloat)progress animated:(BOOL)animated;
+- (void)changeProgress:(CGFloat)progress;
 
 @end

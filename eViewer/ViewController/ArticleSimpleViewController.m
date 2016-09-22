@@ -17,6 +17,7 @@
 #import "MBProgressHUD.h"
 #import "PlanetView.h"
 #import "DotGroupView.h"
+#import <AFHTTPSessionManager.h>
 
 #define HEIGHT self.view.frame.size.height + self.view.frame.origin.y
 
@@ -102,7 +103,6 @@ const static CGFloat DOT_HEIGHT = 10;
     }];
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    
     
     // Do any additional setup after loading the view.
 }

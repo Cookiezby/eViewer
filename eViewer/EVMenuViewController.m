@@ -34,16 +34,7 @@ const static CGFloat MENU_ANIMATION_LENGTH = 0.3f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    /*self.backGroundBlurView = ({
-        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        UIVisualEffectView *bluredView = [[UIVisualEffectView alloc] initWithEffect:effect];
         
-        bluredView.frame = self.view.bounds;
-        [self.view addSubview:bluredView];
-        bluredView;
-    });*/
-    
-    
     self.backGroundView = ({
         UIView *view = [[UIView alloc]initWithFrame:self.view.frame];
         view.backgroundColor = [UIColor blackColor];

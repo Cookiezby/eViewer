@@ -8,9 +8,12 @@
 
 #import "ZPhotoCollectionViewCell.h"
 #import "Masonry.h"
+#import "ProgressView.h"
 @interface ZPhotoCollectionViewCell()<UIScrollViewDelegate>
 
 @property (strong, nonatomic)UIScrollView *scrollView;
+
+@property (strong, nonatomic)ProgressView *progressView;
 
 @end
 
@@ -59,6 +62,20 @@
             [singleTap requireGestureRecognizerToFail:doubleTap];
             
             imageView;
+        });
+        
+        
+        
+        _progressView = ({
+            ProgressView *progressView = [[ProgressView alloc]initWithFrame:CGRectMake(0, 0, 200, 5)];
+            [self.contentView addSubview:progressView];
+            [progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.center.equalTo(self.contentView);
+                make.width.equalTo(@200);
+                make.height.equalTo(@5);
+            }];
+            [progressView setHidden:YES];
+            progressView;
         });
         
         
@@ -141,6 +158,13 @@
 - (void)resetCell{
     self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
     self.imageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    
+}
+
+
+- (void)updateProgress:(CGFloat)progress{
+    [self.progressView changeProgress:progress];
+    self.progressView.hidden = progress > 0 && progress < 0.99 ? NO:YES;
 }
 
 

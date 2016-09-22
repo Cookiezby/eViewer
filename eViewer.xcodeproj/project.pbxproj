@@ -33,6 +33,7 @@
 		761637051D3A39F8001A2CDF /* PlanetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637041D3A39F8001A2CDF /* PlanetView.m */; };
 		761637081D3A8235001A2CDF /* PhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */; };
 		762B705C1D1EDA0F002F1BF6 /* EVSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */; };
+		762F433B1D6F416600D5CA3D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 762F433A1D6F416600D5CA3D /* AVFoundation.framework */; };
 		763337E31D55A41D0099EA20 /* GalleryDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 763337E21D55A41D0099EA20 /* GalleryDetail.m */; };
 		763A8A041D563A24004185B3 /* GallerySimpleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 763A8A031D563A24004185B3 /* GallerySimpleCollectionViewCell.m */; };
 		763A8A061D56FC40004185B3 /* ImageCountIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 763A8A051D56FC40004185B3 /* ImageCountIcon.png */; };
@@ -132,6 +133,7 @@
 		761637071D3A8235001A2CDF /* PhotoGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoGalleryViewController.m; path = ViewController/PhotoGalleryViewController.m; sourceTree = "<group>"; };
 		762B705A1D1EDA0F002F1BF6 /* EVSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EVSideViewController.h; path = ViewController/SideMenu2/EVSideViewController.h; sourceTree = "<group>"; };
 		762B705B1D1EDA0F002F1BF6 /* EVSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EVSideViewController.m; path = ViewController/SideMenu2/EVSideViewController.m; sourceTree = "<group>"; };
+		762F433A1D6F416600D5CA3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		763337E11D55A41D0099EA20 /* GalleryDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GalleryDetail.h; path = Model/GalleryDetail.h; sourceTree = "<group>"; };
 		763337E21D55A41D0099EA20 /* GalleryDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GalleryDetail.m; path = Model/GalleryDetail.m; sourceTree = "<group>"; };
 		763A8A021D563A24004185B3 /* GallerySimpleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GallerySimpleCollectionViewCell.h; path = View/Cell/GallerySimpleCollectionViewCell.h; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				762F433B1D6F416600D5CA3D /* AVFoundation.framework in Frameworks */,
 				66904763BE1E8BD80CA274BA /* libPods-eViewer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +243,7 @@
 		2A51A933FDC3D98F0401E064 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				762F433A1D6F416600D5CA3D /* AVFoundation.framework */,
 				7B277C9AB12DA5061FC96973 /* libPods-eViewer.a */,
 			);
 			name = Frameworks;
@@ -535,6 +539,7 @@
 				TargetAttributes = {
 					76D80CAE1D0FF141000D9E4E = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 2RNKT55WYW;
 					};
 				};
 			};
@@ -811,6 +816,8 @@
 			baseConfigurationReference = 7FE467970BAB484FB38E288E /* Pods-eViewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PREFIX_HEADER = eViewer/EViewer.pch;
 				INFOPLIST_FILE = eViewer/Info.plist;
@@ -822,6 +829,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = zby.eViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -830,6 +838,8 @@
 			baseConfigurationReference = 73742F31F91E4902FB237753 /* Pods-eViewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PREFIX_HEADER = eViewer/EViewer.pch;
 				INFOPLIST_FILE = eViewer/Info.plist;
@@ -841,6 +851,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = zby.eViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

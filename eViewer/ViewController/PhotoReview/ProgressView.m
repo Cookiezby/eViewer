@@ -70,7 +70,7 @@
 }
  
 */
-- (void)changeProgress:(CGFloat)progress animated:(BOOL)animated complete:(Completed)completed{
+/*- (void)changeProgress:(CGFloat)progress animated:(BOOL)animated complete:(Completed)completed{
     CGFloat interval = progress - _progress;
     _progress = progress;
     CGFloat timeInterval = interval * 1.f;
@@ -87,8 +87,28 @@
     }else{
         self.blueView.frame = CGRectMake(0, 0, width, self.frame.size.height);
     }
+}*/
+
+- (void)changeProgress:(CGFloat)progress animated:(BOOL)animated{
+    CGFloat interval = progress - _progress;
+    _progress = progress;
+    CGFloat timeInterval = interval * 1.f;
+    CGFloat width = _progress * self.frame.size.width;
+    //DebugLog(@"%f",timeInterval);
+    if(animated){
+        [UIView animateWithDuration:timeInterval animations:^{
+            self.blueView.frame = CGRectMake(0, 0, width, self.frame.size.height);
+        } completion:nil];
+    }else{
+        self.blueView.frame = CGRectMake(0, 0, width, self.frame.size.height);
+    }
+
 }
 
+
+- (void)changeProgress:(CGFloat)progress{
+    [self changeProgress:progress animated:NO];
+}
 
 
 
